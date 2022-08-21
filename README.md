@@ -180,6 +180,7 @@ Windows 下也可以手动安装，进入 github.com/cosmtrek/air/releases 下�
 - limiter —— API 限流
 - logger —— 日志记录
 - mail —— 邮件发送
+- mq —— rabbitmq
 - migrate —— 数据库迁移
 - paginator —— 分页器
 - redis —— Redis 数据库操作
