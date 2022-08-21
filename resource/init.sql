@@ -2575,3 +2575,21 @@ INSERT INTO `ums_role_resource_relation` VALUES ('174', '1', '5');
 INSERT INTO `ums_role_resource_relation` VALUES ('175', '1', '6');
 INSERT INTO `ums_role_resource_relation` VALUES ('176', '1', '23');
 INSERT INTO `ums_role_resource_relation` VALUES ('177', '1', '24');
+
+-- ----------------------------
+-- Table structure for users
+-- ----------------------------
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users`  (
+`id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+`name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
+`email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
+`phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
+`password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
+ PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of users
+-- ----------------------------
+INSERT INTO `users` VALUES (1, 'bJssYjd', 'bpmIind@vjCeGlJ.com', '00082585676', '$2a$14$oPzVkIdwJ8KqY0erYAYQxOuAAlbI/sFIsH0C0R4MPc.3JbWWSuaUe');
