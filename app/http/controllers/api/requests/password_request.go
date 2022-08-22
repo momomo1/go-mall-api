@@ -3,7 +3,7 @@ package requests
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/thedevsaddam/govalidator"
-	"go-mall-api/app/requests/validators"
+	"go-mall-api/app/http/controllers/api/requests/validators"
 )
 
 type ResetByPhoneRequest struct {

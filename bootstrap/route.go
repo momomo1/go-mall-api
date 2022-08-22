@@ -16,6 +16,9 @@ func SetupRoute(router *gin.Engine) {
 	//注册API路由
 	routes.RegisterAPIRoutes(router)
 
+	//注册Admin路由
+	routes.RegisterAdminRoutes(router)
+
 	//配置404路由
 	setup404Handler(router)
 }
@@ -24,7 +27,8 @@ func registerGlobalMiddleWare(router *gin.Engine) {
 	router.Use(
 		middlewares.Logger(),
 		middlewares.Recovery(),
-		middlewares.ForceUA())
+		middlewares.ForceUA(),
+		middlewares.Cors())
 }
 
 func setup404Handler(router *gin.Engine) {

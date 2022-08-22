@@ -2,9 +2,9 @@ package auth
 
 import (
 	"github.com/gin-gonic/gin"
+	requests2 "go-mall-api/app/http/controllers/api/requests"
 	v1 "go-mall-api/app/http/controllers/api/v1"
 	"go-mall-api/app/models/user"
-	"go-mall-api/app/requests"
 	"go-mall-api/pkg/response"
 )
 
@@ -16,8 +16,8 @@ type PasswordController struct {
 // ResetByPhone 使用手机和验证码重置密码
 func (pc *PasswordController) ResetByPhone(c *gin.Context) {
 	//验证表单
-	request := requests.ResetByPhoneRequest{}
-	if ok := requests.Validate(c, &request, requests.ResetByPhone); !ok {
+	request := requests2.ResetByPhoneRequest{}
+	if ok := requests2.Validate(c, &request, requests2.ResetByPhone); !ok {
 		return
 	}
 	//更新密码
@@ -35,8 +35,8 @@ func (pc *PasswordController) ResetByPhone(c *gin.Context) {
 // ResetByEmail 使用 Email 和验证码重置密码
 func (pc *PasswordController) ResetByEmail(c *gin.Context) {
 	//验证表单
-	request := requests.ResetByEmailRequest{}
-	if ok := requests.Validate(c, &request, requests.ResetByEmail); !ok {
+	request := requests2.ResetByEmailRequest{}
+	if ok := requests2.Validate(c, &request, requests2.ResetByEmail); !ok {
 		return
 	}
 

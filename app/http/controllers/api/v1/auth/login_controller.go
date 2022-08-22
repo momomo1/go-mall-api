@@ -2,8 +2,8 @@ package auth
 
 import (
 	"github.com/gin-gonic/gin"
+	requests2 "go-mall-api/app/http/controllers/api/requests"
 	v1 "go-mall-api/app/http/controllers/api/v1"
-	"go-mall-api/app/requests"
 	"go-mall-api/pkg/auth"
 	"go-mall-api/pkg/jwt"
 	"go-mall-api/pkg/response"
@@ -17,8 +17,8 @@ type LoginController struct {
 // LoginByPhone 手机登录
 func (lc *LoginController) LoginByPhone(c *gin.Context) {
 	//1. 验证表单
-	request := requests.LoginByPhoneRequest{}
-	if ok := requests.Validate(c, &request, requests.LoginByPhone); !ok {
+	request := requests2.LoginByPhoneRequest{}
+	if ok := requests2.Validate(c, &request, requests2.LoginByPhone); !ok {
 		return
 	}
 
@@ -39,8 +39,8 @@ func (lc *LoginController) LoginByPhone(c *gin.Context) {
 // LoginByPassword 多种方法登录，支持手机号、email 和用户名
 func (lc *LoginController) LoginByPassword(c *gin.Context) {
 	// 1. 验证表单
-	request := requests.LoginByPasswordRequest{}
-	if ok := requests.Validate(c, &request, requests.LoginByPassword); !ok {
+	request := requests2.LoginByPasswordRequest{}
+	if ok := requests2.Validate(c, &request, requests2.LoginByPassword); !ok {
 		return
 	}
 

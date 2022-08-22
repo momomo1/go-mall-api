@@ -3,6 +3,7 @@ package auth
 import (
 	"errors"
 	"github.com/gin-gonic/gin"
+	"go-mall-api/app/models/ums_admin"
 	"go-mall-api/app/models/user"
 	"go-mall-api/pkg/logger"
 )
@@ -44,4 +45,17 @@ func CurrentUser(c *gin.Context) user.User {
 // CurrentUID 从 gin.context 中获取当前登录用户 ID
 func CurrentUID(c *gin.Context) string {
 	return c.GetString("current_user_id")
+}
+
+// AttemptAdmin 尝试登录
+func AttemptAdmin(username string, password string) (ums_admin.UmsAdmin, error) {
+	userAdminModel := ums_admin.GetByMulti(username)
+
+	if userAdminModel.ID == 0 {
+		return ums_admin.UmsAdmin{}, errors.New("账号不存在")
+	}
+	if !userAdminModel.ComparePassword(password) {
+		return ums_admin.UmsAdmin{}, errors.New("密码错误")
+	}
+	return userAdminModel, nil
 }

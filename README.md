@@ -40,6 +40,12 @@
 │   │   │   │   └── v1              // v1 版本的 API 控制器
 │   │   │   │       ├── users_controller.go
 │   │   │   │       └── ...
+│   │   │   └── requests                    // 请求验证目录（支持表单、标头、Raw JSON、URL Query）
+│   │   │   │   ├── validators              // 自定的验证规则
+│   │   │   │   │  ├── custom_rules.go
+│   │   │   │   │  └── custom_validators.go
+│   │   │   │   ├── user_request.go
+│   │   │   │   └── ...
 │   │   └── middlewares             // 中间件
 │   │   │   ├── auth_jwt.go
 │   │   │   ├── guest_jwt.go
@@ -53,12 +59,6 @@
 │   │   │   ├── user_model.go       // 模型主文件
 │   │   │   └── user_util.go        // 模型辅助方法
 │   │   └── ...
-│   └── requests                    // 请求验证目录（支持表单、标头、Raw JSON、URL Query）
-│       ├── validators              // 自定的验证规则
-│       │   ├── custom_rules.go
-│       │   └── custom_validators.go
-│       ├── user_request.go
-│       └── ...
 ├── bootstrap                       // 程序模块初始化目录
 │   ├── cache.go
 │   ├── database.go
