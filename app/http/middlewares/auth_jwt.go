@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"go-mall-api/app/models/user"
+	"go-mall-api/pkg/cache"
 	"go-mall-api/pkg/config"
 	"go-mall-api/pkg/jwt"
 	"go-mall-api/pkg/response"
@@ -11,6 +12,19 @@ import (
 
 func AuthJWT() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		token, err := jwt.NewJWT().GetTokenFromHeader(c)
+		if err != nil {
+			response.Unauthorized(c, fmt.Sprintf("请查看 %v 相关的接口认证文档", config.GetString("app.name")))
+			return
+		}
+
+		cacheKey := "blacklist:token:" + token
+		getToken := cache.Get(cacheKey)
+		if getToken != "" {
+			response.Unauthorized(c, "该token已加入黑名单")
+			return
+		}
+
 		// 从标头 Authorization:Bearer xxxxx 中获取信息，并验证 JWT 的准确性
 		claims, err := jwt.NewJWT().ParserToken(c)
 

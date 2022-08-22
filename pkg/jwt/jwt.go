@@ -54,6 +54,12 @@ func NewJWT() *JWT {
 	}
 }
 
+//GetTokenFromHeader 获取token
+func (jwt *JWT) GetTokenFromHeader(c *gin.Context) (string, error) {
+	tokenString, parseErr := jwt.getTokenFromHeader(c)
+	return tokenString, parseErr
+}
+
 // ParserToken 解析 Token，中间件中调用
 func (jwt *JWT) ParserToken(c *gin.Context) (*JWTCustomClaims, error) {
 	tokenString, parseErr := jwt.getTokenFromHeader(c)

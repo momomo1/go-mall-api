@@ -64,6 +64,7 @@ func Abort403(c *gin.Context, msg ...string) {
 func Abort500(c *gin.Context, msg ...string) {
 	c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 		"message": defaultMessage("服务器内部错误，请稍后再试", msg...),
+		"code":    ERROR,
 	})
 }
 
@@ -74,6 +75,7 @@ func BadRequest(c *gin.Context, err error, msg ...string) {
 	c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 		"message": defaultMessage("请求解析错误，请确认请求格式是否正确。上传文件请使用 multipart 标头，参数请使用 JSON 格式。", msg...),
 		"error":   err.Error(),
+		"code":    ERROR,
 	})
 }
 
@@ -91,6 +93,7 @@ func Error(c *gin.Context, err error, msg ...string) {
 	c.AbortWithStatusJSON(http.StatusUnprocessableEntity, gin.H{
 		"message": defaultMessage("请求处理失败，请查看 error 的值", msg...),
 		"error":   err.Error(),
+		"code":    ERROR,
 	})
 }
 
@@ -108,6 +111,7 @@ func ValidationError(c *gin.Context, errors map[string][]string) {
 	c.AbortWithStatusJSON(http.StatusUnprocessableEntity, gin.H{
 		"message": "请求验证不通过，具体请查看 errors",
 		"errors":  errors,
+		"code":    ERROR,
 	})
 }
 
@@ -116,6 +120,7 @@ func ValidationError(c *gin.Context, errors map[string][]string) {
 func Unauthorized(c *gin.Context, msg ...string) {
 	c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 		"message": defaultMessage("请求解析错误，请确认请求格式是否正确。上传文件请使用 multipart 标头，参数请使用 JSON 格式。", msg...),
+		"code":    ERROR,
 	})
 }
 
@@ -154,15 +159,15 @@ func Ok(c *gin.Context) {
 	Result(SUCCESS, map[string]interface{}{}, "操作成功", c)
 }
 
-func OkWithMessage(message string, c *gin.Context) {
+func OkWithMessage(c *gin.Context, message string) {
 	Result(SUCCESS, map[string]interface{}{}, message, c)
 }
 
-func OkWithData(data interface{}, c *gin.Context) {
+func OkWithData(c *gin.Context, data interface{}) {
 	Result(SUCCESS, data, "操作成功", c)
 }
 
-func OkWithDetailed(data interface{}, message string, c *gin.Context) {
+func OkWithDetailed(c *gin.Context, data interface{}, message string) {
 	Result(SUCCESS, data, message, c)
 }
 
@@ -170,10 +175,10 @@ func Fail(c *gin.Context) {
 	Result(ERROR, map[string]interface{}{}, "操作失败", c)
 }
 
-func FailWithMessage(message string, c *gin.Context) {
+func FailWithMessage(c *gin.Context, message string) {
 	Result(ERROR, map[string]interface{}{}, message, c)
 }
 
-func FailWithDetailed(data interface{}, message string, c *gin.Context) {
+func FailWithDetailed(c *gin.Context, data interface{}, message string) {
 	Result(ERROR, data, message, c)
 }

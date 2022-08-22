@@ -23,7 +23,7 @@ func Validate(c *gin.Context, obj interface{}, handler ValidatorFunc) bool {
 	if len(errs) > 0 {
 		for _, err := range errs {
 			for _, message := range err {
-				response.FailWithMessage(message, c)
+				response.FailWithMessage(c, message)
 				return false
 			}
 		}

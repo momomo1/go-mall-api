@@ -2,6 +2,7 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
+	controllers "go-mall-api/app/http/controllers/admin"
 	"go-mall-api/app/http/controllers/admin/auth"
 	"go-mall-api/app/http/middlewares"
 )
@@ -16,8 +17,13 @@ func RegisterAdminRoutes(r *gin.Engine) {
 	// 作为参考 API 每小时最多 60 个请求（根据 IP）。
 	admin.Use(middlewares.LimitIP("208-H"))
 	{
-		auth := new(auth.LoginController)
+		lc := new(auth.LoginController)
+		// 登录
+		admin.POST("/login", lc.Login)
+		admin.POST("/logout", lc.Logout)
+
+		user := new(controllers.UsersController)
 		// 获取当前用户
-		admin.POST("/login", auth.Login)
+		admin.GET("/info", user.Info)
 	}
 }
