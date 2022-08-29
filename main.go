@@ -43,6 +43,9 @@ func main() {
 
 			// 初始化缓存
 			bootstrap.SetupCache()
+
+			// 初始化grpc
+			bootstrap.SetGrpc()
 		},
 	}
 
