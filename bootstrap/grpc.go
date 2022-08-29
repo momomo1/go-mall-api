@@ -2,9 +2,9 @@ package bootstrap
 
 import (
 	"go-mall-api/pkg/config"
-	grpcServer "go-mall-api/pkg/grpc"
 	"go-mall-api/pkg/logger"
 	"go-mall-api/proto"
+	grpcServer "go-mall-api/serviceGrpc"
 	"google.golang.org/grpc"
 	"net"
 )

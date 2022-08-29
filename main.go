@@ -19,6 +19,14 @@ func init() {
 }
 
 func main() {
+	go func() {
+		// 配置初始化，依赖命令行 --env 参数
+		config.InitConfig(cmd.Env)
+		// 初始化 Logger
+		bootstrap.SetupLogger()
+		//初始化grpc
+		bootstrap.SetGrpc()
+	}()
 
 	// 应用的主入口，默认调用 cmd.CmdServe 命令
 	var rootCmd = &cobra.Command{
@@ -43,9 +51,6 @@ func main() {
 
 			// 初始化缓存
 			bootstrap.SetupCache()
-
-			// 初始化grpc
-			bootstrap.SetGrpc()
 		},
 	}
 
