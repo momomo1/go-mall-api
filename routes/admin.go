@@ -24,6 +24,6 @@ func RegisterAdminRoutes(r *gin.Engine) {
 
 		user := new(controllers.UsersController)
 		// 获取当前用户
-		admin.GET("/info", user.Info)
+		admin.GET("/info", middlewares.AuthJWTAdmin(), user.Info)
 	}
 }

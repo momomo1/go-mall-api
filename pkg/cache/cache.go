@@ -33,6 +33,9 @@ func Set(key string, obj interface{}, expireTime time.Duration) {
 
 func Get(key string) interface{} {
 	stringValue := Cache.Store.Get(key)
+	if stringValue == "" {
+		return stringValue
+	}
 	var wanted interface{}
 	err := json.Unmarshal([]byte(stringValue), &wanted)
 	logger.LogIf(err)
