@@ -15,7 +15,7 @@ tmp_dir = "tmp"
   # 如果文件更改过于频繁，则没有必要在每次更改时都触发构建。可以设置触发构建的延迟时间
   delay = 2000
   # 忽略这些文件扩展名或目录
-  exclude_dir = ["assets", "tmp", "vendor","public/uploads"]
+  exclude_dir = ["assets", "tmp", "vendor","public/uploads", ".git"]
   # 忽略以下文件
   exclude_file = []
   # 使用正则表达式进行忽略文件设置
