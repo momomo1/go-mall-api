@@ -1,9 +1,9 @@
-package request
+package api
 
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/thedevsaddam/govalidator"
-	"go-mall-api/entity/api/request/validators"
+	"go-mall-api/requests/api/validators"
 )
 
 type ResetByPhoneRequest struct {

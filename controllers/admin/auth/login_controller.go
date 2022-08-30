@@ -3,10 +3,10 @@ package auth
 import (
 	"github.com/gin-gonic/gin"
 	"go-mall-api/controllers/admin"
-	requests "go-mall-api/entity/admin/request"
 	"go-mall-api/pkg/cache"
 	"go-mall-api/pkg/jwt"
 	"go-mall-api/pkg/response"
+	admin2 "go-mall-api/requests/admin"
 	auth "go-mall-api/service/auth_admin"
 	"time"
 )
@@ -19,8 +19,8 @@ type LoginController struct {
 // Login 登录
 func (lc *LoginController) Login(c *gin.Context) {
 	// 1. 验证表单
-	request := requests.LoginRequest{}
-	if ok := requests.Validate(c, &request, requests.Login); !ok {
+	request := admin2.LoginRequest{}
+	if ok := admin2.Validate(c, &request, admin2.Login); !ok {
 		return
 	}
 

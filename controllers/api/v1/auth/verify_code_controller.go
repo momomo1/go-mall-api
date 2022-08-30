@@ -3,11 +3,11 @@ package auth
 import (
 	"github.com/gin-gonic/gin"
 	"go-mall-api/controllers/api/v1"
-	requests "go-mall-api/entity/api/request"
 	"go-mall-api/pkg/captcha"
 	"go-mall-api/pkg/logger"
 	"go-mall-api/pkg/response"
 	"go-mall-api/pkg/verifycode"
+	"go-mall-api/requests/api"
 )
 
 // VerifyCodeController 用户控制器
@@ -31,8 +31,8 @@ func (vc *VerifyCodeController) ShowCaptcha(c *gin.Context) {
 // SendUsingPhone 发送手机验证码
 func (vc *VerifyCodeController) SendUsingPhone(c *gin.Context) {
 	//1 验证表单
-	request := requests.VerifyCodePhoneRequest{}
-	if ok := requests.Validate(c, &request, requests.VerifyCodePhone); !ok {
+	request := api.VerifyCodePhoneRequest{}
+	if ok := api.Validate(c, &request, api.VerifyCodePhone); !ok {
 		return
 	}
 
@@ -47,8 +47,8 @@ func (vc *VerifyCodeController) SendUsingPhone(c *gin.Context) {
 // SendUsingEmail 发送 Email 验证码
 func (vc *VerifyCodeController) SendUsingEmail(c *gin.Context) {
 	// 1. 验证表单
-	request := requests.VerifyCodeEmailRequest{}
-	if ok := requests.Validate(c, &request, requests.VerifyCodeEmail); !ok {
+	request := api.VerifyCodeEmailRequest{}
+	if ok := api.Validate(c, &request, api.VerifyCodeEmail); !ok {
 		return
 	}
 

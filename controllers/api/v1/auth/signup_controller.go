@@ -3,10 +3,10 @@ package auth
 import (
 	"github.com/gin-gonic/gin"
 	"go-mall-api/controllers/api/v1"
-	requests "go-mall-api/entity/api/request"
 	"go-mall-api/models/user"
 	"go-mall-api/pkg/jwt"
 	"go-mall-api/pkg/response"
+	"go-mall-api/requests/api"
 )
 
 //SignupController 注册控制器
@@ -17,8 +17,8 @@ type SignupController struct {
 //IsPhoneExist 检测手机号是否被注册
 func (sc *SignupController) IsPhoneExist(c *gin.Context) {
 	// 获取请求参数，并做表单验证
-	request := requests.SignupPhoneExistRequest{}
-	if ok := requests.Validate(c, &request, requests.SignupPhoneExist); !ok {
+	request := api.SignupPhoneExistRequest{}
+	if ok := api.Validate(c, &request, api.SignupPhoneExist); !ok {
 		return
 	}
 
@@ -31,9 +31,9 @@ func (sc *SignupController) IsPhoneExist(c *gin.Context) {
 // IsEmailExist 检测邮箱是否已注册
 func (sc *SignupController) IsEmailExist(c *gin.Context) {
 	// 初始化请求对象
-	request := requests.SignupEmailExistRequest{}
+	request := api.SignupEmailExistRequest{}
 
-	if ok := requests.Validate(c, &request, requests.SignupEmailExist); !ok {
+	if ok := api.Validate(c, &request, api.SignupEmailExist); !ok {
 		return
 	}
 
@@ -46,8 +46,8 @@ func (sc *SignupController) IsEmailExist(c *gin.Context) {
 // SignupUsingPhone 使用手机和验证码进行注册
 func (sc *SignupController) SignupUsingPhone(c *gin.Context) {
 	//验证表单
-	request := requests.SignupUsingPhoneRequest{}
-	if ok := requests.Validate(c, &request, requests.SignupUsingPhone); !ok {
+	request := api.SignupUsingPhoneRequest{}
+	if ok := api.Validate(c, &request, api.SignupUsingPhone); !ok {
 		return
 	}
 
@@ -74,8 +74,8 @@ func (sc *SignupController) SignupUsingPhone(c *gin.Context) {
 func (sc *SignupController) SignupUsingEmail(c *gin.Context) {
 
 	// 1. 验证表单
-	request := requests.SignupUsingEmailRequest{}
-	if ok := requests.Validate(c, &request, requests.SignupUsingEmail); !ok {
+	request := api.SignupUsingEmailRequest{}
+	if ok := api.Validate(c, &request, api.SignupUsingEmail); !ok {
 		return
 	}
 

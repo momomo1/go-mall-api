@@ -1,9 +1,9 @@
 package v1
 
 import (
-	requests "go-mall-api/entity/api/request"
 	"go-mall-api/models/user"
 	"go-mall-api/pkg/response"
+	"go-mall-api/requests/api"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,8 +14,8 @@ type UsersController struct {
 
 // Index 所有用户
 func (ctrl *UsersController) Index(c *gin.Context) {
-	request := requests.PaginationRequest{}
-	if ok := requests.Validate(c, &request, requests.Pagination); !ok {
+	request := api.PaginationRequest{}
+	if ok := api.Validate(c, &request, api.Pagination); !ok {
 		return
 	}
 
