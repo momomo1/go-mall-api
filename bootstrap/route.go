@@ -2,6 +2,8 @@ package bootstrap
 
 import (
 	"github.com/gin-gonic/gin"
+	v1 "go-mall-api/api/admin/v1"
+	"go-mall-api/controllers/admin"
 	"go-mall-api/middlewares"
 	"go-mall-api/routes"
 	"net/http"
@@ -17,7 +19,9 @@ func SetupRoute(router *gin.Engine) {
 	routes.RegisterAPIRoutes(router)
 
 	//注册Admin路由
-	routes.RegisterAdminRoutes(router)
+	//routes.RegisterAdminRoutes(router)
+	controller := admin.NewAdminController()
+	v1.RegisterHTTPServer(router, controller)
 
 	//配置404路由
 	setup404Handler(router)
