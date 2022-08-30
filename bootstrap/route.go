@@ -2,7 +2,7 @@ package bootstrap
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-mall-api/app/http/middlewares"
+	"go-mall-api/middlewares"
 	"go-mall-api/routes"
 	"net/http"
 	"strings"

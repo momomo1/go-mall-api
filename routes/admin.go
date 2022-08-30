@@ -2,9 +2,9 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	controllers "go-mall-api/app/http/controllers/admin"
-	"go-mall-api/app/http/controllers/admin/auth"
-	"go-mall-api/app/http/middlewares"
+	controllers "go-mall-api/controllers/admin"
+	"go-mall-api/controllers/admin/auth"
+	"go-mall-api/middlewares"
 )
 
 // RegisterAdminRoutes 注册网页相关路由

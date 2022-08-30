@@ -2,10 +2,10 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	controllers "go-mall-api/app/http/controllers/api/v1"
-	"go-mall-api/app/http/controllers/api/v1/auth"
-	"go-mall-api/app/http/controllers/api/v1/mqdemo"
-	"go-mall-api/app/http/middlewares"
+	controllers "go-mall-api/controllers/api/v1"
+	"go-mall-api/controllers/api/v1/auth"
+	"go-mall-api/controllers/api/v1/mqdemo"
+	"go-mall-api/middlewares"
 	"go-mall-api/pkg/config"
 )
 

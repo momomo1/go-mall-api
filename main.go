@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"go-mall-api/app/cmd"
-	"go-mall-api/app/cmd/make"
 	"go-mall-api/bootstrap"
+	cmd "go-mall-api/cmd"
+	make "go-mall-api/cmd/make"
 	btsConig "go-mall-api/config"
 	"go-mall-api/pkg/config"
 	"go-mall-api/pkg/console"
@@ -19,15 +19,19 @@ func init() {
 }
 
 func main() {
+	// 配置初始化，依赖命令行 --env 参数
+	config.InitConfig(cmd.Env)
+	// 初始化 Logger
+	bootstrap.SetupLogger()
+
 	go func() {
-		// 配置初始化，依赖命令行 --env 参数
-		config.InitConfig(cmd.Env)
-		// 初始化 Logger
-		bootstrap.SetupLogger()
-		//初始化grpc
 		bootstrap.SetGrpc()
 	}()
+	
+	rootCmd()
+}
 
+func rootCmd() {
 	// 应用的主入口，默认调用 cmd.CmdServe 命令
 	var rootCmd = &cobra.Command{
 		Use:   config.Get("app.name"),
@@ -36,12 +40,6 @@ func main() {
 
 		// rootCmd 的所有子命令都会执行以下代码
 		PersistentPreRun: func(command *cobra.Command, args []string) {
-
-			// 配置初始化，依赖命令行 --env 参数
-			config.InitConfig(cmd.Env)
-
-			// 初始化 Logger
-			bootstrap.SetupLogger()
 
 			// 初始化数据库
 			bootstrap.SetupDB()
