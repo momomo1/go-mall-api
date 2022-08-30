@@ -1,12 +1,11 @@
 package v1
 
 type LoginRequest struct {
-	Username string `form:"username" binding:"required`
-	Password string `form:"password" binding:"required`
+	UserName string `json:"username,omitempty" valid:"username"`
+	Password string `json:"password,omitempty" valid:"password"`
 }
 
 type LoginReply struct {
-	Data struct {
-		Token string
-	}
+	Token     string `json:"token"`
+	TokenHead string `json:"tokenHead"`
 }

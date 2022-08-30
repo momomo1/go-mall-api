@@ -5,11 +5,6 @@ import (
 	"github.com/thedevsaddam/govalidator"
 )
 
-type LoginRequest struct {
-	UserName string `json:"username,omitempty" valid:"username"`
-	Password string `json:"password,omitempty" valid:"password"`
-}
-
 // Login 验证表单，返回长度等于零即通过
 func Login(data interface{}, c *gin.Context) map[string][]string {
 	rules := govalidator.MapData{

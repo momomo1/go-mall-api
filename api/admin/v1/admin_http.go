@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-mall-api/middlewares"
 	"go-mall-api/pkg/response"
+	requests "go-mall-api/requests/admin"
 )
 
 type adminController interface {
@@ -26,10 +27,10 @@ func RegisterHTTPServer(r *gin.Engine, c adminController) {
 func LoginHttpHandler(c adminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
 		var in LoginRequest
-		if err := ctx.ShouldBind(&in); err != nil {
-			response.FailWithMessage(ctx, err.Error())
+		if ok := requests.Validate(ctx, &in, requests.Login); !ok {
 			return
 		}
+
 		h := func(ctx *gin.Context, req interface{}) (interface{}, error) {
 			return c.Login(ctx, req.(*LoginRequest))
 		}
