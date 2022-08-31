@@ -197,3 +197,46 @@ func WebsocketHandler(c *gin.Context) {
 		}
 	}
 }
+
+//TaskDemo 工作池
+func TaskDemo() {
+	//接受任务
+	taskChannel := make(chan int, 20)
+	//处理任务
+	resChannel := make(chan int, 20)
+	//关闭任务
+	closeChannel := make(chan bool, 5)
+
+	go func() {
+		for i := 0; i < 10; i++ {
+			taskChannel <- i
+		}
+		close(taskChannel)
+	}()
+
+	//处理任务
+	for i := 0; i < 5; i++ {
+		go Task(taskChannel, resChannel, closeChannel)
+	}
+
+	go func() {
+		//当接收到5个值,说明5个任务完成了
+		for i := 0; i < 5; i++ {
+			<-closeChannel
+		}
+		close(resChannel)
+		close(closeChannel)
+	}()
+
+	//for 循环channel, 当channel关闭以后会退出循环
+	for r := range resChannel {
+		fmt.Println("res:", r)
+	}
+}
+
+func Task(taskChannel chan int, resChannel chan int, closeChannel chan bool) {
+	for t := range taskChannel {
+		resChannel <- t
+	}
+	closeChannel <- true
+}
