@@ -3,8 +3,46 @@
 
 openapi: 3.0.3
 info:
-    title: ""
+    title: Greeter API
+    description: 定义服务
     version: 0.0.1
-paths: {}
+paths:
+    /admin/login:
+        post:
+            tags:
+                - Greeter
+            operationId: Greeter_Login
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.admin.v1.LoginRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.admin.v1.LoginReply'
 components:
-    schemas: {}
+    schemas:
+        api.admin.v1.LoginReply:
+            type: object
+            properties:
+                data:
+                    $ref: '#/components/schemas/api.admin.v1.LoginReply_Data'
+            description: 响应消息
+        api.admin.v1.LoginReply_Data:
+            type: object
+            properties:
+                token:
+                    type: string
+        api.admin.v1.LoginRequest:
+            type: object
+            properties:
+                name:
+                    type: string
+            description: 请求消息
+tags:
+    - name: Greeter
