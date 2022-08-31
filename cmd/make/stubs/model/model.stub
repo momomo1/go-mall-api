@@ -2,7 +2,7 @@
 package {{PackageName}}
 
 import (
-   	"go-mall-api/app/models"
+   	"go-mall-api/models"
     "go-mall-api/pkg/database"
 )
 
@@ -11,8 +11,6 @@ type {{StructName}} struct {
 
     // Put fields in here
     FIXME()
-
-    models.CommonTimestampsField
 }
 
 func ({{VariableName}} *{{StructName}}) Create() {

@@ -5,7 +5,6 @@ import (
 	v1 "go-mall-api/api/admin/v1"
 	"go-mall-api/controllers/admin"
 	"go-mall-api/middlewares"
-	"go-mall-api/routes"
 	"net/http"
 	"strings"
 )
@@ -14,9 +13,6 @@ import (
 func SetupRoute(router *gin.Engine) {
 	//注册全局中间件
 	registerGlobalMiddleWare(router)
-
-	//注册API路由
-	routes.RegisterAPIRoutes(router)
 
 	//注册Admin路由
 	//routes.RegisterAdminRoutes(router)

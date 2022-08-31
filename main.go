@@ -24,11 +24,11 @@ func main() {
 	// 初始化 Logger
 	bootstrap.SetupLogger()
 
+	rootCmd()
+
 	go func() {
 		bootstrap.SetGrpc()
 	}()
-	
-	rootCmd()
 }
 
 func rootCmd() {
