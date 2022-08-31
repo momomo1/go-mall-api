@@ -19,7 +19,7 @@ func runMakeFactory(cmd *cobra.Command, args []string) {
 	model := makeModelFromString(args[0])
 
 	// 拼接目标文件路径
-	filePath := fmt.Sprintf("database/factories/%s_factory.go", model.PackageName)
+	filePath := fmt.Sprintf("utils/factories/%s_factory.go", model.PackageName)
 
 	// 基于模板创建文件（做好变量替换）
 	createFileFromStub(filePath, "factory", model)

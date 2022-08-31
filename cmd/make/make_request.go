@@ -17,7 +17,7 @@ func runMakeRequest(cmd *cobra.Command, args []string) {
 	model := makeModelFromString(args[0])
 
 	// 拼接目标文件路径
-	filePath := fmt.Sprintf("app/http/controllers/api/requests/%s_request.go", model.PackageName)
+	filePath := fmt.Sprintf("requests/admin/%s.go", model.PackageName)
 
 	// 基于模板创建文件（做好变量替换）
 	createFileFromStub(filePath, "request", model)

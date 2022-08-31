@@ -9,6 +9,8 @@ import (
 
 type adminController interface {
 	Login(*gin.Context, *LoginRequest) (*LoginReply, error)
+	Logout(*gin.Context) error
+	Info(*gin.Context) (*UserReply, error)
 }
 
 func RegisterHTTPServer(r *gin.Engine, c adminController) {
@@ -21,6 +23,10 @@ func RegisterHTTPServer(r *gin.Engine, c adminController) {
 	{
 		// 登录
 		admin.POST("/login", LoginHttpHandler(c))
+		// 退出登录
+		admin.POST("/logout", LogoutHttpHandler(c))
+		// 信息
+		admin.GET("/info", middlewares.AuthJWTAdmin(), InfoHttpHandler(c))
 	}
 }
 
@@ -42,5 +48,23 @@ func LoginHttpHandler(c adminController) func(ctx *gin.Context) {
 
 		reply := out.(*LoginReply)
 		response.OkWithData(ctx, *reply)
+	}
+}
+
+func LogoutHttpHandler(c adminController) func(ctx *gin.Context) {
+	return func(ctx *gin.Context) {
+		err := c.Logout(ctx)
+		if err != nil {
+			response.FailWithMessage(ctx, err.Error())
+			return
+		}
+		response.Ok(ctx)
+	}
+}
+
+func InfoHttpHandler(c adminController) func(ctx *gin.Context) {
+	return func(ctx *gin.Context) {
+		out, _ := c.Info(ctx)
+		response.OkWithData(ctx, out)
 	}
 }

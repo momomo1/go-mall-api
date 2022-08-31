@@ -43,6 +43,7 @@ func AuthJWTAdmin() gin.HandlerFunc {
 
 		// 将用户信息存入 gin.context 里，后续 auth 包将从这里拿到当前用户数据
 		c.Set("current_user_id", userModel.GetStringID())
+		c.Set("current_user_name", userModel.Username)
 		c.Set("current_user", userModel)
 
 		c.Next()
