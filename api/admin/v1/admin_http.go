@@ -11,6 +11,7 @@ type adminController interface {
 	Login(*gin.Context, *LoginRequest) (*LoginReply, error)
 	Logout(*gin.Context) error
 	Info(*gin.Context) (*UserReply, error)
+	RoleListAll(*gin.Context) (*RoleListAllReply, error)
 }
 
 func RegisterHTTPServer(r *gin.Engine, c adminController) {
@@ -28,6 +29,9 @@ func RegisterHTTPServer(r *gin.Engine, c adminController) {
 	{
 		// 用户信息
 		admin.GET("admin/info", InfoHttpHandler(c))
+
+		// 角色
+		admin.GET("/role/listAll", RoleListAllHttpHandler(c))
 
 		//待实现接口
 		//商品
@@ -163,7 +167,6 @@ func RegisterHTTPServer(r *gin.Engine, c adminController) {
 		admin.POST("/admin/update/:id", Placeholder(c))
 		admin.POST("/admin/delete/:id", Placeholder(c))
 
-		admin.GET("/role/listAll", Placeholder(c))
 		admin.GET("/role/list", Placeholder(c))
 		admin.POST("/role/create", Placeholder(c))
 		admin.GET("/role/listMenu/:id", Placeholder(c))
@@ -237,5 +240,12 @@ func InfoHttpHandler(c adminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
 		out, _ := c.Info(ctx)
 		response.OkWithData(ctx, out)
+	}
+}
+
+func RoleListAllHttpHandler(c adminController) func(ctx *gin.Context) {
+	return func(ctx *gin.Context) {
+		out, _ := c.RoleListAll(ctx)
+		response.OkWithData(ctx, out.Data)
 	}
 }

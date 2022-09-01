@@ -15,5 +15,8 @@ func Attempt(username string, password string) (ums_admin.UmsAdmin, error) {
 	if !userAdminModel.ComparePassword(password) {
 		return ums_admin.UmsAdmin{}, errors.New("密码错误")
 	}
+
+	//更新登录时间
+	ums_admin.UpdateLoginTime(userAdminModel)
 	return userAdminModel, nil
 }

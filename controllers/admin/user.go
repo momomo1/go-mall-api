@@ -1,7 +1,6 @@
 package admin
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	adminV1 "go-mall-api/api/admin/v1"
 	"go-mall-api/models/ums_admin"
@@ -13,7 +12,6 @@ func (c AdminController) Info(ctx *gin.Context) (*adminV1.UserReply, error) {
 	user, _ := ctx.Get("current_user")
 	adminUser := user.(ums_admin.UmsAdmin)
 	rolesId := ums_admin.GetUserRoleId(adminUser.ID)
-	fmt.Println(rolesId, "........")
 	menus := ums_role.GetRoleMenu(rolesId)
 	roles := ums_admin.GetUserRole(adminUser.ID)
 

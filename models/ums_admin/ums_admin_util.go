@@ -3,6 +3,7 @@ package ums_admin
 import (
 	"go-mall-api/pkg/database"
 	"gorm.io/gorm"
+	"time"
 )
 
 func Get(idstr string) (umsAdmin UmsAdmin) {
@@ -28,8 +29,15 @@ func IsExist(field, value string) bool {
 
 // GetByMulti 通过 用户名 来获取用户
 func GetByMulti(username string) (userAdminModel UmsAdmin) {
-	database.DB.Where("username = ?", username).First(&userAdminModel)
+	database.DB.Where("username = ? and status = 1", username).First(&userAdminModel)
 	return
+}
+
+// UpdateLoginTime 更新登录时间
+func UpdateLoginTime(userAdminModel UmsAdmin) {
+	now := time.Now()
+	userAdminModel.LoginTime = now
+	userAdminModel.Save()
 }
 
 // GetUserRoleId 获取全部角色id
