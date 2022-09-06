@@ -6,8 +6,9 @@ import (
 )
 
 type ListRequest struct {
-	PageNum  int `json:"pageNum"`
-	PageSize int `json:"pageSize"`
+	PageNum  int    `json:"pageNum"`
+	PageSize int    `json:"pageSize"`
+	Keyword  string `json:"keyword"`
 }
 
 type ListReply struct {
@@ -18,4 +19,13 @@ type ListReply struct {
 type AdminUpdateStatusRequest struct {
 	Id     string `json:"id"`
 	Status int    `json:"status"`
+}
+
+type RegisterRequest struct {
+	Username string `json:"username" valid:"username"`
+	NickName string `json:"nickName" valid:"nickName"`
+	Password string `json:"password" valid:"password"`
+	Email    string `json:"email" valid:"email"`
+	Note     string `json:"note" valid:"note"`
+	Status   int    `json:"status" valid:"status"`
 }

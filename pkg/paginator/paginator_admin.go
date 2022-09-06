@@ -16,7 +16,7 @@ type PagingAdmin struct {
 	TotalPage int   `json:"totalPage"` // 总页数
 }
 
-func PaginateAdmin(c *gin.Context, db *gorm.DB, data interface{}, perPage int) PagingAdmin {
+func PaginateAdmin(c *gin.Context, db *gorm.DB, data interface{}, where map[string]interface{}, perPage int) PagingAdmin {
 	// 初始化 Paginator 实例
 	p := &Paginator{
 		query: db,
@@ -27,6 +27,7 @@ func PaginateAdmin(c *gin.Context, db *gorm.DB, data interface{}, perPage int) P
 	// 查询数据库
 	err := p.query.Preload(clause.Associations). // 读取关联
 							Order(p.Sort + " " + p.Order). // 排序
+							Where(where).
 							Limit(p.PerPage).
 							Offset(p.Offset).
 							Find(data).

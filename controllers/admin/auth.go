@@ -3,22 +3,22 @@ package admin
 import (
 	"errors"
 	"github.com/gin-gonic/gin"
-	adminV1 "go-mall-api/api/admin/v1/entity"
+	"go-mall-api/api/admin/v1/entity"
 	"go-mall-api/pkg/cache"
 	"go-mall-api/pkg/jwt"
 	auth "go-mall-api/service/auth_admin"
 	"time"
 )
 
-func (c AdminController) Login(ctx *gin.Context, request *adminV1.LoginRequest) (*adminV1.LoginReply, error) {
+func (c AdminController) Login(ctx *gin.Context, request *entity.LoginRequest) (*entity.LoginReply, error) {
 	// 2. 尝试登录
 	user, err := auth.Attempt(request.UserName, request.Password)
 	if err != nil {
 		// 失败,显示错误提示
-		return &adminV1.LoginReply{}, err
+		return &entity.LoginReply{}, err
 	}
 	token := jwt.NewJWT().IssueToken(user.GetStringID(), user.Username)
-	return &adminV1.LoginReply{
+	return &entity.LoginReply{
 		Token:     token,
 		TokenHead: "Bearer ",
 	}, nil
