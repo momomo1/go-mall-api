@@ -13,4 +13,5 @@ type AdminController interface {
 	AdminList(*gin.Context, *entity.ListRequest) (*entity.ListReply, error)
 	AdminUpdateStatus(*gin.Context, *entity.AdminUpdateStatusRequest) error
 	AdminRegister(*gin.Context, *entity.RegisterRequest) error
+	AdminRoleUpdate(*gin.Context, *entity.AdminRoleUpdateRequest) error
 }

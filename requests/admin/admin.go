@@ -22,3 +22,21 @@ func Register(data interface{}, c *gin.Context) map[string][]string {
 
 	return errs
 }
+
+func AdminRoleUpdate(data interface{}, c *gin.Context) map[string][]string {
+	rules := govalidator.MapData{
+		"adminId": []string{"required"},
+		"roleIds": []string{"required"},
+	}
+	messages := govalidator.MapData{
+		"adminId": []string{
+			"required:adminId必填",
+		},
+		"roleIds": []string{
+			"required:roleIds必填",
+		},
+	}
+	errs := validate(data, rules, messages)
+
+	return errs
+}

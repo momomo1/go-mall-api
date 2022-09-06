@@ -4,6 +4,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-mall-api/api/admin/v1/entity"
 	"go-mall-api/models/ums_admin"
+	"go-mall-api/models/ums_admin_role_relation"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -37,5 +40,19 @@ func (c AdminController) AdminRegister(ctx *gin.Context, request *entity.Registe
 		LoginTime:  time.Now(),
 	}
 	userModel.Create()
+	return nil
+}
+
+func (c AdminController) AdminRoleUpdate(ctx *gin.Context, request *entity.AdminRoleUpdateRequest) error {
+	adminId, _ := strconv.ParseInt(request.AdminId, 10, 64)
+	parts := strings.SplitN(request.RoleIds, ",", -1)
+	for _, v := range parts {
+		roleId, _ := strconv.ParseInt(v, 10, 64)
+		relationModel := ums_admin_role_relation.UmsAdminRoleRelation{
+			AdminId: adminId,
+			RoleId:  roleId,
+		}
+		relationModel.Create()
+	}
 	return nil
 }

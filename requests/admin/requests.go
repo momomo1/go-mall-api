@@ -1,6 +1,7 @@
 package admin
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/thedevsaddam/govalidator"
 	"go-mall-api/pkg/response"
@@ -15,6 +16,26 @@ func Validate(c *gin.Context, obj interface{}, handler ValidatorFunc) bool {
 		response.BadRequest(c, err, "请求解析错误，请确认请求格式是否正确。上传文件请使用 multipart 标头，参数请使用 JSON 格式。")
 		return false
 	}
+
+	//2 表单验证
+	errs := handler(obj, c)
+
+	//3 判断验证是否通过
+	if len(errs) > 0 {
+		for _, err := range errs {
+			for _, message := range err {
+				response.FailWithMessage(c, message)
+				return false
+			}
+		}
+		return false
+	}
+
+	return true
+}
+
+func ValidateSimple(c *gin.Context, obj interface{}, handler ValidatorFunc) bool {
+	fmt.Println(obj)
 	//2 表单验证
 	errs := handler(obj, c)
 

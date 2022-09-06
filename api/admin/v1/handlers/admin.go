@@ -56,3 +56,20 @@ func AdminRegisterHttpHandler(c AdminController) func(ctx *gin.Context) {
 		response.Ok(ctx)
 	}
 }
+
+func AdminRoleUpdateHttpHandler(c AdminController) func(ctx *gin.Context) {
+	return func(ctx *gin.Context) {
+		var request entity.AdminRoleUpdateRequest
+		request.AdminId = ctx.PostForm("adminId")
+		request.RoleIds = ctx.PostForm("roleIds")
+		if ok := requests.ValidateSimple(ctx, &request, requests.AdminRoleUpdate); !ok {
+			return
+		}
+		err := c.AdminRoleUpdate(ctx, &request)
+		if err != nil {
+			response.FailWithMessage(ctx, err.Error())
+			return
+		}
+		response.Ok(ctx)
+	}
+}

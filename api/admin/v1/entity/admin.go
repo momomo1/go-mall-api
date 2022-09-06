@@ -29,3 +29,8 @@ type RegisterRequest struct {
 	Note     string `json:"note" valid:"note"`
 	Status   int    `json:"status" valid:"status"`
 }
+
+type AdminRoleUpdateRequest struct {
+	AdminId string `json:"adminId" valid:"adminId"`
+	RoleIds string `json:"roleIds" valid:"roleIds"`
+}
