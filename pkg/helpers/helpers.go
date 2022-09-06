@@ -13,6 +13,15 @@ import (
 	"time"
 )
 
+func GetQueryParams(c *gin.Context) map[string]string {
+	query := c.Request.URL.Query()
+	var queryMap = make(map[string]string, len(query))
+	for k := range query {
+		queryMap[k] = c.Query(k)
+	}
+	return queryMap
+}
+
 // Empty 类似于 PHP 的 empty() 函数
 func Empty(val interface{}) bool {
 	if val == nil {

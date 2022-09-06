@@ -2,7 +2,7 @@ package admin
 
 import (
 	"github.com/gin-gonic/gin"
-	adminV1 "go-mall-api/api/admin/v1"
+	adminV1 "go-mall-api/api/admin/v1/entity"
 	"go-mall-api/models/ums_admin"
 	"go-mall-api/models/ums_role"
 )

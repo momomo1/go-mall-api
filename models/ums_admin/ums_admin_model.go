@@ -10,6 +10,11 @@ import (
 	"time"
 )
 
+const (
+	INVOKE    = 1
+	FORBIDDEN = 0
+)
+
 //UmsAdmin 后台用户表
 type UmsAdmin struct {
 	models.BaseModel
@@ -21,6 +26,7 @@ type UmsAdmin struct {
 	Note          string                                         `gorm:"column:note;type:varchar(500);comment:备注信息" json:"note"`
 	CreateTime    time.Time                                      `gorm:"column:create_time;type:datetime;comment:创建时间" json:"create_time"`
 	LoginTime     time.Time                                      `gorm:"column:login_time;type:datetime;comment:最后登录时间" json:"login_time"`
+	Status        int                                            `gorm:"column:status;type:int(1);default:1;comment:帐号启用状态：0->禁用；1->启用" json:"status"`
 	RolesRelation []ums_admin_role_relation.UmsAdminRoleRelation `gorm:"foreignKey:AdminId" json:"roles_relation"`
 	Roles         []ums_role.UmsRole                             `gorm:"many2many:ums_admin_role_relation;joinForeignKey:AdminId;joinReferences:RoleId" json:"Roles"`
 }
@@ -35,6 +41,11 @@ func (umsAdmin *UmsAdmin) Create() {
 
 func (umsAdmin *UmsAdmin) Save() (rowsAffected int64) {
 	result := database.DB.Save(&umsAdmin)
+	return result.RowsAffected
+}
+
+func (umsAdmin *UmsAdmin) Updates(data map[string]interface{}) (rowsAffected int64) {
+	result := database.DB.Model(&umsAdmin).Updates(data)
 	return result.RowsAffected
 }
 

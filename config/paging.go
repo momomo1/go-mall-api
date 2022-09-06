@@ -11,7 +11,7 @@ func init() {
 
 			// URL 中用以分辨多少页的参数
 			// 此值若修改需一并修改请求验证规则
-			"url_query_page": "page",
+			"url_query_page": "pageNum",
 
 			// URL 中用以分辨排序的参数（使用 id 或者其他）
 			// 此值若修改需一并修改请求验证规则

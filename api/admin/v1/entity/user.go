@@ -1,4 +1,4 @@
-package v1
+package entity
 
 type UserReply struct {
 	Icon     string        `json:"icon"`

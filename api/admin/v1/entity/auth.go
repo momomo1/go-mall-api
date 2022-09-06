@@ -1,4 +1,4 @@
-package v1
+package entity
 
 type LoginRequest struct {
 	UserName string `json:"username,omitempty" valid:"username"`

@@ -2,36 +2,33 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
+	"go-mall-api/api/admin/v1/handlers"
 	"go-mall-api/middlewares"
 	"go-mall-api/pkg/response"
-	requests "go-mall-api/requests/admin"
 )
 
-type adminController interface {
-	Login(*gin.Context, *LoginRequest) (*LoginReply, error)
-	Logout(*gin.Context) error
-	Info(*gin.Context) (*UserReply, error)
-	RoleListAll(*gin.Context) (*RoleListAllReply, error)
-}
-
-func RegisterHTTPServer(r *gin.Engine, c adminController) {
+func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 	var admin *gin.RouterGroup
 	admin = r.Group("")
 
 	// 登录
-	admin.POST("admin/login", middlewares.LimitIP("208-H"), LoginHttpHandler(c))
+	admin.POST("admin/login", middlewares.LimitIP("208-H"), handlers.LoginHttpHandler(c))
 	// 退出登录
-	admin.POST("admin/logout", middlewares.LimitIP("208-H"), LogoutHttpHandler(c))
+	admin.POST("admin/logout", middlewares.LimitIP("208-H"), handlers.LogoutHttpHandler(c))
 
 	// 全局限流中间件：每小时限流。这里是所有 API （根据 IP）请求加起来。
 	// 作为参考 API 每小时最多 60 个请求（根据 IP）。
 	admin.Use(middlewares.LimitIP("208-H"), middlewares.AuthJWTAdmin())
 	{
 		// 用户信息
-		admin.GET("admin/info", InfoHttpHandler(c))
+		admin.GET("admin/info", handlers.InfoHttpHandler(c))
+
+		// 用户列表
+		admin.GET("/admin/list", handlers.AdminListHttpHandler(c))
+		admin.POST("/admin/updateStatus/:id", handlers.AdminUpdateStatusHttpHandler(c))
 
 		// 角色
-		admin.GET("/role/listAll", RoleListAllHttpHandler(c))
+		admin.GET("/role/listAll", handlers.RoleListAllHttpHandler(c))
 
 		//待实现接口
 		//商品
@@ -159,8 +156,6 @@ func RegisterHTTPServer(r *gin.Engine, c adminController) {
 		admin.POST("/home/advertise/update/:id", Placeholder(c))
 		admin.POST("/home/advertise/delete", Placeholder(c))
 
-		admin.GET("/admin/list", Placeholder(c))
-		admin.POST("/admin/updateStatus/:id", Placeholder(c))
 		admin.POST("/admin/register", Placeholder(c))
 		admin.GET("/admin/role/:id", Placeholder(c))
 		admin.POST("/admin/role/update", Placeholder(c))
@@ -198,54 +193,8 @@ func RegisterHTTPServer(r *gin.Engine, c adminController) {
 }
 
 //Placeholder 占位
-func Placeholder(c adminController) func(ctx *gin.Context) {
+func Placeholder(c handlers.AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
 		response.Ok(ctx)
-	}
-}
-
-func LoginHttpHandler(c adminController) func(ctx *gin.Context) {
-	return func(ctx *gin.Context) {
-		var in LoginRequest
-		if ok := requests.Validate(ctx, &in, requests.Login); !ok {
-			return
-		}
-
-		h := func(ctx *gin.Context, req interface{}) (interface{}, error) {
-			return c.Login(ctx, req.(*LoginRequest))
-		}
-		out, err := h(ctx, &in)
-		if err != nil {
-			response.FailWithMessage(ctx, err.Error())
-			return
-		}
-
-		reply := out.(*LoginReply)
-		response.OkWithData(ctx, *reply)
-	}
-}
-
-func LogoutHttpHandler(c adminController) func(ctx *gin.Context) {
-	return func(ctx *gin.Context) {
-		err := c.Logout(ctx)
-		if err != nil {
-			response.FailWithMessage(ctx, err.Error())
-			return
-		}
-		response.Ok(ctx)
-	}
-}
-
-func InfoHttpHandler(c adminController) func(ctx *gin.Context) {
-	return func(ctx *gin.Context) {
-		out, _ := c.Info(ctx)
-		response.OkWithData(ctx, out)
-	}
-}
-
-func RoleListAllHttpHandler(c adminController) func(ctx *gin.Context) {
-	return func(ctx *gin.Context) {
-		out, _ := c.RoleListAll(ctx)
-		response.OkWithData(ctx, out.Data)
 	}
 }

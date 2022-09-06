@@ -3,7 +3,7 @@ package admin
 import (
 	"errors"
 	"github.com/gin-gonic/gin"
-	adminV1 "go-mall-api/api/admin/v1"
+	adminV1 "go-mall-api/api/admin/v1/entity"
 	"go-mall-api/pkg/cache"
 	"go-mall-api/pkg/jwt"
 	auth "go-mall-api/service/auth_admin"

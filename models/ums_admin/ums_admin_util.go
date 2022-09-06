@@ -1,7 +1,9 @@
 package ums_admin
 
 import (
+	"github.com/gin-gonic/gin"
 	"go-mall-api/pkg/database"
+	"go-mall-api/pkg/paginator"
 	"gorm.io/gorm"
 	"time"
 )
@@ -61,5 +63,16 @@ func GetUserRole(id uint64) (roles []string) {
 	for _, v := range userAdminModel.Roles {
 		roles = append(roles, v.Name)
 	}
+	return
+}
+
+// Paginate 分页内容
+func Paginate(c *gin.Context, perPage int) (users []UmsAdmin, paging paginator.PagingAdmin) {
+	paging = paginator.PaginateAdmin(
+		c,
+		database.DB.Model(UmsAdmin{}),
+		&users,
+		perPage,
+	)
 	return
 }

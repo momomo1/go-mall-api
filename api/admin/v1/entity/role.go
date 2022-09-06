@@ -1,4 +1,4 @@
-package v1
+package entity
 
 import "go-mall-api/models/ums_role"
 
