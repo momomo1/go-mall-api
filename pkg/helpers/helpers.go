@@ -1,12 +1,14 @@
 package helpers
 
 import (
+	"bytes"
 	"crypto/rand"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"github.com/xuri/excelize/v2"
 	"io"
+	"io/ioutil"
 	mathrand "math/rand"
 	"net/http"
 	"reflect"
@@ -20,6 +22,14 @@ func GetQueryParams(c *gin.Context) map[string]string {
 		queryMap[k] = c.Query(k)
 	}
 	return queryMap
+}
+
+func GetRequestPayload(c *gin.Context) []byte {
+	buf := make([]byte, 1024)
+	n, _ := c.Request.Body.Read(buf)
+	c.Request.Body = ioutil.NopCloser(bytes.NewReader(buf[:n]))
+	j := buf[0:n]
+	return j
 }
 
 // Empty 类似于 PHP 的 empty() 函数

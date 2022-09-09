@@ -32,7 +32,7 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.GET("/admin/role/:id", handlers.AdminRolesHttpHandler(c))
 		admin.POST("/admin/register", handlers.AdminRegisterHttpHandler(c))
 		admin.POST("/admin/role/update", handlers.AdminRoleUpdateHttpHandler(c))
-		admin.POST("/admin/update/:id", Placeholder(c))
+		admin.POST("/admin/update/:id", handlers.AdminUpdateHttpHandler(c))
 		admin.POST("/admin/delete/:id", handlers.AdminDeleteHttpHandler(c))
 
 		//待实现接口

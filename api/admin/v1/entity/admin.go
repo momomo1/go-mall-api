@@ -44,6 +44,16 @@ type AdminRolesReply struct {
 	Data []ums_role.UmsRole `json:"data"`
 }
 
+type AdminUpdateRequest struct {
+	Id       int    `json:"id" valid:"id"`
+	Username string `json:"username" valid:"username"`
+	NickName string `json:"nickName" valid:"nickName"`
+	Password string `json:"password" valid:"password"`
+	Email    string `json:"email" valid:"email"`
+	Note     string `json:"note" valid:"note"`
+	Status   int    `json:"status" valid:"status"`
+}
+
 type AdminDeleteRequest struct {
 	Id string `json:"id"`
 }

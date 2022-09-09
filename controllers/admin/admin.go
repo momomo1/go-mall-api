@@ -6,6 +6,7 @@ import (
 	"go-mall-api/models/ums_admin"
 	"go-mall-api/models/ums_admin_role_relation"
 	"go-mall-api/models/ums_role"
+	"go-mall-api/pkg/hash"
 	"strconv"
 	"strings"
 	"time"
@@ -65,6 +66,22 @@ func (c AdminController) AdminRoles(ctx *gin.Context, request *entity.AdminRoles
 	return &entity.AdminRolesReply{
 		Data: roles,
 	}, nil
+}
+
+func (c AdminController) AdminUpdate(ctx *gin.Context, request *entity.AdminUpdateRequest) error {
+	userModel := ums_admin.Get(strconv.Itoa(request.Id))
+	if !hash.BcryptIsHashed(request.Password) {
+		request.Password = hash.BcryptHash(request.Password)
+	}
+	userModel.Updates(map[string]interface{}{
+		"NickName": request.NickName,
+		"Username": request.Username,
+		"Password": request.Password,
+		"Email":    request.Email,
+		"Note":     request.Note,
+		"Status":   request.Status,
+	})
+	return nil
 }
 
 func (c AdminController) AdminDelete(ctx *gin.Context, request *entity.AdminDeleteRequest) error {

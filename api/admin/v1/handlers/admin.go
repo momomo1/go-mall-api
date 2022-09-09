@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"go-mall-api/api/admin/v1/entity"
 	"go-mall-api/pkg/helpers"
@@ -85,6 +86,21 @@ func AdminRolesHttpHandler(c AdminController) func(ctx *gin.Context) {
 			return
 		}
 		response.OkWithData(ctx, roles.Data)
+	}
+}
+
+func AdminUpdateHttpHandler(c AdminController) func(ctx *gin.Context) {
+	return func(ctx *gin.Context) {
+		var request entity.AdminUpdateRequest
+		j := helpers.GetRequestPayload(ctx)
+		json.Unmarshal(j, &request)
+		
+		err := c.AdminUpdate(ctx, &request)
+		if err != nil {
+			response.FailWithMessage(ctx, err.Error())
+			return
+		}
+		response.Ok(ctx)
 	}
 }
 
