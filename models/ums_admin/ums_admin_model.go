@@ -22,7 +22,7 @@ type UmsAdmin struct {
 	Password      string                                         `gorm:"column:password;type:varchar(64)" json:"password"`
 	Icon          string                                         `gorm:"column:icon;type:varchar(500);comment:头像" json:"icon"`
 	Email         string                                         `gorm:"column:email;type:varchar(100);comment:邮箱" json:"email"`
-	NickName      string                                         `gorm:"column:nick_name;type:varchar(200);comment:昵称" json:"nick_name"`
+	NickName      string                                         `gorm:"column:nick_name;type:varchar(200);comment:昵称" json:"nickName"`
 	Note          string                                         `gorm:"column:note;type:varchar(500);comment:备注信息" json:"note"`
 	CreateTime    time.Time                                      `gorm:"column:create_time;type:datetime;comment:创建时间" json:"create_time"`
 	LoginTime     time.Time                                      `gorm:"column:login_time;type:datetime;comment:最后登录时间" json:"login_time"`

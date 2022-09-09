@@ -73,3 +73,31 @@ func AdminRoleUpdateHttpHandler(c AdminController) func(ctx *gin.Context) {
 		response.Ok(ctx)
 	}
 }
+
+func AdminRolesHttpHandler(c AdminController) func(ctx *gin.Context) {
+	return func(ctx *gin.Context) {
+		var request entity.AdminRolesRequest
+		id := ctx.Param("id")
+		request.Id = id
+		roles, err := c.AdminRoles(ctx, &request)
+		if err != nil {
+			response.FailWithMessage(ctx, err.Error())
+			return
+		}
+		response.OkWithData(ctx, roles.Data)
+	}
+}
+
+func AdminDeleteHttpHandler(c AdminController) func(ctx *gin.Context) {
+	return func(ctx *gin.Context) {
+		var request entity.AdminDeleteRequest
+		id := ctx.Param("id")
+		request.Id = id
+		err := c.AdminDelete(ctx, &request)
+		if err != nil {
+			response.FailWithMessage(ctx, err.Error())
+			return
+		}
+		response.Ok(ctx)
+	}
+}

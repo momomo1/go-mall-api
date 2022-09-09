@@ -2,6 +2,7 @@ package ums_admin
 
 import (
 	"github.com/gin-gonic/gin"
+	"go-mall-api/models/ums_admin_role_relation"
 	"go-mall-api/pkg/database"
 	"go-mall-api/pkg/paginator"
 	"gorm.io/gorm"
@@ -81,4 +82,20 @@ func Paginate(c *gin.Context, perPage int, keyword string) (users []UmsAdmin, pa
 		perPage,
 	)
 	return
+}
+
+// DeleteById 删除用户
+func DeleteById(id string) {
+	database.DB.Transaction(func(tx *gorm.DB) error {
+		// 在事务中执行一些 db 操作（从这里开始，您应该使用 'tx' 而不是 'db'）
+		if err := tx.Where("id = ?", id).Delete(UmsAdmin{}).Error; err != nil {
+			// 返回任何错误都会回滚事务
+			return err
+		}
+		if err := tx.Where("admin_id = ?", id).Delete(ums_admin_role_relation.UmsAdminRoleRelation{}).Error; err != nil {
+			return err
+		}
+		// 返回 nil 提交事务
+		return nil
+	})
 }

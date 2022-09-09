@@ -5,6 +5,7 @@ import (
 	"go-mall-api/api/admin/v1/entity"
 	"go-mall-api/models/ums_admin"
 	"go-mall-api/models/ums_admin_role_relation"
+	"go-mall-api/models/ums_role"
 	"strconv"
 	"strings"
 	"time"
@@ -44,6 +45,7 @@ func (c AdminController) AdminRegister(ctx *gin.Context, request *entity.Registe
 }
 
 func (c AdminController) AdminRoleUpdate(ctx *gin.Context, request *entity.AdminRoleUpdateRequest) error {
+	ums_admin_role_relation.DeleteByAdminId(request.AdminId)
 	adminId, _ := strconv.ParseInt(request.AdminId, 10, 64)
 	parts := strings.SplitN(request.RoleIds, ",", -1)
 	for _, v := range parts {
@@ -54,5 +56,18 @@ func (c AdminController) AdminRoleUpdate(ctx *gin.Context, request *entity.Admin
 		}
 		relationModel.Create()
 	}
+	return nil
+}
+
+func (c AdminController) AdminRoles(ctx *gin.Context, request *entity.AdminRolesRequest) (*entity.AdminRolesReply, error) {
+	roleId := ums_admin_role_relation.GetUserRoles(request.Id)
+	roles := ums_role.GetByIdInFind(roleId)
+	return &entity.AdminRolesReply{
+		Data: roles,
+	}, nil
+}
+
+func (c AdminController) AdminDelete(ctx *gin.Context, request *entity.AdminDeleteRequest) error {
+	ums_admin.DeleteById(request.Id)
 	return nil
 }

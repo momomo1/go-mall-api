@@ -29,8 +29,11 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 
 		// 角色
 		admin.GET("/role/listAll", handlers.RoleListAllHttpHandler(c))
+		admin.GET("/admin/role/:id", handlers.AdminRolesHttpHandler(c))
 		admin.POST("/admin/register", handlers.AdminRegisterHttpHandler(c))
 		admin.POST("/admin/role/update", handlers.AdminRoleUpdateHttpHandler(c))
+		admin.POST("/admin/update/:id", Placeholder(c))
+		admin.POST("/admin/delete/:id", handlers.AdminDeleteHttpHandler(c))
 
 		//待实现接口
 		//商品
@@ -157,10 +160,6 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/home/advertise/create", Placeholder(c))
 		admin.POST("/home/advertise/update/:id", Placeholder(c))
 		admin.POST("/home/advertise/delete", Placeholder(c))
-
-		admin.GET("/admin/role/:id", Placeholder(c))
-		admin.POST("/admin/update/:id", Placeholder(c))
-		admin.POST("/admin/delete/:id", Placeholder(c))
 
 		admin.GET("/role/list", Placeholder(c))
 		admin.POST("/role/create", Placeholder(c))

@@ -2,6 +2,7 @@ package entity
 
 import (
 	"go-mall-api/models/ums_admin"
+	"go-mall-api/models/ums_role"
 	"go-mall-api/pkg/paginator"
 )
 
@@ -33,4 +34,16 @@ type RegisterRequest struct {
 type AdminRoleUpdateRequest struct {
 	AdminId string `json:"adminId" valid:"adminId"`
 	RoleIds string `json:"roleIds" valid:"roleIds"`
+}
+
+type AdminRolesRequest struct {
+	Id string `json:"id"`
+}
+
+type AdminRolesReply struct {
+	Data []ums_role.UmsRole `json:"data"`
+}
+
+type AdminDeleteRequest struct {
+	Id string `json:"id"`
 }

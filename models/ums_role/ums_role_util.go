@@ -14,6 +14,11 @@ func GetBy(field, value string) (umsRole UmsRole) {
 	return
 }
 
+func GetByIdInFind(value []string) (umsRole []UmsRole) {
+	database.DB.Where("id in (?)", value).Find(&umsRole)
+	return
+}
+
 func All() (umsRoles []UmsRole) {
 	database.DB.Find(&umsRoles)
 	return
