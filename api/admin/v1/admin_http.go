@@ -26,14 +26,27 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		// 用户列表
 		admin.GET("/admin/list", handlers.AdminListHttpHandler(c))
 		admin.POST("/admin/updateStatus/:id", handlers.AdminUpdateStatusHttpHandler(c))
-
-		// 角色
-		admin.GET("/role/listAll", handlers.RoleListAllHttpHandler(c))
 		admin.GET("/admin/role/:id", handlers.AdminRolesHttpHandler(c))
 		admin.POST("/admin/register", handlers.AdminRegisterHttpHandler(c))
 		admin.POST("/admin/role/update", handlers.AdminRoleUpdateHttpHandler(c))
 		admin.POST("/admin/update/:id", handlers.AdminUpdateHttpHandler(c))
 		admin.POST("/admin/delete/:id", handlers.AdminDeleteHttpHandler(c))
+
+		// 角色
+		admin.GET("/role/listAll", handlers.RoleListAllHttpHandler(c))
+		admin.GET("/role/list", handlers.RoleListHttpHandler(c))
+		admin.POST("/role/updateStatus/:id", handlers.RoleUpdateStatusHttpHandler(c))
+		admin.POST("/role/create", handlers.RoleRegisterHttpHandler(c))
+		admin.POST("/role/delete", handlers.RoleDeleteHttpHandler(c))
+		admin.POST("/role/update/:id", handlers.RoleUpdateHttpHandler(c))
+
+		//菜单
+		admin.GET("/menu/list/:id", handlers.MenuListHttpHandler(c))
+		admin.POST("/menu/updateHidden/:id", handlers.MenuUpdateHiddenHttpHandler(c))
+		admin.POST("/menu/create", handlers.MenuCreateHttpHandler(c))
+		admin.GET("/menu/:id", handlers.MenuHttpHandler(c))
+		admin.POST("/menu/update/:id", handlers.MenuUpdateHandler(c))
+		admin.POST("/menu/delete/:id", handlers.MenuDeleteHandler(c))
 
 		//待实现接口
 		//商品
@@ -161,22 +174,12 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/home/advertise/update/:id", Placeholder(c))
 		admin.POST("/home/advertise/delete", Placeholder(c))
 
-		admin.GET("/role/list", Placeholder(c))
-		admin.POST("/role/create", Placeholder(c))
 		admin.GET("/role/listMenu/:id", Placeholder(c))
 		admin.POST("/role/allocMenu", Placeholder(c))
 		admin.GET("/role/listResource/:id", Placeholder(c))
 		admin.POST("/role/allocResource", Placeholder(c))
-		admin.POST("/role/update/:id", Placeholder(c))
-		admin.POST("/role/delete", Placeholder(c))
 
 		admin.GET("/menu/treeList", Placeholder(c))
-		admin.GET("/menu/list/:id", Placeholder(c))
-		admin.GET("/menu/:id", Placeholder(c))
-		admin.POST("/menu/updateHidden/:id", Placeholder(c))
-		admin.POST("/menu/create", Placeholder(c))
-		admin.POST("/menu/update/:id", Placeholder(c))
-		admin.POST("/menu/delete/:id", Placeholder(c))
 
 		admin.GET("/resource/listAll", Placeholder(c))
 		admin.GET("/resource/list", Placeholder(c))

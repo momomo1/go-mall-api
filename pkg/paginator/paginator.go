@@ -53,14 +53,14 @@ type Paginator struct {
 //             app.APIURL(database.TableName(&Topic{})),
 //             perPage,
 //         )
-func Paginate(c *gin.Context, db *gorm.DB, data interface{}, baseURL string, perPage int) Paging {
+func Paginate(c *gin.Context, db *gorm.DB, data interface{}, baseURL string, perPage int, where interface{}) Paging {
 
 	// 初始化 Paginator 实例
 	p := &Paginator{
 		query: db,
 		ctx:   c,
 	}
-	p.initProperties(perPage, baseURL)
+	p.initProperties(perPage, baseURL, where)
 
 	// 查询数据库
 	err := p.query.Preload(clause.Associations). // 读取关联
@@ -87,7 +87,7 @@ func Paginate(c *gin.Context, db *gorm.DB, data interface{}, baseURL string, per
 }
 
 // 初始化分页必须用到的属性，基于这些属性查询数据库
-func (p *Paginator) initProperties(perPage int, baseURL string) {
+func (p *Paginator) initProperties(perPage int, baseURL string, where interface{}) {
 
 	p.BaseURL = p.formatBaseURL(baseURL)
 	p.PerPage = p.getPerPage(perPage)
@@ -96,7 +96,7 @@ func (p *Paginator) initProperties(perPage int, baseURL string) {
 	p.Order = p.ctx.DefaultQuery(config.Get("paging.url_query_order"), "asc")
 	p.Sort = p.ctx.DefaultQuery(config.Get("paging.url_query_sort"), "id")
 
-	p.TotalCount = p.getTotalCount()
+	p.TotalCount = p.getTotalCount(where)
 	p.TotalPage = p.getTotalPage()
 	p.Page = p.getCurrentPage()
 	p.Offset = (p.Page - 1) * p.PerPage
@@ -137,9 +137,9 @@ func (p Paginator) getCurrentPage() int {
 }
 
 // getTotalCount 返回的是数据库里的条数
-func (p *Paginator) getTotalCount() int64 {
+func (p *Paginator) getTotalCount(where interface{}) int64 {
 	var count int64
-	if err := p.query.Count(&count).Error; err != nil {
+	if err := p.query.Where(where).Count(&count).Error; err != nil {
 		return 0
 	}
 	return count

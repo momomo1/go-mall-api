@@ -1,7 +1,9 @@
 package ums_role
 
 import (
+	"github.com/gin-gonic/gin"
 	"go-mall-api/pkg/database"
+	"go-mall-api/pkg/paginator"
 )
 
 func Get(idstr string) (umsRole UmsRole) {
@@ -54,5 +56,17 @@ func GetRoleMenu(id []int64) (menus []interface{}) {
 			}
 		}
 	}
+	return
+}
+
+// Paginate 分页内容
+func Paginate(c *gin.Context, perPage int, where interface{}) (roles []UmsRole, paging paginator.PagingAdmin) {
+	paging = paginator.PaginateAdmin(
+		c,
+		database.DB.Model(UmsRole{}),
+		&roles,
+		where,
+		perPage,
+	)
 	return
 }

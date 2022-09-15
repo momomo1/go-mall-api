@@ -62,6 +62,7 @@ func Paginate(c *gin.Context, perPage int) (users []User, paging paginator.Pagin
 		&users,
 		app.V1URL(database.TableName(&User{})),
 		perPage,
+		"",
 	)
 	return
 }

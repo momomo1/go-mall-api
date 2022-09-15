@@ -30,14 +30,14 @@ func (c AdminController) AdminUpdateStatus(ctx *gin.Context, request *entity.Adm
 	return nil
 }
 
-func (c AdminController) AdminRegister(ctx *gin.Context, request *entity.RegisterRequest) error {
+func (c AdminController) AdminRegister(ctx *gin.Context, request *entity.AdminRegisterRequest) error {
 	userModel := ums_admin.UmsAdmin{
 		NickName:   request.NickName,
 		Username:   request.Username,
 		Password:   request.Password,
 		Email:      request.Email,
 		Note:       request.Note,
-		Status:     request.Status,
+		Status:     &request.Status,
 		CreateTime: time.Now(),
 		LoginTime:  time.Now(),
 	}

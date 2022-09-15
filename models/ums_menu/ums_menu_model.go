@@ -10,7 +10,7 @@ import (
 //UmsMenu 后台菜单表
 type UmsMenu struct {
 	models.BaseModel
-	ParentId   int64     `gorm:"column:parent_id;type:bigint(20);comment:父级ID" json:"parent_id"`
+	ParentId   int64     `gorm:"column:parent_id;type:bigint(20);comment:父级ID" json:"parentId"`
 	CreateTime time.Time `gorm:"column:create_time;type:datetime;comment:创建时间" json:"create_time"`
 	Title      string    `gorm:"column:title;type:varchar(100);comment:菜单名称" json:"title"`
 	Level      int       `gorm:"column:level;type:int(4);comment:菜单级数" json:"level"`
@@ -26,6 +26,11 @@ func (umsMenu *UmsMenu) TableName() string {
 
 func (umsMenu *UmsMenu) Create() {
 	database.DB.Create(&umsMenu)
+}
+
+func (umsRole *UmsMenu) Updates(data map[string]interface{}) (rowsAffected int64) {
+	result := database.DB.Model(&umsRole).Updates(data)
+	return result.RowsAffected
 }
 
 func (umsMenu *UmsMenu) Save() (rowsAffected int64) {

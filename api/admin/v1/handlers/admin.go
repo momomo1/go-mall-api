@@ -44,7 +44,7 @@ func AdminUpdateStatusHttpHandler(c AdminController) func(ctx *gin.Context) {
 
 func AdminRegisterHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
-		var request entity.RegisterRequest
+		var request entity.AdminRegisterRequest
 		if ok := requests.Validate(ctx, &request, requests.Register); !ok {
 			return
 		}
@@ -94,7 +94,7 @@ func AdminUpdateHttpHandler(c AdminController) func(ctx *gin.Context) {
 		var request entity.AdminUpdateRequest
 		j := helpers.GetRequestPayload(ctx)
 		json.Unmarshal(j, &request)
-		
+
 		err := c.AdminUpdate(ctx, &request)
 		if err != nil {
 			response.FailWithMessage(ctx, err.Error())

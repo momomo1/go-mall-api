@@ -22,7 +22,7 @@ type AdminUpdateStatusRequest struct {
 	Status int    `json:"status"`
 }
 
-type RegisterRequest struct {
+type AdminRegisterRequest struct {
 	Username string `json:"username" valid:"username"`
 	NickName string `json:"nickName" valid:"nickName"`
 	Password string `json:"password" valid:"password"`
