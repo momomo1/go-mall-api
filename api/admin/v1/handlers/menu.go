@@ -2,13 +2,19 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"go-mall-api/api/admin/v1/entity"
 	"go-mall-api/pkg/helpers"
 	"go-mall-api/pkg/response"
 	"strconv"
 )
+
+func MenuTreeListHandler(c AdminController) func(ctx *gin.Context) {
+	return func(ctx *gin.Context) {
+		out, _ := c.MenuTreeList(ctx)
+		response.OkWithData(ctx, out)
+	}
+}
 
 func MenuListHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
@@ -69,7 +75,6 @@ func MenuUpdateHandler(c AdminController) func(ctx *gin.Context) {
 		var request entity.MenuUpdateRequest
 		j := helpers.GetRequestPayload(ctx)
 		json.Unmarshal(j, &request)
-		fmt.Println(request, "........")
 		err := c.MenuUpdate(ctx, &request)
 		if err != nil {
 			response.FailWithMessage(ctx, err.Error())

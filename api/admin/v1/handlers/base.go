@@ -25,6 +25,7 @@ type AdminController interface {
 	RoleDelete(*gin.Context, *entity.RoleDeleteRequest) error
 	RoleUpdate(*gin.Context, *entity.RoleUpdateRequest) error
 
+	MenuTreeList(*gin.Context) ([]*entity.MenuTreeListReply, error)
 	MenuList(*gin.Context, *entity.MenuListRequest) (*entity.MenuListReply, error)
 	MenuUpdateHidden(*gin.Context, *entity.MenuUpdateHiddenRequest) error
 	MenuCreate(*gin.Context, *entity.MenuCreateRequest) error

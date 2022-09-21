@@ -8,6 +8,40 @@ import (
 	"time"
 )
 
+func (c AdminController) MenuTreeList(ctx *gin.Context) ([]*entity.MenuTreeListReply, error) {
+	list, total := ums_menu.All()
+	treeMap := make(map[string]*entity.MenuTreeListReply, total)
+	for _, v := range list {
+		id := strconv.Itoa(int(v.ID))
+		treeMap[id] = &entity.MenuTreeListReply{
+			Id:         v.ID,
+			Level:      v.Level,
+			ParentId:   v.ParentId,
+			Hidden:     v.Hidden,
+			Sort:       v.Sort,
+			Name:       v.Name,
+			Title:      v.Title,
+			Icon:       v.Icon,
+			CreateTime: v.CreateTime,
+			Children:   []*entity.MenuTreeListReply{},
+		}
+	}
+	treeData := make([]*entity.MenuTreeListReply, 0, total) //全部的树状数据
+	//无限极分类
+	for _, v := range list {
+		id := strconv.Itoa(int(v.ID))
+		parentId := strconv.FormatInt(v.ParentId, 10)
+		if v.ParentId == 0 {
+			treeData = append(treeData, treeMap[id])
+			continue
+		}
+		if k, ok := treeMap[parentId]; ok {
+			k.Children = append(k.Children, treeMap[id])
+		}
+	}
+	return treeData, nil
+}
+
 func (c AdminController) MenuList(ctx *gin.Context, request *entity.MenuListRequest) (*entity.MenuListReply, error) {
 	where := map[string]interface{}{"parent_id": request.Id}
 
@@ -57,6 +91,16 @@ func (c AdminController) Menu(ctx *gin.Context, request *entity.MenuRequest) (*e
 }
 
 func (c AdminController) MenuUpdate(ctx *gin.Context, request *entity.MenuUpdateRequest) error {
+	menuId := strconv.Itoa(request.Id)
+	menuModel := ums_menu.Get(menuId)
+	menuModel.Updates(map[string]interface{}{
+		"Title":    request.Title,
+		"ParentId": request.ParentId,
+		"Name":     request.Name,
+		"Icon":     request.Icon,
+		"Hidden":   request.Hidden,
+		"Sort":     request.Sort,
+	})
 	return nil
 }
 

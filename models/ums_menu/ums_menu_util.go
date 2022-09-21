@@ -16,8 +16,9 @@ func GetBy(field, value string) (umsMenu UmsMenu) {
 	return
 }
 
-func All() (umsMenus []UmsMenu) {
+func All() (umsMenus []UmsMenu, count int64) {
 	database.DB.Find(&umsMenus)
+	database.DB.Table("ums_menu").Count(&count)
 	return
 }
 

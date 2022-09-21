@@ -3,7 +3,21 @@ package entity
 import (
 	"go-mall-api/models/ums_menu"
 	"go-mall-api/pkg/paginator"
+	"time"
 )
+
+type MenuTreeListReply struct {
+	Id         uint64               `json:"id"`
+	Level      int                  `json:"level"`
+	ParentId   int64                `json:"parentId"`
+	Hidden     int                  `json:"hidden"`
+	Sort       int                  `json:"sort"`
+	Name       string               `json:"name"`
+	Title      string               `json:"title"`
+	Icon       string               `json:"icon"`
+	CreateTime time.Time            `json:"createTime"`
+	Children   []*MenuTreeListReply `json:"children"`
+}
 
 type MenuListRequest struct {
 	Id       string `json:"id"`
@@ -45,7 +59,7 @@ type MenuUpdateRequest struct {
 	Name     string `json:"name"`
 	Icon     string `json:"icon"`
 	Hidden   int    `json:"hidden"`
-	Sort     int    `json:"sort"`
+	Sort     string `json:"sort"`
 }
 
 type MenuDeleteRequest struct {
