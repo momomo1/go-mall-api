@@ -39,6 +39,8 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/role/create", handlers.RoleRegisterHttpHandler(c))
 		admin.POST("/role/delete", handlers.RoleDeleteHttpHandler(c))
 		admin.POST("/role/update/:id", handlers.RoleUpdateHttpHandler(c))
+		admin.GET("/role/listMenu/:id", handlers.RoleListMenuHttpHandler(c))
+		admin.POST("/role/allocMenu", handlers.RoleAllocMenuHttpHandler(c))
 
 		//菜单
 		admin.GET("/menu/treeList", handlers.MenuTreeListHandler(c))
@@ -48,6 +50,19 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.GET("/menu/:id", handlers.MenuHttpHandler(c))
 		admin.POST("/menu/update/:id", handlers.MenuUpdateHandler(c))
 		admin.POST("/menu/delete/:id", handlers.MenuDeleteHandler(c))
+
+		//资源
+		admin.GET("/resource/listAll", handlers.ResourceListAllHttpHandler(c))
+		admin.GET("/resource/list", handlers.ResourceListHttpHandler(c))
+		admin.POST("/resource/create", handlers.ResourceCreateHttpHandler(c))
+		admin.POST("/resource/update/:id", handlers.ResourceUpdateHttpHandler(c))
+		admin.POST("/resource/delete/:id", handlers.ResourceDeleteHttpHandler(c))
+
+		//资源分类
+		admin.GET("/resourceCategory/listAll", handlers.ResourceCategoryListAllHttpHandler(c))
+		admin.POST("/resourceCategory/create", handlers.ResourceCategoryCreateHttpHandler(c))
+		admin.POST("/resourceCategory/update/:id", handlers.ResourceCategoryUpdateHttpHandler(c))
+		admin.POST("/resourceCategory/delete/:id", handlers.ResourceCategoryDeleteHttpHandler(c))
 
 		//待实现接口
 		//商品
@@ -175,21 +190,8 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/home/advertise/update/:id", Placeholder(c))
 		admin.POST("/home/advertise/delete", Placeholder(c))
 
-		admin.GET("/role/listMenu/:id", Placeholder(c))
-		admin.POST("/role/allocMenu", Placeholder(c))
 		admin.GET("/role/listResource/:id", Placeholder(c))
 		admin.POST("/role/allocResource", Placeholder(c))
-
-		admin.GET("/resource/listAll", Placeholder(c))
-		admin.GET("/resource/list", Placeholder(c))
-		admin.POST("/resource/create", Placeholder(c))
-		admin.POST("/resource/update/:id", Placeholder(c))
-		admin.POST("/resource/delete/:id", Placeholder(c))
-
-		admin.GET("/resourceCategory/listAll", Placeholder(c))
-		admin.POST("/resourceCategory/create", Placeholder(c))
-		admin.POST("/resourceCategory/update/:id", Placeholder(c))
-		admin.POST("/resourceCategory/delete/:id", Placeholder(c))
 	}
 }
 

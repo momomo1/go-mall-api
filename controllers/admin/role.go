@@ -5,6 +5,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-mall-api/api/admin/v1/entity"
 	"go-mall-api/models/ums_role"
+	"go-mall-api/models/ums_role_menu_relation"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -19,7 +22,7 @@ func (c AdminController) RoleList(ctx *gin.Context, request *entity.RoleListRequ
 	if request.Keyword != "" {
 		where = fmt.Sprintf("name LIKE %s", "'%"+request.Keyword+"%'")
 	}
-	
+
 	list, paging := ums_role.Paginate(ctx, request.PageSize, where)
 	for _, v := range list {
 		v.CreateTime.Format("2006-01-02 15:04:05")
@@ -61,5 +64,34 @@ func (c AdminController) RoleUpdate(ctx *gin.Context, request *entity.RoleUpdate
 		"Description": request.Description,
 		"Status":      request.Status,
 	})
+	return nil
+}
+
+func (c AdminController) RoleListMenu(ctx *gin.Context, request *entity.RoleListMenuRequest) ([]*entity.RoleListMenuReply, error) {
+	relation, count := ums_role_menu_relation.GetByRoleIdFind(request.Id)
+	reply := make([]*entity.RoleListMenuReply, 0, count)
+	for _, v := range relation {
+		interposition := &entity.RoleListMenuReply{
+			Id: v.MenuId,
+		}
+		reply = append(reply, interposition)
+	}
+	return reply, nil
+}
+
+func (c AdminController) RoleAllocMenu(ctx *gin.Context, request *entity.RoleAllocMenuRequest) error {
+	roleId, _ := strconv.ParseInt(request.RoleId, 10, 64)
+	menuIds := strings.SplitN(request.MenuIds, ",", -1)
+	
+	ums_role_menu_relation.DeleteByAdminId(request.RoleId)
+	for _, v := range menuIds {
+		MenuId, _ := strconv.ParseInt(v, 10, 64)
+		relationModel := ums_role_menu_relation.UmsRoleMenuRelation{
+			RoleId: roleId,
+			MenuId: MenuId,
+		}
+		relationModel.Create()
+	}
+
 	return nil
 }

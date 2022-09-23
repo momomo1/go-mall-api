@@ -41,3 +41,16 @@ type RoleUpdateRequest struct {
 	Description string `json:"description" valid:"description"`
 	Status      int    `json:"status" valid:"status"`
 }
+
+type RoleListMenuRequest struct {
+	Id string `json:"id"`
+}
+
+type RoleListMenuReply struct {
+	Id int64 `json:"id"`
+}
+
+type RoleAllocMenuRequest struct {
+	RoleId  string `json:"roleId"`
+	MenuIds string `json:"menuIds"`
+}
