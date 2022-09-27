@@ -14,12 +14,26 @@ import (
 
 func (c AdminController) AdminList(ctx *gin.Context, request *entity.ListRequest) (reply *entity.ListReply, err error) {
 	list, paging := ums_admin.Paginate(ctx, request.PageSize, request.Keyword)
+	adminList := make([]entity.AdminList, 0, request.PageSize)
+
 	for _, v := range list {
-		v.CreateTime.Format("2006-01-02 15:04:05")
+		interposition := entity.AdminList{
+			Id:         v.ID,
+			Status:     v.Status,
+			UserName:   v.Username,
+			NickName:   v.NickName,
+			Email:      v.Email,
+			LoginTime:  v.LoginTime.Format("2006-01-02 15:04:05"),
+			CreateTime: v.CreateTime.Format("2006-01-02 15:04:05"),
+			Password:   v.Password,
+			Icon:       v.Icon,
+			Note:       v.Note,
+		}
+		adminList = append(adminList, interposition)
 	}
 
 	return &entity.ListReply{
-		List:        list,
+		List:        adminList,
 		PagingAdmin: paging,
 	}, nil
 }

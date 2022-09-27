@@ -1,7 +1,6 @@
 package entity
 
 import (
-	"go-mall-api/models/ums_admin"
 	"go-mall-api/models/ums_role"
 	"go-mall-api/pkg/paginator"
 )
@@ -13,8 +12,21 @@ type ListRequest struct {
 }
 
 type ListReply struct {
-	List []ums_admin.UmsAdmin `json:"list"`
+	List []AdminList `json:"list"`
 	paginator.PagingAdmin
+}
+
+type AdminList struct {
+	Id         uint64 `json:"id"`
+	Status     *int   `json:"status"`
+	UserName   string `json:"username"`
+	NickName   string `json:"nickName"`
+	Email      string `json:"email"`
+	CreateTime string `json:"createTime"`
+	LoginTime  string `json:"loginTime"`
+	Password   string `json:"password"`
+	Icon       string `json:"icon"`
+	Note       string `json:"note"`
 }
 
 type AdminUpdateStatusRequest struct {

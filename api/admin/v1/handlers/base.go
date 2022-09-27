@@ -26,6 +26,8 @@ type AdminController interface {
 	RoleUpdate(*gin.Context, *entity.RoleUpdateRequest) error
 	RoleListMenu(*gin.Context, *entity.RoleListMenuRequest) ([]*entity.RoleListMenuReply, error)
 	RoleAllocMenu(*gin.Context, *entity.RoleAllocMenuRequest) error
+	RoleListResource(*gin.Context, *entity.RoleListResourceRequest) ([]*entity.RoleListResourceReply, error)
+	RoleAllocResource(*gin.Context, *entity.RoleAllocResourceRequest) error
 
 	MenuTreeList(*gin.Context) ([]*entity.MenuTreeListReply, error)
 	MenuList(*gin.Context, *entity.MenuListRequest) (*entity.MenuListReply, error)
@@ -35,11 +37,11 @@ type AdminController interface {
 	MenuUpdate(*gin.Context, *entity.MenuUpdateRequest) error
 	MenuDelete(*gin.Context, *entity.MenuDeleteRequest) error
 
-	ResourceListAll(*gin.Context) error
+	ResourceListAll(*gin.Context) ([]*entity.ResourceList, error)
 	ResourceList(*gin.Context, *entity.ResourceListRequest) (*entity.ResourceListReply, error)
-	ResourceCreate(*gin.Context) error
-	ResourceUpdate(*gin.Context) error
-	ResourceDelete(*gin.Context) error
+	ResourceCreate(*gin.Context, *entity.ResourceCreateRequest) error
+	ResourceUpdate(*gin.Context, *entity.ResourceUpdateRequest) error
+	ResourceDelete(*gin.Context, *entity.ResourceDeleteRequest) error
 
 	ResourceCategoryListAll(*gin.Context) ([]*entity.ResourceCategoryListAllReply, error)
 	ResourceCategoryCreate(*gin.Context, *entity.ResourceCategoryCreateRequest) error

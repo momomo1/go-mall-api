@@ -10,8 +10,21 @@ import (
 	"time"
 )
 
-func (c AdminController) ResourceListAll(ctx *gin.Context) error {
-	return nil
+func (c AdminController) ResourceListAll(ctx *gin.Context) ([]*entity.ResourceList, error) {
+	list, count := ums_resource.All()
+	replyList := make([]*entity.ResourceList, 0, count)
+	for _, v := range list {
+		interposition := &entity.ResourceList{
+			Id:          v.Id,
+			CategoryId:  v.CategoryId,
+			Name:        v.Name,
+			Url:         v.Url,
+			Description: v.Description,
+			CreateTime:  v.CreateTime.Format("2006-01-02 15:04:05"),
+		}
+		replyList = append(replyList, interposition)
+	}
+	return replyList, nil
 }
 
 func (c AdminController) ResourceList(ctx *gin.Context, request *entity.ResourceListRequest) (*entity.ResourceListReply, error) {
@@ -48,15 +61,32 @@ func (c AdminController) ResourceList(ctx *gin.Context, request *entity.Resource
 	}, nil
 }
 
-func (c AdminController) ResourceCreate(ctx *gin.Context) error {
+func (c AdminController) ResourceCreate(ctx *gin.Context, request *entity.ResourceCreateRequest) error {
+	categoryModel := ums_resource.UmsResource{
+		Name:        request.Name,
+		Url:         request.Url,
+		Description: request.Description,
+		CategoryId:  request.CategoryId,
+		CreateTime:  time.Now(),
+	}
+	categoryModel.Create()
 	return nil
 }
 
-func (c AdminController) ResourceUpdate(ctx *gin.Context) error {
+func (c AdminController) ResourceUpdate(ctx *gin.Context, request *entity.ResourceUpdateRequest) error {
+	resourceModel := ums_resource.Get(strconv.Itoa(request.Id))
+	resourceModel.Updates(map[string]interface{}{
+		"Name":        request.Name,
+		"Url":         request.Url,
+		"Description": request.Description,
+		"CategoryId":  request.CategoryId,
+	})
 	return nil
 }
 
-func (c AdminController) ResourceDelete(ctx *gin.Context) error {
+func (c AdminController) ResourceDelete(ctx *gin.Context, request *entity.ResourceDeleteRequest) error {
+	resourceModel := ums_resource.Get(request.Id)
+	resourceModel.Delete()
 	return nil
 }
 

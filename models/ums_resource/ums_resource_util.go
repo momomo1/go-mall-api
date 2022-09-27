@@ -16,8 +16,9 @@ func GetBy(field, value string) (umsResource UmsResource) {
 	return
 }
 
-func All() (umsResources []UmsResource) {
+func All() (umsResources []UmsResource, count int64) {
 	database.DB.Find(&umsResources)
+	database.DB.Table("ums_resource").Count(&count)
 	return
 }
 

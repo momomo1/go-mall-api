@@ -26,6 +26,25 @@ type ResourceListReply struct {
 	paginator.PagingAdmin
 }
 
+type ResourceCreateRequest struct {
+	Name        string `json:"name"`
+	Url         string `json:"url"`
+	Description string `json:"description"`
+	CategoryId  int64  `json:"categoryId"`
+}
+
+type ResourceUpdateRequest struct {
+	Id          int    `json:"id,omitempty"`
+	Name        string `json:"name"`
+	Url         string `json:"url"`
+	Description string `json:"description"`
+	CategoryId  int64  `json:"categoryId"`
+}
+
+type ResourceDeleteRequest struct {
+	Id string `json:"id,omitempty" valid:"id"`
+}
+
 type ResourceCategoryListAllReply struct {
 	Id         int64  `json:"id"`
 	Sort       int    `json:"sort"`

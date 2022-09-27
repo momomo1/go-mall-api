@@ -11,7 +11,8 @@ import (
 
 func ResourceListAllHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
-		response.Ok(ctx)
+		out, _ := c.ResourceListAll(ctx)
+		response.OkWithData(ctx, out)
 	}
 }
 
@@ -33,18 +34,42 @@ func ResourceListHttpHandler(c AdminController) func(ctx *gin.Context) {
 
 func ResourceCreateHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
+		var request entity.ResourceCreateRequest
+		j := helpers.GetRequestPayload(ctx)
+		json.Unmarshal(j, &request)
+
+		err := c.ResourceCreate(ctx, &request)
+		if err != nil {
+			response.FailWithMessage(ctx, err.Error())
+			return
+		}
 		response.Ok(ctx)
 	}
 }
 
 func ResourceUpdateHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
+		var request entity.ResourceUpdateRequest
+		j := helpers.GetRequestPayload(ctx)
+		json.Unmarshal(j, &request)
+		err := c.ResourceUpdate(ctx, &request)
+		if err != nil {
+			response.FailWithMessage(ctx, err.Error())
+			return
+		}
 		response.Ok(ctx)
 	}
 }
 
 func ResourceDeleteHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
+		var request entity.ResourceDeleteRequest
+		request.Id = ctx.Param("id")
+		err := c.ResourceDelete(ctx, &request)
+		if err != nil {
+			response.FailWithMessage(ctx, err.Error())
+			return
+		}
 		response.Ok(ctx)
 	}
 }

@@ -41,6 +41,8 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/role/update/:id", handlers.RoleUpdateHttpHandler(c))
 		admin.GET("/role/listMenu/:id", handlers.RoleListMenuHttpHandler(c))
 		admin.POST("/role/allocMenu", handlers.RoleAllocMenuHttpHandler(c))
+		admin.GET("/role/listResource/:id", handlers.RoleListResourceHttpHandler(c))
+		admin.POST("/role/allocResource", handlers.RoleAllocResourceHttpHandler(c))
 
 		//菜单
 		admin.GET("/menu/treeList", handlers.MenuTreeListHandler(c))
@@ -189,9 +191,6 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/home/advertise/create", Placeholder(c))
 		admin.POST("/home/advertise/update/:id", Placeholder(c))
 		admin.POST("/home/advertise/delete", Placeholder(c))
-
-		admin.GET("/role/listResource/:id", Placeholder(c))
-		admin.POST("/role/allocResource", Placeholder(c))
 	}
 }
 

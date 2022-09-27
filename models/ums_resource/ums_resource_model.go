@@ -29,6 +29,11 @@ func (umsResource *UmsResource) Save() (rowsAffected int64) {
 	return result.RowsAffected
 }
 
+func (umsResource *UmsResource) Updates(data map[string]interface{}) (rowsAffected int64) {
+	result := database.DB.Model(&umsResource).Updates(data)
+	return result.RowsAffected
+}
+
 func (umsResource *UmsResource) Delete() (rowsAffected int64) {
 	result := database.DB.Delete(&umsResource)
 	return result.RowsAffected

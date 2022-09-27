@@ -122,3 +122,30 @@ func RoleAllocMenuHttpHandler(c AdminController) func(ctx *gin.Context) {
 		response.Ok(ctx)
 	}
 }
+
+func RoleListResourceHttpHandler(c AdminController) func(ctx *gin.Context) {
+	return func(ctx *gin.Context) {
+		var request entity.RoleListResourceRequest
+		id := ctx.Param("id")
+		request.Id = id
+
+		out, _ := c.RoleListResource(ctx, &request)
+
+		response.OkWithData(ctx, out)
+	}
+}
+
+func RoleAllocResourceHttpHandler(c AdminController) func(ctx *gin.Context) {
+	return func(ctx *gin.Context) {
+		var request entity.RoleAllocResourceRequest
+		request.RoleId = ctx.PostForm("roleId")
+		request.ResourceIds = ctx.PostForm("resourceIds")
+
+		err := c.RoleAllocResource(ctx, &request)
+		if err != nil {
+			response.FailWithMessage(ctx, err.Error())
+			return
+		}
+		response.Ok(ctx)
+	}
+}

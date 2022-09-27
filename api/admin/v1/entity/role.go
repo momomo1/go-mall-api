@@ -16,8 +16,18 @@ type RoleListRequest struct {
 }
 
 type RoleListReply struct {
-	List []ums_role.UmsRole `json:"list"`
+	List []RoleList `json:"list"`
 	paginator.PagingAdmin
+}
+
+type RoleList struct {
+	Id          uint64 `json:"id"`
+	AdminCount  int    `json:"adminCount"`
+	Sort        int    `json:"sort"`
+	Status      *int   `json:"status"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	CreateTime  string `json:"createTime"`
 }
 
 type RoleUpdateStatusRequest struct {
@@ -53,4 +63,17 @@ type RoleListMenuReply struct {
 type RoleAllocMenuRequest struct {
 	RoleId  string `json:"roleId"`
 	MenuIds string `json:"menuIds"`
+}
+
+type RoleListResourceRequest struct {
+	Id string `json:"id"`
+}
+
+type RoleListResourceReply struct {
+	Id int64 `json:"id"`
+}
+
+type RoleAllocResourceRequest struct {
+	RoleId      string `json:"roleId"`
+	ResourceIds string `json:"resourceIds"`
 }
