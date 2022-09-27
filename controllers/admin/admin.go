@@ -13,7 +13,7 @@ import (
 )
 
 func (c AdminController) AdminList(ctx *gin.Context, request *entity.ListRequest) (reply *entity.ListReply, err error) {
-	list, paging := ums_admin.Paginate(ctx, request.PageSize, request.Keyword)
+	list, paging := ums_admin.Paginate(ctx, request.PageSize, request.Keyword, "id")
 	adminList := make([]entity.AdminList, 0, request.PageSize)
 
 	for _, v := range list {

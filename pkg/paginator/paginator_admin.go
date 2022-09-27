@@ -16,13 +16,13 @@ type PagingAdmin struct {
 	TotalPage int   `json:"totalPage"` // 总页数
 }
 
-func PaginateAdmin(c *gin.Context, db *gorm.DB, data interface{}, where interface{}, perPage int) PagingAdmin {
+func PaginateAdmin(c *gin.Context, db *gorm.DB, data interface{}, where interface{}, perPage int, sort string) PagingAdmin {
 	// 初始化 Paginator 实例
 	p := &Paginator{
 		query: db,
 		ctx:   c,
 	}
-	p.initPropertiesAdmin(perPage, where)
+	p.initPropertiesAdmin(perPage, where, sort)
 
 	// 查询数据库
 	err := p.query.Preload(clause.Associations). // 读取关联
@@ -48,12 +48,12 @@ func PaginateAdmin(c *gin.Context, db *gorm.DB, data interface{}, where interfac
 }
 
 // 初始化分页必须用到的属性，基于这些属性查询数据库
-func (p *Paginator) initPropertiesAdmin(perPage int, where interface{}) {
+func (p *Paginator) initPropertiesAdmin(perPage int, where interface{}, sort string) {
 	p.PerPage = p.getPerPage(perPage)
 
 	// 排序参数（控制器中以验证过这些参数，可放心使用）
-	p.Order = p.ctx.DefaultQuery(config.Get("paging.url_query_order"), "asc")
-	p.Sort = p.ctx.DefaultQuery(config.Get("paging.url_query_sort"), "id")
+	p.Order = p.ctx.DefaultQuery(config.Get("paging.url_query_order"), "desc")
+	p.Sort = p.ctx.DefaultQuery(sort, sort)
 
 	p.TotalCount = p.getTotalCount(where)
 	p.TotalPage = p.getTotalPage()

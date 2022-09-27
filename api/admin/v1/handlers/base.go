@@ -47,4 +47,12 @@ type AdminController interface {
 	ResourceCategoryCreate(*gin.Context, *entity.ResourceCategoryCreateRequest) error
 	ResourceCategoryUpdate(*gin.Context, *entity.ResourceCategoryUpdateRequest) error
 	ResourceCategoryDelete(*gin.Context, *entity.ResourceCategoryDeleteRequest) error
+
+	Brand(*gin.Context, *entity.BrandRequest) (*entity.BrandList, error)
+	BrandList(*gin.Context, *entity.BrandListRequest) (*entity.BrandListReply, error)
+	BrandCreate(*gin.Context, *entity.BrandCreateRequest) error
+	BrandUpdate(*gin.Context, *entity.BrandUpdateRequest) error
+	BrandDelete(*gin.Context, *entity.BrandDeleteRequest) error
+	BrandUpdateFactoryStatus(*gin.Context, *entity.BrandUpdateFactoryStatusRequest) error
+	BrandUpdateShowStatus(*gin.Context, *entity.BrandUpdateShowStatusRequest) error
 }

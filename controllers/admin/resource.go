@@ -42,7 +42,7 @@ func (c AdminController) ResourceList(ctx *gin.Context, request *entity.Resource
 		where += fmt.Sprintf("category_id = %d", request.CategoryId)
 	}
 
-	list, paging := ums_resource.Paginate(ctx, request.PageSize, where)
+	list, paging := ums_resource.Paginate(ctx, request.PageSize, where, "id")
 	replyList := make([]entity.ResourceList, 0, request.PageSize)
 	for _, v := range list {
 		interposition := entity.ResourceList{

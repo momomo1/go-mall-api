@@ -45,7 +45,7 @@ func (c AdminController) MenuTreeList(ctx *gin.Context) ([]*entity.MenuTreeListR
 func (c AdminController) MenuList(ctx *gin.Context, request *entity.MenuListRequest) (*entity.MenuListReply, error) {
 	where := map[string]interface{}{"parent_id": request.Id}
 
-	list, paging := ums_menu.Paginate(ctx, request.PageSize, where)
+	list, paging := ums_menu.Paginate(ctx, request.PageSize, where, "id")
 	return &entity.MenuListReply{
 		List:        list,
 		PagingAdmin: paging,

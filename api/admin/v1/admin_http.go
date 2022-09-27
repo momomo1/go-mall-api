@@ -20,10 +20,12 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 	// 作为参考 API 每小时最多 60 个请求（根据 IP）。
 	admin.Use(middlewares.LimitIP("208-H"), middlewares.AuthJWTAdmin())
 	{
-		// 用户信息
+		//用户信息
 		admin.GET("admin/info", handlers.InfoHttpHandler(c))
+		//上传图片
+		admin.GET("aliyun/oss/policy", Placeholder(c))
 
-		// 用户列表
+		//权限-用户列表
 		admin.GET("/admin/list", handlers.AdminListHttpHandler(c))
 		admin.POST("/admin/updateStatus/:id", handlers.AdminUpdateStatusHttpHandler(c))
 		admin.GET("/admin/role/:id", handlers.AdminRolesHttpHandler(c))
@@ -32,7 +34,7 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/admin/update/:id", handlers.AdminUpdateHttpHandler(c))
 		admin.POST("/admin/delete/:id", handlers.AdminDeleteHttpHandler(c))
 
-		// 角色
+		//权限-角色
 		admin.GET("/role/listAll", handlers.RoleListAllHttpHandler(c))
 		admin.GET("/role/list", handlers.RoleListHttpHandler(c))
 		admin.POST("/role/updateStatus/:id", handlers.RoleUpdateStatusHttpHandler(c))
@@ -44,7 +46,7 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.GET("/role/listResource/:id", handlers.RoleListResourceHttpHandler(c))
 		admin.POST("/role/allocResource", handlers.RoleAllocResourceHttpHandler(c))
 
-		//菜单
+		//权限-菜单
 		admin.GET("/menu/treeList", handlers.MenuTreeListHandler(c))
 		admin.GET("/menu/list/:id", handlers.MenuListHttpHandler(c))
 		admin.POST("/menu/updateHidden/:id", handlers.MenuUpdateHiddenHttpHandler(c))
@@ -53,18 +55,27 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/menu/update/:id", handlers.MenuUpdateHandler(c))
 		admin.POST("/menu/delete/:id", handlers.MenuDeleteHandler(c))
 
-		//资源
+		//权限-资源
 		admin.GET("/resource/listAll", handlers.ResourceListAllHttpHandler(c))
 		admin.GET("/resource/list", handlers.ResourceListHttpHandler(c))
 		admin.POST("/resource/create", handlers.ResourceCreateHttpHandler(c))
 		admin.POST("/resource/update/:id", handlers.ResourceUpdateHttpHandler(c))
 		admin.POST("/resource/delete/:id", handlers.ResourceDeleteHttpHandler(c))
 
-		//资源分类
+		//权限-资源分类
 		admin.GET("/resourceCategory/listAll", handlers.ResourceCategoryListAllHttpHandler(c))
 		admin.POST("/resourceCategory/create", handlers.ResourceCategoryCreateHttpHandler(c))
 		admin.POST("/resourceCategory/update/:id", handlers.ResourceCategoryUpdateHttpHandler(c))
 		admin.POST("/resourceCategory/delete/:id", handlers.ResourceCategoryDeleteHttpHandler(c))
+
+		//商品-品牌管理
+		admin.GET("/brand/:id", handlers.BrandHttpHandler(c))
+		admin.GET("/brand/list", handlers.BrandListHandler(c))
+		admin.POST("/brand/create", handlers.BrandCreateHandler(c))
+		admin.POST("/brand/update/:id", handlers.BrandUpdateHandler(c))
+		admin.GET("/brand/delete/:id", handlers.BrandDeleteHandler(c))
+		admin.POST("/brand/update/factoryStatus", handlers.BrandUpdateFactoryStatusHandler(c))
+		admin.POST("/brand/update/showStatus", handlers.BrandUpdateShowStatusHttpHandler(c))
 
 		//待实现接口
 		//商品
@@ -87,13 +98,6 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/productAttribute/category/create", Placeholder(c))
 		admin.POST("/productAttribute/category/update/:id", Placeholder(c))
 		admin.GET("/productAttribute/category/delete/:id", Placeholder(c))
-
-		admin.GET("/brand/:id", Placeholder(c))
-		admin.GET("/brand/list", Placeholder(c))
-		admin.POST("/brand/update/:id", Placeholder(c))
-		admin.GET("/brand/delete/:id", Placeholder(c))
-		admin.POST("/brand/update/factoryStatus", Placeholder(c))
-		admin.POST("/brand/update/showStatus", Placeholder(c))
 
 		admin.GET("/prefrenceArea/listAll", Placeholder(c))
 		admin.GET("/memberLevel/list", Placeholder(c))

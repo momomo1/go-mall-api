@@ -22,6 +22,11 @@ func ({{VariableName}} *{{StructName}}) Save() (rowsAffected int64) {
     return result.RowsAffected
 }
 
+func ({{VariableName}} *{{StructName}}) Updates(data map[string]interface{}) (rowsAffected int64) {
+	result := database.DB.Model(&{{VariableName}}).Updates(data)
+	return result.RowsAffected
+}
+
 func ({{VariableName}} *{{StructName}}) Delete() (rowsAffected int64) {
     result := database.DB.Delete(&{{VariableName}})
     return result.RowsAffected

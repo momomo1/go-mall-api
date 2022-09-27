@@ -60,13 +60,14 @@ func GetRoleMenu(id []int64) (menus []interface{}) {
 }
 
 // Paginate 分页内容
-func Paginate(c *gin.Context, perPage int, where interface{}) (roles []UmsRole, paging paginator.PagingAdmin) {
+func Paginate(c *gin.Context, perPage int, where interface{}, sort string) (roles []UmsRole, paging paginator.PagingAdmin) {
 	paging = paginator.PaginateAdmin(
 		c,
 		database.DB.Model(UmsRole{}),
 		&roles,
 		where,
 		perPage,
+		sort,
 	)
 	return
 }

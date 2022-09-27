@@ -68,7 +68,7 @@ func GetUserRole(id uint64) (roles []string) {
 }
 
 // Paginate 分页内容
-func Paginate(c *gin.Context, perPage int, keyword string) (users []UmsAdmin, paging paginator.PagingAdmin) {
+func Paginate(c *gin.Context, perPage int, keyword string, sort string) (users []UmsAdmin, paging paginator.PagingAdmin) {
 	where := map[string]interface{}{}
 	if keyword != "" {
 		where["username"] = keyword
@@ -80,6 +80,7 @@ func Paginate(c *gin.Context, perPage int, keyword string) (users []UmsAdmin, pa
 		&users,
 		where,
 		perPage,
+		sort,
 	)
 	return
 }

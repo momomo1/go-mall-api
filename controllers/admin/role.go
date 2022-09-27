@@ -23,7 +23,7 @@ func (c AdminController) RoleList(ctx *gin.Context, request *entity.RoleListRequ
 	if request.Keyword != "" {
 		where = fmt.Sprintf("name LIKE %s", "'%"+request.Keyword+"%'")
 	}
-	list, paging := ums_role.Paginate(ctx, request.PageSize, where)
+	list, paging := ums_role.Paginate(ctx, request.PageSize, where, "id")
 	roleList := make([]entity.RoleList, 0, request.PageSize)
 	for _, v := range list {
 		interposition := entity.RoleList{
