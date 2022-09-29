@@ -77,28 +77,31 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/brand/update/factoryStatus", handlers.BrandUpdateFactoryStatusHandler(c))
 		admin.POST("/brand/update/showStatus", handlers.BrandUpdateShowStatusHttpHandler(c))
 
+		//商品-商品类型
+		admin.GET("/productAttribute/:id", handlers.ProductAttributeHttpHandler(c))
+		admin.GET("/productAttribute/attrInfo/:id", handlers.ProductAttributeAttrInfoHttpHandler(c))
+		admin.GET("/productAttribute/list/:id", handlers.ProductAttributeListHttpHandler(c))
+		admin.POST("/productAttribute/create", handlers.ProductAttributeCreateHttpHandler(c))
+		admin.POST("/productAttribute/update/:id", handlers.ProductAttributeUpdateHttpHandler(c))
+		admin.POST("/productAttribute/delete", handlers.ProductAttributeDeleteHttpHandler(c))
+		admin.GET("/productAttribute/category/list", handlers.ProductAttributeCategoryListHttpHandler(c))
+		admin.GET("/productAttribute/category/list/withAttr", handlers.ProductAttributeCategoryListWithAttrHttpHandler(c))
+		admin.POST("/productAttribute/category/create", handlers.ProductAttributeCategoryCreateHttpHandler(c))
+		admin.POST("/productAttribute/category/update/:id", handlers.ProductAttributeCategoryUpdateHttpHandler(c))
+		admin.GET("/productAttribute/category/delete/:id", handlers.ProductAttributeCategoryDeleteHttpHandler(c))
+
+		//商品-商品分类
+		admin.GET("/productCategory/:id", handlers.ProductCategoryHttpHandler(c))
+		admin.GET("/productCategory/list/:id", handlers.ProductCategoryListHttpHandler(c))
+		admin.GET("/productCategory/list/withChildren", handlers.ProductCategoryListWithChildrenHttpHandler(c))
+		admin.POST("/productCategory/update/navStatus", handlers.ProductCategoryUpdateNavStatusHttpHandler(c))
+		admin.POST("/productCategory/update/showStatus", handlers.ProductCategoryUpdateShowStatusHttpHandler(c))
+		admin.POST("/productCategory/create", handlers.ProductCategoryCreateHttpHandler(c))
+		admin.POST("/productCategory/update/:id", handlers.ProductCategoryUpdateHttpHandler(c))
+		admin.POST("/productCategory/delete/:id", handlers.ProductCategoryDeleteHttpHandler(c))
+
 		//待实现接口
 		//商品
-		admin.GET("/productCategory/:id", Placeholder(c))
-		admin.GET("/productCategory/list/:id", Placeholder(c))
-		admin.GET("/productCategory/list/withChildren", Placeholder(c))
-		admin.POST("/productCategory/update/navStatus", Placeholder(c))
-		admin.POST("/productCategory/update/showStatus", Placeholder(c))
-		admin.POST("/productCategory/create", Placeholder(c))
-		admin.POST("/productCategory/update/:id", Placeholder(c))
-		admin.POST("/productCategory/delete/:id", Placeholder(c))
-
-		admin.GET("/productAttribute/attrInfo/:id", Placeholder(c))
-		admin.GET("/productAttribute/list/:id", Placeholder(c))
-		admin.POST("/productAttribute/create", Placeholder(c))
-		admin.POST("/productAttribute/update/:id", Placeholder(c))
-		admin.POST("/productAttribute/delete", Placeholder(c))
-		admin.GET("/productAttribute/category/list", Placeholder(c))
-		admin.GET("/productAttribute/category/list/withAttr", Placeholder(c))
-		admin.POST("/productAttribute/category/create", Placeholder(c))
-		admin.POST("/productAttribute/category/update/:id", Placeholder(c))
-		admin.GET("/productAttribute/category/delete/:id", Placeholder(c))
-
 		admin.GET("/prefrenceArea/listAll", Placeholder(c))
 		admin.GET("/memberLevel/list", Placeholder(c))
 		admin.GET("/subject/list", Placeholder(c))

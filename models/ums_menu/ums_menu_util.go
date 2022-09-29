@@ -29,7 +29,7 @@ func IsExist(field, value string) bool {
 }
 
 // Paginate 分页内容
-func Paginate(c *gin.Context, perPage int, where interface{}, sort string) (menus []UmsMenu, paging paginator.PagingAdmin) {
+func Paginate(c *gin.Context, perPage int, where interface{}, sort string, order string) (menus []UmsMenu, paging paginator.PagingAdmin) {
 	paging = paginator.PaginateAdmin(
 		c,
 		database.DB.Model(UmsMenu{}),
@@ -37,6 +37,7 @@ func Paginate(c *gin.Context, perPage int, where interface{}, sort string) (menu
 		where,
 		perPage,
 		sort,
+		order,
 	)
 	return
 }

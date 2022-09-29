@@ -31,7 +31,7 @@ func (c AdminController) BrandList(ctx *gin.Context, request *entity.BrandListRe
 	if request.Keyword != "" {
 		where += fmt.Sprintf("name LIKE %s", "'%"+request.Keyword+"%'")
 	}
-	list, paging := pms_brand.Paginate(ctx, request.PageSize, where, "sort")
+	list, paging := pms_brand.Paginate(ctx, request.PageSize, where, "sort", "desc")
 	replyList := make([]entity.BrandList, 0, request.PageSize)
 	for _, v := range list {
 		interposition := entity.BrandList{
