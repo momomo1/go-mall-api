@@ -1,9 +1,21 @@
 package entity
 
-import "go-mall-api/pkg/paginator"
+import (
+	"go-mall-api/models/pms_product_attribute"
+	"go-mall-api/pkg/paginator"
+)
 
-type ProductAttribute struct {
+type ProductAttributeRequest struct {
 	Id string `json:"id"`
+}
+
+type ProductAttributeAttrInfoRequest struct {
+	Id string `json:"id"`
+}
+
+type ProductAttributeAttrInfoReply struct {
+	AttributeCategoryId int64 `json:"attributeCategoryId"`
+	AttributeId         int64 `json:"attributeId"`
 }
 
 type ProductAttributeListRequest struct {
@@ -94,4 +106,12 @@ type ProductAttributeCategoryUpdateRequest struct {
 
 type ProductAttributeCategoryDeleteRequest struct {
 	Id string `json:"id"`
+}
+
+type ProductAttributeCategoryListWithAttrReply struct {
+	Id                   uint64                                      `json:"id"`
+	AttributeCount       int                                         `json:"attributeCount"`
+	ParamCount           int                                         `json:"paramCount"`
+	Name                 string                                      `json:"name"`
+	ProductAttributeList []pms_product_attribute.PmsProductAttribute `json:"productAttributeList"`
 }

@@ -29,6 +29,7 @@ func (pmsProductCategory *PmsProductCategory) TableName() string {
 
 func (pmsProductCategory *PmsProductCategory) Create() {
 	database.DB.Create(&pmsProductCategory)
+	return
 }
 
 func (pmsProductCategory *PmsProductCategory) Save() (rowsAffected int64) {

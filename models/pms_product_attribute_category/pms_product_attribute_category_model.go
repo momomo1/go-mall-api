@@ -3,6 +3,7 @@ package pms_product_attribute_category
 
 import (
 	"go-mall-api/models"
+	"go-mall-api/models/pms_product_attribute"
 	"go-mall-api/pkg/database"
 )
 
@@ -10,9 +11,10 @@ import (
 type PmsProductAttributeCategory struct {
 	models.BaseModel
 
-	Name           string `gorm:"column:name;type:varchar(64)" json:"name"`
-	AttributeCount int    `gorm:"column:attribute_count;type:int(11);default:0;comment:属性数量" json:"attribute_count"`
-	ParamCount     int    `gorm:"column:param_count;type:int(11);default:0;comment:参数数量" json:"param_count"`
+	Name                 string                                      `gorm:"column:name;type:varchar(64)" json:"name"`
+	AttributeCount       int                                         `gorm:"column:attribute_count;type:int(11);default:0;comment:属性数量" json:"attribute_count"`
+	ParamCount           int                                         `gorm:"column:param_count;type:int(11);default:0;comment:参数数量" json:"param_count"`
+	PmsProductAttributes []pms_product_attribute.PmsProductAttribute `gorm:"foreignKey:ProductAttributeCategoryId" json:"pms_product_attributes"`
 }
 
 func (pmsProductAttributeCategory *PmsProductAttributeCategory) TableName() string {

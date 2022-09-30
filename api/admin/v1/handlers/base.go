@@ -56,24 +56,24 @@ type AdminController interface {
 	BrandUpdateFactoryStatus(*gin.Context, *entity.BrandUpdateFactoryStatusRequest) error
 	BrandUpdateShowStatus(*gin.Context, *entity.BrandUpdateShowStatusRequest) error
 
-	ProductAttribute(*gin.Context, *entity.ProductAttribute) (*entity.ProductAttributeList, error)
-	ProductAttributeAttrInfo(*gin.Context) error
+	ProductAttribute(*gin.Context, *entity.ProductAttributeRequest) (*entity.ProductAttributeList, error)
+	ProductAttributeAttrInfo(*gin.Context, *entity.ProductAttributeAttrInfoRequest) ([]*entity.ProductAttributeAttrInfoReply, error)
 	ProductAttributeList(*gin.Context, *entity.ProductAttributeListRequest) (*entity.ProductAttributeListReply, error)
 	ProductAttributeCreate(*gin.Context, *entity.ProductAttributeCreateRequest) error
 	ProductAttributeUpdate(*gin.Context, *entity.ProductAttributeUpdateRequest) error
 	ProductAttributeDelete(*gin.Context, *entity.ProductAttributeDeleteRequest) error
 	ProductAttributeCategoryList(*gin.Context, *entity.ProductAttributeCategoryListRequest) (*entity.ProductAttributeCategoryListReply, error)
-	ProductAttributeCategoryListWithAttr(*gin.Context) error
+	ProductAttributeCategoryListWithAttr(*gin.Context) ([]*entity.ProductAttributeCategoryListWithAttrReply, error)
 	ProductAttributeCategoryCreate(*gin.Context, *entity.ProductAttributeCategoryCreateRequest) error
 	ProductAttributeCategoryUpdate(*gin.Context, *entity.ProductAttributeCategoryUpdateRequest) error
 	ProductAttributeCategoryDelete(*gin.Context, *entity.ProductAttributeCategoryDeleteRequest) error
 
-	ProductCategory(*gin.Context) error
+	ProductCategory(*gin.Context, *entity.ProductCategoryRequest) (*entity.ProductCategoryList, error)
 	ProductCategoryList(*gin.Context, *entity.ProductCategoryListRequest) (*entity.ProductCategoryListReply, error)
-	ProductCategoryListWithChildren(*gin.Context) error
-	ProductCategoryUpdateNavStatus(*gin.Context) error
-	ProductCategoryUpdateShowStatus(*gin.Context) error
-	ProductCategoryCreate(*gin.Context) error
-	ProductCategoryUpdate(*gin.Context) error
-	ProductCategoryDelete(*gin.Context) error
+	ProductCategoryListWithChildren(*gin.Context) ([]*entity.ProductCategoryListWithChildrenReply, error)
+	ProductCategoryUpdateNavStatus(*gin.Context, *entity.ProductCategoryUpdateNavStatusRequest) error
+	ProductCategoryUpdateShowStatus(*gin.Context, *entity.ProductCategoryUpdateShowStatusRequest) error
+	ProductCategoryCreate(*gin.Context, *entity.ProductCategoryCreateRequest) error
+	ProductCategoryUpdate(*gin.Context, *entity.ProductCategoryUpdateRequest) error
+	ProductCategoryDelete(*gin.Context, *entity.ProductCategoryDeleteRequest) error
 }

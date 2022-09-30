@@ -11,7 +11,7 @@ import (
 
 func ProductAttributeHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
-		var request entity.ProductAttribute
+		var request entity.ProductAttributeRequest
 		request.Id = ctx.Param("id")
 		out, _ := c.ProductAttribute(ctx, &request)
 		response.OkWithData(ctx, out)
@@ -20,7 +20,10 @@ func ProductAttributeHttpHandler(c AdminController) func(ctx *gin.Context) {
 
 func ProductAttributeAttrInfoHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
-		response.Ok(ctx)
+		var request entity.ProductAttributeAttrInfoRequest
+		request.Id = ctx.Param("id")
+		out, _ := c.ProductAttributeAttrInfo(ctx, &request)
+		response.OkWithData(ctx, out)
 	}
 }
 
@@ -96,7 +99,8 @@ func ProductAttributeCategoryListHttpHandler(c AdminController) func(ctx *gin.Co
 
 func ProductAttributeCategoryListWithAttrHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
-		response.Ok(ctx)
+		out, _ := c.ProductAttributeCategoryListWithAttr(ctx)
+		response.OkWithData(ctx, out)
 	}
 }
 

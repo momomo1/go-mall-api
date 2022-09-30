@@ -5,11 +5,12 @@ import (
 	"go-mall-api/api/admin/v1/entity"
 	"go-mall-api/models/pms_product_attribute"
 	"go-mall-api/models/pms_product_attribute_category"
+	"go-mall-api/models/pms_product_category_attribute_relation"
 	"strconv"
 	"strings"
 )
 
-func (c AdminController) ProductAttribute(ctx *gin.Context, request *entity.ProductAttribute) (*entity.ProductAttributeList, error) {
+func (c AdminController) ProductAttribute(ctx *gin.Context, request *entity.ProductAttributeRequest) (*entity.ProductAttributeList, error) {
 	attributeModel := pms_product_attribute.Get(request.Id)
 
 	return &entity.ProductAttributeList{
@@ -28,8 +29,19 @@ func (c AdminController) ProductAttribute(ctx *gin.Context, request *entity.Prod
 	}, nil
 }
 
-func (c AdminController) ProductAttributeAttrInfo(ctx *gin.Context) error {
-	return nil
+func (c AdminController) ProductAttributeAttrInfo(ctx *gin.Context, request *entity.ProductAttributeAttrInfoRequest) ([]*entity.ProductAttributeAttrInfoReply, error) {
+	relation := pms_product_category_attribute_relation.GetRelationByCategoryId(request.Id)
+	replyList := make([]*entity.ProductAttributeAttrInfoReply, 0, len(relation))
+	for _, v := range relation {
+		attributeModel := pms_product_attribute.Get(strconv.FormatInt(v.ProductAttributeId, 10))
+		interposition := &entity.ProductAttributeAttrInfoReply{
+			AttributeCategoryId: attributeModel.ProductAttributeCategoryId,
+			AttributeId:         int64(attributeModel.ID),
+		}
+		replyList = append(replyList, interposition)
+	}
+
+	return replyList, nil
 }
 
 func (c AdminController) ProductAttributeList(ctx *gin.Context, request *entity.ProductAttributeListRequest) (*entity.ProductAttributeListReply, error) {
@@ -77,19 +89,19 @@ func (c AdminController) ProductAttributeCreate(ctx *gin.Context, request *entit
 		Type:                       request.Type,
 	}
 	attributeCategoryModel := pms_product_attribute_category.Get(strconv.FormatInt(request.ProductAttributeCategoryId, 10))
-	err := pms_product_attribute.AddAttribute(request.Type, attributeModel, attributeCategoryModel)
+	err := pms_product_attribute_category.AddAttribute(request.Type, attributeModel, attributeCategoryModel)
 	return err
 }
 
 func (c AdminController) ProductAttributeUpdate(ctx *gin.Context, request *entity.ProductAttributeUpdateRequest) error {
 	attributeModel := pms_product_attribute.Get(strconv.Itoa(request.Id))
-	err := pms_product_attribute.UpdateAttribute(request, attributeModel)
+	err := pms_product_attribute_category.UpdateAttribute(request, attributeModel)
 	return err
 }
 
 func (c AdminController) ProductAttributeDelete(ctx *gin.Context, request *entity.ProductAttributeDeleteRequest) error {
 	parts := strings.SplitN(request.Ids, ",", -1)
-	err := pms_product_attribute.DeleteAttribute(parts)
+	err := pms_product_attribute_category.DeleteAttribute(parts)
 	return err
 }
 
@@ -113,8 +125,20 @@ func (c AdminController) ProductAttributeCategoryList(ctx *gin.Context, request 
 	}, nil
 }
 
-func (c AdminController) ProductAttributeCategoryListWithAttr(ctx *gin.Context) error {
-	return nil
+func (c AdminController) ProductAttributeCategoryListWithAttr(ctx *gin.Context) ([]*entity.ProductAttributeCategoryListWithAttrReply, error) {
+	list, count := pms_product_attribute_category.GetClassificationAttribute()
+	replyList := make([]*entity.ProductAttributeCategoryListWithAttrReply, 0, count)
+	for _, v := range list {
+		interposition := entity.ProductAttributeCategoryListWithAttrReply{
+			Id:                   v.ID,
+			Name:                 v.Name,
+			AttributeCount:       v.AttributeCount,
+			ParamCount:           v.ParamCount,
+			ProductAttributeList: v.PmsProductAttributes,
+		}
+		replyList = append(replyList, &interposition)
+	}
+	return replyList, nil
 }
 
 func (c AdminController) ProductAttributeCategoryCreate(ctx *gin.Context, request *entity.ProductAttributeCategoryCreateRequest) error {
