@@ -101,23 +101,25 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/productCategory/delete/:id", handlers.ProductCategoryDeleteHttpHandler(c))
 
 		//待实现接口
+		//商品-商品模块
+		admin.GET("/product/list", handlers.ProductListHttpHandler(c))
+		admin.POST("/product/update/publishStatus", handlers.ProductUpdatePublishStatusHttpHandler(c))
+		admin.POST("/product/update/newStatus", handlers.ProductUpdateNewStatusHttpHandler(c))
+		admin.POST("/product/update/recommendStatus", handlers.ProductUpdateRecommendStatusHttpHandler(c))
+		admin.POST("/product/create", handlers.ProductCreateHttpHandler(c))
+		admin.POST("/product/updateInfo", handlers.ProductUpdateInfoHttpHandler(c))
+		admin.POST("/product/update", handlers.ProductUpdateHttpHandler(c))
+		admin.OPTIONS("/product/update/deleteStatus", handlers.ProductUpdateDeleteStatusHttpHandler(c))
+
+		//商品-sku
+		admin.GET("/sku/:id", Placeholder(c))
+		admin.POST("/sku/update", Placeholder(c))
+
 		//商品
 		admin.GET("/prefrenceArea/listAll", Placeholder(c))
 		admin.GET("/memberLevel/list", Placeholder(c))
 		admin.GET("/subject/list", Placeholder(c))
 		admin.GET("/subject/listAll", Placeholder(c))
-
-		admin.GET("/product/list", Placeholder(c))
-		admin.POST("/product/create", Placeholder(c))
-		admin.POST("/product/update/publishStatus", Placeholder(c))
-		admin.POST("/product/update/newStatus", Placeholder(c))
-		admin.POST("/product/update/recommendStatus", Placeholder(c))
-		admin.POST("/product/updateInfo", Placeholder(c))
-		admin.POST("/product/update", Placeholder(c))
-		admin.OPTIONS("/product/update/deleteStatus", Placeholder(c))
-
-		admin.GET("/sku/:id", Placeholder(c))
-		admin.POST("/sku/update", Placeholder(c))
 
 		//订单
 		admin.GET("/order/list", Placeholder(c))
