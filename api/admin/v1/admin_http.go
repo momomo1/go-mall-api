@@ -100,6 +100,45 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/productCategory/update/:id", handlers.ProductCategoryUpdateHttpHandler(c))
 		admin.POST("/productCategory/delete/:id", handlers.ProductCategoryDeleteHttpHandler(c))
 
+		//营销-品牌推荐
+		admin.GET("/home/brand/list", handlers.HomeBrandListHttpHandler(c))
+		admin.POST("/home/brand/update/recommendStatus", handlers.HomeBrandUpdateRecommendStatusHttpHandler(c))
+		admin.POST("/home/brand/create", handlers.HomeBrandCreateHttpHandler(c))
+		admin.POST("/home/brand/update/sort/:id", handlers.HomeBrandUpdateSortHttpHandler(c))
+		admin.POST("/home/brand/delete", handlers.HomeBrandDeleteHttpHandler(c))
+
+		//营销-营销专题推荐
+		admin.GET("/home/recommendSubject/list", handlers.HomeRecommendSubjectListHttpHandler(c))
+		admin.POST("/home/recommendSubject/update/recommendStatus", handlers.HomeRecommendSubjectUpdateRecommendStatusHttpHandler(c))
+		admin.POST("/home/recommendSubject/create", handlers.HomeRecommendSubjectCreateHttpHandler(c))
+		admin.POST("/home/recommendSubject/update/sort/:id", handlers.HomeRecommendSubjectUpdateSortHttpHandler(c))
+		admin.POST("/home/recommendSubject/delete", handlers.HomeRecommendSubjectDeleteHttpHandler(c))
+
+		//营销-营销广告列表
+		admin.GET("/home/advertise/:id", handlers.HomeAdvertiseHttpHandler(c))
+		admin.GET("/home/advertise/list", handlers.HomeAdvertiseListHttpHandler(c))
+		admin.POST("/home/advertise/update/status/:id", handlers.HomeAdvertiseUpdateStatusHttpHandler(c))
+		admin.POST("/home/advertise/create", handlers.HomeAdvertiseCreateHttpHandler(c))
+		admin.POST("/home/advertise/update/:id", handlers.HomeAdvertiseUpdateHttpHandler(c))
+		admin.POST("/home/advertise/delete", handlers.HomeAdvertiseDeleteHttpHandler(c))
+
+		//营销-营销新品推荐
+		admin.GET("/home/newProduct/list", handlers.HomeNewProductListHttpHandler(c))
+		admin.POST("/home/newProduct/update/recommendStatus", handlers.HomeNewProductUpdateRecommendStatusHttpHandler(c))
+		admin.POST("/home/newProduct/create", handlers.HomeNewProductCreateHttpHandler(c))
+		admin.POST("/home/newProduct/update/sort/:id", handlers.HomeNewProductUpdateSortHttpHandler(c))
+		admin.POST("/home/newProduct/delete", handlers.HomeNewProductDeleteHttpHandler(c))
+
+		//营销-营销人气推荐
+		admin.GET("/home/recommendProduct/list", handlers.HomeRecommendProductListHttpHandler(c))
+		admin.POST("/home/recommendProduct/update/recommendStatus", handlers.HomeRecommendProductUpdateRecommendStatusHttpHandler(c))
+		admin.POST("/home/recommendProduct/create", handlers.HomeRecommendProductCreateHttpHandler(c))
+		admin.POST("/home/recommendProduct/update/sort/:id", handlers.HomeRecommendProductUpdateSortHttpHandler(c))
+		admin.POST("/home/recommendProduct/delete", handlers.HomeRecommendProductDeleteHttpHandler(c))
+
+		//其他
+		admin.GET("/subject/list", handlers.SubjectListHttpHandler(c))
+
 		//待实现接口
 		//商品-商品模块
 		admin.GET("/product/list", handlers.ProductListHttpHandler(c))
@@ -118,7 +157,6 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		//商品
 		admin.GET("/prefrenceArea/listAll", Placeholder(c))
 		admin.GET("/memberLevel/list", Placeholder(c))
-		admin.GET("/subject/list", Placeholder(c))
 		admin.GET("/subject/listAll", Placeholder(c))
 
 		//订单
@@ -169,37 +207,6 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/coupon/update/:id", Placeholder(c))
 		admin.POST("/coupon/delete/:id", Placeholder(c))
 		admin.GET("/couponHistory/list", Placeholder(c))
-
-		admin.GET("/home/brand/list", Placeholder(c))
-		admin.GET("/home/brand/update/recommendStatus", Placeholder(c))
-		admin.POST("/home/brand/create", Placeholder(c))
-		admin.POST("/home/brand/update/sort/:id", Placeholder(c))
-		admin.POST("/home/brand/delete", Placeholder(c))
-
-		admin.GET("/home/newProduct/list", Placeholder(c))
-		admin.POST("/home/newProduct/update/recommendStatus", Placeholder(c))
-		admin.POST("/home/newProduct/create", Placeholder(c))
-		admin.POST("/home/newProduct/update/sort/:id", Placeholder(c))
-		admin.POST("/home/newProduct/delete", Placeholder(c))
-
-		admin.GET("/home/recommendProduct/list", Placeholder(c))
-		admin.POST("/home/recommendProduct/update/recommendStatus", Placeholder(c))
-		admin.POST("/home/recommendProduct/create", Placeholder(c))
-		admin.POST("/home/recommendProduct/update/sort/:id", Placeholder(c))
-		admin.POST("/home/recommendProduct/delete", Placeholder(c))
-
-		admin.GET("/home/recommendSubject/list", Placeholder(c))
-		admin.POST("/home/recommendSubject/update/recommendStatus", Placeholder(c))
-		admin.POST("/home/recommendSubject/create", Placeholder(c))
-		admin.POST("/home/recommendSubject/update/sort/:id", Placeholder(c))
-		admin.POST("/home/recommendSubject/delete", Placeholder(c))
-
-		admin.GET("/home/advertise/:id", Placeholder(c))
-		admin.GET("/home/advertise/list", Placeholder(c))
-		admin.POST("/home/advertise/update/status/:id", Placeholder(c))
-		admin.POST("/home/advertise/create", Placeholder(c))
-		admin.POST("/home/advertise/update/:id", Placeholder(c))
-		admin.POST("/home/advertise/delete", Placeholder(c))
 	}
 }
 

@@ -76,4 +76,37 @@ type AdminController interface {
 	ProductCategoryCreate(*gin.Context, *entity.ProductCategoryCreateRequest) error
 	ProductCategoryUpdate(*gin.Context, *entity.ProductCategoryUpdateRequest) error
 	ProductCategoryDelete(*gin.Context, *entity.ProductCategoryDeleteRequest) error
+
+	HomeBrandList(*gin.Context, *entity.HomeBrandListRequest) (*entity.HomeBrandListReply, error)
+	HomeBrandUpdateRecommendStatus(*gin.Context, *entity.HomeBrandUpdateRecommendStatusRequest) error
+	HomeBrandCreate(*gin.Context, *[]entity.HomeBrandCreateRequest) error
+	HomeBrandUpdateSort(*gin.Context, *entity.HomeBrandUpdateSortRequest) error
+	HomeBrandDelete(*gin.Context, *entity.HomeBrandDeleteRequest) error
+
+	HomeRecommendSubjectList(*gin.Context, *entity.HomeRecommendSubjectListRequest) (*entity.HomeRecommendSubjectListReply, error)
+	HomeRecommendSubjectUpdateRecommendStatus(*gin.Context, *entity.HomeRecommendSubjectUpdateRecommendStatusRequest) error
+	HomeRecommendSubjectCreate(*gin.Context, *[]entity.HomeRecommendSubjectCreateRequest) error
+	HomeRecommendSubjectUpdateSort(*gin.Context, *entity.HomeRecommendSubjectUpdateSortRequest) error
+	HomeRecommendSubjectDelete(*gin.Context, *entity.HomeRecommendSubjectDeleteRequest) error
+
+	HomeAdvertise(*gin.Context, *entity.HomeAdvertiseRequest) (*entity.HomeAdvertiseList, error)
+	HomeAdvertiseList(*gin.Context, *entity.HomeAdvertiseListRequest) (*entity.HomeAdvertiseListReply, error)
+	HomeAdvertiseUpdateStatus(*gin.Context, *entity.HomeAdvertiseUpdateStatusRequest) error
+	HomeAdvertiseCreate(*gin.Context, *entity.HomeAdvertiseCreateRequest) error
+	HomeAdvertiseUpdate(*gin.Context, *entity.HomeAdvertiseUpdateRequest) error
+	HomeAdvertiseDelete(*gin.Context, *entity.HomeAdvertiseDeleteRequest) error
+
+	HomeNewProductList(*gin.Context, *entity.HomeNewProductListRequest) (*entity.HomeNewProductListReply, error)
+	HomeNewProductUpdateRecommendStatus(*gin.Context, *entity.HomeNewProductUpdateRecommendStatusRequest) error
+	HomeNewProductCreate(*gin.Context) error
+	HomeNewProductUpdateSort(*gin.Context, *entity.HomeNewProductUpdateSortRequest) error
+	HomeNewProductDelete(*gin.Context, *entity.HomeNewProductDeleteRequest) error
+
+	HomeRecommendProductList(*gin.Context, *entity.HomeRecommendProductListRequest) (*entity.HomeRecommendProductListReply, error)
+	HomeRecommendProductUpdateRecommendStatus(*gin.Context, *entity.HomeRecommendProductUpdateRecommendStatusRequest) error
+	HomeRecommendProductCreate(*gin.Context) error
+	HomeRecommendProductUpdateSort(*gin.Context, *entity.HomeRecommendProductUpdateSortRequest) error
+	HomeRecommendProductDelete(*gin.Context, *entity.HomeRecommendProductDeleteRequest) error
+
+	SubjectList(*gin.Context, *entity.SubjectListRequest) (*entity.SubjectListReply, error)
 }

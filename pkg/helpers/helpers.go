@@ -32,6 +32,27 @@ func GetRequestPayload(c *gin.Context) []byte {
 	return j
 }
 
+//TimeStringToGoTime 时间格式字符串转换
+func TimeStringToGoTime(tm string) time.Time {
+	var timeTemplates = []string{
+		"2006-01-02 15:04:05", //常规类型
+		"2006/01/02 15:04:05",
+		"2006-01-02",
+		"2006/01/02",
+		"15:04:05",
+		"2022-10-04T16:00:00.000Z",
+		"20060102150405",
+	}
+
+	for i := range timeTemplates {
+		t, err := time.ParseInLocation(timeTemplates[i], tm, time.Local)
+		if err == nil && !t.IsZero() {
+			return t
+		}
+	}
+	return time.Time{}
+}
+
 // Empty 类似于 PHP 的 empty() 函数
 func Empty(val interface{}) bool {
 	if val == nil {
