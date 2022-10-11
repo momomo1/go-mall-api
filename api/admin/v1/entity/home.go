@@ -83,25 +83,6 @@ type HomeRecommendSubjectDeleteRequest struct {
 	Ids string `json:"id"`
 }
 
-type SubjectListRequest struct {
-	PageNum  int    `json:"pageNum"`
-	PageSize int    `json:"pageSize"`
-	Keyword  string `json:"keyword"`
-}
-
-type SubjectListReply struct {
-	List []SubjectList `json:"list"`
-	paginator.PagingAdmin
-}
-
-type SubjectList struct {
-	Id           uint64 `json:"id"`
-	CategoryId   int64  `json:"categoryId"`
-	Title        string `json:"title"`
-	CategoryName string `json:"categoryName"`
-	CreateTime   string `json:"createTime"`
-}
-
 type HomeAdvertiseListRequest struct {
 	PageNum  int    `json:"pageNum"`
 	PageSize int    `json:"pageSize"`

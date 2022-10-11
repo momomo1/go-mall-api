@@ -161,19 +161,6 @@ func HomeRecommendSubjectDeleteHttpHandler(c AdminController) func(ctx *gin.Cont
 	}
 }
 
-func SubjectListHttpHandler(c AdminController) func(ctx *gin.Context) {
-	return func(ctx *gin.Context) {
-		var request entity.SubjectListRequest
-		query := helpers.GetQueryParams(ctx)
-		pageSize, _ := strconv.Atoi(query["pageSize"])
-		request.PageSize = pageSize
-		request.Keyword = query["keyword"]
-
-		out, _ := c.SubjectList(ctx, &request)
-		response.OkWithData(ctx, out)
-	}
-}
-
 //营销-营销广告列表
 
 func HomeAdvertiseHttpHandler(c AdminController) func(ctx *gin.Context) {

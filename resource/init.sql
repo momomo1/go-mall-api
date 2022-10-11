@@ -1558,8 +1558,8 @@ DROP TABLE IF EXISTS `sms_flash_promotion_session`;
 CREATE TABLE `sms_flash_promotion_session` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `name` varchar(200) DEFAULT NULL COMMENT '场次名称',
-  `start_time` time DEFAULT NULL COMMENT '每日开始时间',
-  `end_time` time DEFAULT NULL COMMENT '每日结束时间',
+  `start_time` varchar(100) DEFAULT NULL COMMENT '每日开始时间',
+  `end_time` varchar(100) DEFAULT NULL COMMENT '每日结束时间',
   `status` int(1) DEFAULT NULL COMMENT '启用状态：0->不启用；1->启用',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)

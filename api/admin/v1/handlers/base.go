@@ -108,5 +108,33 @@ type AdminController interface {
 	HomeRecommendProductUpdateSort(*gin.Context, *entity.HomeRecommendProductUpdateSortRequest) error
 	HomeRecommendProductDelete(*gin.Context, *entity.HomeRecommendProductDeleteRequest) error
 
+	FlashList(*gin.Context, *entity.FlashListRequest) (*entity.FlashListReply, error)
+	FlashUpdateStatus(*gin.Context, *entity.FlashUpdateStatusRequest) error
+	FlashCreate(*gin.Context, *entity.FlashCreateRequest) error
+	FlashUpdate(*gin.Context, *entity.FlashUpdateRequest) error
+	FlashDelete(*gin.Context, *entity.FlashDeleteRequest) error
+
+	FlashSessionList(*gin.Context) (*entity.FlashSessionListReply, error)
+	FlashSessionSelectList(*gin.Context, *entity.FlashSessionSelectListRequest) (*entity.FlashSessionSelectListReply, error)
+	FlashSessionCreate(*gin.Context, *entity.FlashSessionCreateRequest) error
+	FlashSessionUpdateStatus(*gin.Context, *entity.FlashSessionUpdateStatusRequest) error
+	FlashSessionUpdate(*gin.Context, *entity.FlashSessionUpdateRequest) error
+	FlashSessionDelete(*gin.Context, *entity.FlashSessionDeleteRequest) error
+
+	OrderSetting(*gin.Context) (*entity.OrderSettingReply, error)
+	OrderSettingUpdate(*gin.Context, *entity.OrderSettingRequest) error
+
+	ReturnApplyList(*gin.Context, *entity.ReturnApplyListRequest) (*entity.ReturnApplyListReply, error)
+	ReturnApply(*gin.Context) error
+	ReturnApplyUpdateStatus(*gin.Context) error
+
+	ReturnReasonList(*gin.Context, *entity.ReturnReasonListRequest) (*entity.ReturnReasonListReply, error)
+	ReturnReason(*gin.Context, *entity.ReturnReasonRequest) (*entity.ReturnReasonList, error)
+	ReturnReasonUpdateStatus(*gin.Context, *entity.ReturnReasonUpdateStatusRequest) error
+	ReturnReasonCreate(*gin.Context, *entity.ReturnReasonCreateRequest) error
+	ReturnReasonUpdate(*gin.Context, *entity.ReturnReasonUpdateRequest) error
+	ReturnReasonDelete(*gin.Context, *entity.ReturnReasonDeleteRequest) error
+
 	SubjectList(*gin.Context, *entity.SubjectListRequest) (*entity.SubjectListReply, error)
+	CompanyAddressList(*gin.Context) (*entity.CompanyAddressListReply, error)
 }

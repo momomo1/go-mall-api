@@ -125,19 +125,50 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		//营销-营销新品推荐
 		admin.GET("/home/newProduct/list", handlers.HomeNewProductListHttpHandler(c))
 		admin.POST("/home/newProduct/update/recommendStatus", handlers.HomeNewProductUpdateRecommendStatusHttpHandler(c))
-		admin.POST("/home/newProduct/create", handlers.HomeNewProductCreateHttpHandler(c))
+		admin.POST("/home/newProduct/create", handlers.HomeNewProductCreateHttpHandler(c)) // todo 未完成
 		admin.POST("/home/newProduct/update/sort/:id", handlers.HomeNewProductUpdateSortHttpHandler(c))
 		admin.POST("/home/newProduct/delete", handlers.HomeNewProductDeleteHttpHandler(c))
 
 		//营销-营销人气推荐
 		admin.GET("/home/recommendProduct/list", handlers.HomeRecommendProductListHttpHandler(c))
 		admin.POST("/home/recommendProduct/update/recommendStatus", handlers.HomeRecommendProductUpdateRecommendStatusHttpHandler(c))
-		admin.POST("/home/recommendProduct/create", handlers.HomeRecommendProductCreateHttpHandler(c))
+		admin.POST("/home/recommendProduct/create", handlers.HomeRecommendProductCreateHttpHandler(c)) // todo 未完成
 		admin.POST("/home/recommendProduct/update/sort/:id", handlers.HomeRecommendProductUpdateSortHttpHandler(c))
 		admin.POST("/home/recommendProduct/delete", handlers.HomeRecommendProductDeleteHttpHandler(c))
 
+		//营销-营销秒杀活动
+		admin.GET("/flash/list", handlers.FlashListHttpHandler(c))
+		admin.POST("/flash/update/status/:id", handlers.FlashUpdateStatusHttpHandler(c))
+		admin.POST("/flash/create", handlers.FlashCreateHttpHandler(c))
+		admin.POST("/flash/update/:id", handlers.FlashUpdateHttpHandler(c))
+		admin.POST("/flash/delete/:id", handlers.FlashDeleteHttpHandler(c))
+		admin.GET("/flashSession/list", handlers.FlashSessionListHttpHandler(c))
+		admin.GET("/flashSession/selectList", handlers.FlashSessionSelectListHttpHandler(c))
+		admin.POST("/flashSession/create", handlers.FlashSessionCreateHttpHandler(c))
+		admin.POST("/flashSession/update/status/:id", handlers.FlashSessionUpdateStatusHttpHandler(c))
+		admin.POST("/flashSession/update/:id", handlers.FlashSessionUpdateHttpHandler(c))
+		admin.POST("/flashSession/delete/:id", handlers.FlashSessionDeleteHttpHandler(c))
+
+		//订单-订单设置
+		admin.GET("/orderSetting/:id", handlers.OrderSettingHttpHandler(c))
+		admin.POST("/orderSetting/update/:id", handlers.OrderSettingUpdateHttpHandler(c))
+
+		//订单-退货申请处理
+		admin.GET("/returnApply/list", handlers.ReturnApplyListHttpHandler(c))
+		admin.GET("/returnApply/:id", handlers.ReturnApplyHttpHandler(c))                            // todo 未完成
+		admin.POST("/returnApply/update/status/:id", handlers.ReturnApplyUpdateStatusHttpHandler(c)) // todo 未完成
+
+		//订单-退货原因设置
+		admin.GET("/returnReason/list", handlers.ReturnReasonListHttpHandler(c))
+		admin.GET("/returnReason/:id", handlers.ReturnReasonHttpHandler(c))
+		admin.POST("/returnReason/update/status", handlers.ReturnReasonUpdateStatusHttpHandler(c))
+		admin.POST("/returnReason/create", handlers.ReturnReasonCreateHttpHandler(c))
+		admin.POST("/returnReason/update/:id", handlers.ReturnReasonUpdateHttpHandler(c))
+		admin.POST("/returnReason/delete", handlers.ReturnReasonDeleteHttpHandler(c))
+
 		//其他
 		admin.GET("/subject/list", handlers.SubjectListHttpHandler(c))
+		admin.GET("/companyAddress/list", handlers.CompanyAddressListHttpHandler(c))
 
 		//待实现接口
 		//商品-商品模块
@@ -167,35 +198,7 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/order/update/receiverInfo", Placeholder(c))
 		admin.POST("/order/update/delivery", Placeholder(c))
 
-		admin.GET("/orderSetting/:id", Placeholder(c))
-		admin.POST("/orderSetting/update/:id", Placeholder(c))
-
-		admin.GET("/returnApply/list", Placeholder(c))
-		admin.GET("/returnApply/:id", Placeholder(c))
-		admin.POST("/returnApply/update/status/:id", Placeholder(c))
-
-		admin.GET("/companyAddress/list", Placeholder(c))
-		admin.GET("/returnReason/list", Placeholder(c))
-		admin.GET("/returnReason/:id", Placeholder(c))
-		admin.POST("/returnReason/update/status", Placeholder(c))
-		admin.POST("/returnReason/create", Placeholder(c))
-		admin.POST("/returnReason/update/:id", Placeholder(c))
-		admin.POST("/returnReason/delete", Placeholder(c))
-
 		//营销活动
-		admin.GET("/flash/list", Placeholder(c))
-		admin.POST("/flash/update/status/:id", Placeholder(c))
-		admin.POST("/flash/create", Placeholder(c))
-		admin.POST("/flash/update/:id", Placeholder(c))
-		admin.POST("/flash/delete/:id", Placeholder(c))
-
-		admin.GET("/flashSession/list", Placeholder(c))
-		admin.GET("/flashSession/selectList", Placeholder(c))
-		admin.POST("/flashSession/create", Placeholder(c))
-		admin.POST("/flashSession/update/status/:id", Placeholder(c))
-		admin.POST("/flashSession/update/:id", Placeholder(c))
-		admin.POST("/flashSession/delete/:id", Placeholder(c))
-
 		admin.GET("/flashProductRelation/list", Placeholder(c))
 		admin.POST("/flashProductRelation/create", Placeholder(c))
 		admin.POST("/flashProductRelation/update/:id", Placeholder(c))

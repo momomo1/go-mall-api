@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"go-mall-api/api/admin/v1/entity"
-	"go-mall-api/models/cms_subject"
 	"go-mall-api/models/sms_home_advertise"
 	"go-mall-api/models/sms_home_brand"
 	"go-mall-api/models/sms_home_new_product"
@@ -156,32 +155,6 @@ func (c AdminController) HomeRecommendSubjectDelete(ctx *gin.Context, request *e
 		homeRecommendSubject.Delete()
 	}
 	return nil
-}
-
-func (c AdminController) SubjectList(ctx *gin.Context, request *entity.SubjectListRequest) (*entity.SubjectListReply, error) {
-	where := ""
-	if request.Keyword != "" {
-		whereAnd(&where)
-		where += fmt.Sprintf("title LIKE %s", "'%"+request.Keyword+"%'")
-	}
-
-	list, paging := cms_subject.Paginate(ctx, request.PageSize, where, "id", "asc")
-	replyList := make([]entity.SubjectList, 0, request.PageSize)
-	for _, v := range list {
-		interposition := entity.SubjectList{
-			Id:           v.ID,
-			CategoryId:   v.CategoryId,
-			Title:        v.Title,
-			CategoryName: v.CategoryName,
-			CreateTime:   v.CreateTime.Format("2006-01-02 15:04:05"),
-		}
-		replyList = append(replyList, interposition)
-	}
-
-	return &entity.SubjectListReply{
-		List:        replyList,
-		PagingAdmin: paging,
-	}, nil
 }
 
 func (c AdminController) HomeAdvertise(ctx *gin.Context, request *entity.HomeAdvertiseRequest) (*entity.HomeAdvertiseList, error) {
