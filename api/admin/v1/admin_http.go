@@ -100,6 +100,17 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/productCategory/update/:id", handlers.ProductCategoryUpdateHttpHandler(c))
 		admin.POST("/productCategory/delete/:id", handlers.ProductCategoryDeleteHttpHandler(c))
 
+		//商品-商品模块
+		admin.GET("/product/list", handlers.ProductListHttpHandler(c))                                     // todo 未完成
+		admin.POST("/product/update/publishStatus", handlers.ProductUpdatePublishStatusHttpHandler(c))     // todo 未完成
+		admin.POST("/product/update/newStatus", handlers.ProductUpdateNewStatusHttpHandler(c))             // todo 未完成
+		admin.POST("/product/update/recommendStatus", handlers.ProductUpdateRecommendStatusHttpHandler(c)) // todo 未完成
+		admin.POST("/product/create", handlers.ProductCreateHttpHandler(c))                                // todo 未完成
+		admin.POST("/product/updateInfo", handlers.ProductUpdateInfoHttpHandler(c))                        // todo 未完成
+		admin.POST("/product/update", handlers.ProductUpdateHttpHandler(c))                                // todo 未完成
+		admin.GET("/product/simpleList", Placeholder(c))                                                   // todo 未完成
+		admin.OPTIONS("/product/update/deleteStatus", handlers.ProductUpdateDeleteStatusHttpHandler(c))    // todo 未完成
+
 		//营销-品牌推荐
 		admin.GET("/home/brand/list", handlers.HomeBrandListHttpHandler(c))
 		admin.POST("/home/brand/update/recommendStatus", handlers.HomeBrandUpdateRecommendStatusHttpHandler(c))
@@ -148,6 +159,18 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/flashSession/update/status/:id", handlers.FlashSessionUpdateStatusHttpHandler(c))
 		admin.POST("/flashSession/update/:id", handlers.FlashSessionUpdateHttpHandler(c))
 		admin.POST("/flashSession/delete/:id", handlers.FlashSessionDeleteHttpHandler(c))
+		admin.GET("/flashProductRelation/list", handlers.FlashProductRelationListHttpHandler(c))          // todo 未完成
+		admin.POST("/flashProductRelation/create", handlers.FlashProductRelationCreateHttpHandler(c))     // todo 未完成
+		admin.POST("/flashProductRelation/update/:id", handlers.FlashProductRelationUpdateHttpHandler(c)) // todo 未完成
+		admin.POST("/flashProductRelation/delete/:id", handlers.FlashProductRelationDeleteHttpHandler(c)) // todo 未完成
+
+		//营销-营销优惠券列表
+		admin.GET("/coupon/list", handlers.CouponListHttpHandler(c))
+		admin.GET("/coupon/:id", handlers.CouponHttpHandler(c))
+		admin.POST("/coupon/create", handlers.CouponCreateHttpHandler(c))
+		admin.POST("/coupon/update/:id", handlers.CouponUpdateHttpHandler(c))
+		admin.POST("/coupon/delete/:id", handlers.CouponDeleteHttpHandler(c))
+		admin.GET("/couponHistory/list", handlers.CouponHistoryHttpHandler(c))
 
 		//订单-订单设置
 		admin.GET("/orderSetting/:id", handlers.OrderSettingHttpHandler(c))
@@ -171,16 +194,6 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.GET("/companyAddress/list", handlers.CompanyAddressListHttpHandler(c))
 
 		//待实现接口
-		//商品-商品模块
-		admin.GET("/product/list", handlers.ProductListHttpHandler(c))
-		admin.POST("/product/update/publishStatus", handlers.ProductUpdatePublishStatusHttpHandler(c))
-		admin.POST("/product/update/newStatus", handlers.ProductUpdateNewStatusHttpHandler(c))
-		admin.POST("/product/update/recommendStatus", handlers.ProductUpdateRecommendStatusHttpHandler(c))
-		admin.POST("/product/create", handlers.ProductCreateHttpHandler(c))
-		admin.POST("/product/updateInfo", handlers.ProductUpdateInfoHttpHandler(c))
-		admin.POST("/product/update", handlers.ProductUpdateHttpHandler(c))
-		admin.OPTIONS("/product/update/deleteStatus", handlers.ProductUpdateDeleteStatusHttpHandler(c))
-
 		//商品-sku
 		admin.GET("/sku/:id", Placeholder(c))
 		admin.POST("/sku/update", Placeholder(c))
@@ -197,19 +210,6 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/order/delete", Placeholder(c))
 		admin.POST("/order/update/receiverInfo", Placeholder(c))
 		admin.POST("/order/update/delivery", Placeholder(c))
-
-		//营销活动
-		admin.GET("/flashProductRelation/list", Placeholder(c))
-		admin.POST("/flashProductRelation/create", Placeholder(c))
-		admin.POST("/flashProductRelation/update/:id", Placeholder(c))
-		admin.POST("/flashProductRelation/delete/:id", Placeholder(c))
-
-		admin.GET("/coupon/list", Placeholder(c))
-		admin.GET("/coupon/:id", Placeholder(c))
-		admin.POST("/coupon/create", Placeholder(c))
-		admin.POST("/coupon/update/:id", Placeholder(c))
-		admin.POST("/coupon/delete/:id", Placeholder(c))
-		admin.GET("/couponHistory/list", Placeholder(c))
 	}
 }
 

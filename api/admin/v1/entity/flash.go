@@ -103,3 +103,27 @@ type FlashSessionUpdateRequest struct {
 type FlashSessionDeleteRequest struct {
 	Id string `json:"id"`
 }
+
+type FlashProductRelationListRequest struct {
+	PageNum                 int    `json:"pageNum"`
+	PageSize                int    `json:"pageSize"`
+	FlashPromotionId        string `json:"flashPromotionId"`
+	FlashPromotionSessionId string `json:"flashPromotionSessionId"`
+}
+
+type FlashProductRelationListReply struct {
+	List []FlashProductRelationList `json:"list"`
+	paginator.PagingAdmin
+}
+
+type FlashProductRelationList struct {
+	Id                      uint64        `json:"id"`
+	Sort                    int           `json:"sort"`
+	ProductId               int           `json:"productId"`
+	FlashPromotionId        int           `json:"flashPromotionId"`
+	FlashPromotionCount     int           `json:"flashPromotionCount"`
+	FlashPromotionLimit     int           `json:"flashPromotionLimit"`
+	FlashPromotionPrice     int           `json:"flashPromotionPrice"`
+	FlashPromotionSessionId int           `json:"flashPromotionSessionId"`
+	Product                 []interface{} `json:"product"`
+}

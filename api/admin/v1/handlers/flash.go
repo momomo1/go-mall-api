@@ -152,3 +152,27 @@ func FlashSessionDeleteHttpHandler(c AdminController) func(ctx *gin.Context) {
 		response.Ok(ctx)
 	}
 }
+
+func FlashProductRelationListHttpHandler(c AdminController) func(ctx *gin.Context) {
+	return func(ctx *gin.Context) {
+		response.Ok(ctx)
+	}
+}
+
+func FlashProductRelationCreateHttpHandler(c AdminController) func(ctx *gin.Context) {
+	return func(ctx *gin.Context) {
+		response.Ok(ctx)
+	}
+}
+
+func FlashProductRelationUpdateHttpHandler(c AdminController) func(ctx *gin.Context) {
+	return func(ctx *gin.Context) {
+		response.Ok(ctx)
+	}
+}
+
+func FlashProductRelationDeleteHttpHandler(c AdminController) func(ctx *gin.Context) {
+	return func(ctx *gin.Context) {
+		response.Ok(ctx)
+	}
+}

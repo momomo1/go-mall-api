@@ -161,3 +161,19 @@ func (c AdminController) FlashSessionDelete(ctx *gin.Context, request *entity.Fl
 	flashPromotionSession.Delete()
 	return nil
 }
+
+func (c AdminController) FlashProductRelationList(ctx *gin.Context) error {
+	return nil
+}
+
+func (c AdminController) FlashProductRelationCreate(ctx *gin.Context) error {
+	return nil
+}
+
+func (c AdminController) FlashProductRelationUpdate(ctx *gin.Context) error {
+	return nil
+}
+
+func (c AdminController) FlashProductRelationDelete(ctx *gin.Context) error {
+	return nil
+}

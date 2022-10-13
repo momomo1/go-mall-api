@@ -121,6 +121,18 @@ type AdminController interface {
 	FlashSessionUpdate(*gin.Context, *entity.FlashSessionUpdateRequest) error
 	FlashSessionDelete(*gin.Context, *entity.FlashSessionDeleteRequest) error
 
+	FlashProductRelationList(*gin.Context) error
+	FlashProductRelationCreate(*gin.Context) error
+	FlashProductRelationUpdate(*gin.Context) error
+	FlashProductRelationDelete(*gin.Context) error
+
+	CouponList(*gin.Context, *entity.CouponListRequest) (*entity.CouponListReply, error)
+	Coupon(*gin.Context, *entity.CouponRequest) (*entity.CouponList, error)
+	CouponCreate(*gin.Context, *entity.CouponCreateRequest) error
+	CouponUpdate(*gin.Context, *entity.CouponUpdateRequest) error
+	CouponDelete(*gin.Context, *entity.CouponDeleteRequest) error
+	CouponHistory(*gin.Context, *entity.CouponHistoryRequest) (*entity.CouponHistoryReply, error)
+
 	OrderSetting(*gin.Context) (*entity.OrderSettingReply, error)
 	OrderSettingUpdate(*gin.Context, *entity.OrderSettingRequest) error
 
