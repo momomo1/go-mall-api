@@ -111,6 +111,10 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.GET("/product/simpleList", Placeholder(c))                                                   // todo 未完成
 		admin.OPTIONS("/product/update/deleteStatus", handlers.ProductUpdateDeleteStatusHttpHandler(c))    // todo 未完成
 
+		//商品-sku
+		admin.GET("/sku/:id", Placeholder(c))     // todo 未完成
+		admin.POST("/sku/update", Placeholder(c)) // todo 未完成
+
 		//营销-品牌推荐
 		admin.GET("/home/brand/list", handlers.HomeBrandListHttpHandler(c))
 		admin.POST("/home/brand/update/recommendStatus", handlers.HomeBrandUpdateRecommendStatusHttpHandler(c))
@@ -172,6 +176,14 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/coupon/delete/:id", handlers.CouponDeleteHttpHandler(c))
 		admin.GET("/couponHistory/list", handlers.CouponHistoryHttpHandler(c))
 
+		//订单-订单
+		admin.GET("/order/list", Placeholder(c))                 // todo 未完成
+		admin.GET("/order/:id", Placeholder(c))                  // todo 未完成
+		admin.POST("/order/update/note", Placeholder(c))         // todo 未完成
+		admin.POST("/order/delete", Placeholder(c))              // todo 未完成
+		admin.POST("/order/update/receiverInfo", Placeholder(c)) // todo 未完成
+		admin.POST("/order/update/delivery", Placeholder(c))     // todo 未完成
+
 		//订单-订单设置
 		admin.GET("/orderSetting/:id", handlers.OrderSettingHttpHandler(c))
 		admin.POST("/orderSetting/update/:id", handlers.OrderSettingUpdateHttpHandler(c))
@@ -192,24 +204,9 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		//其他
 		admin.GET("/subject/list", handlers.SubjectListHttpHandler(c))
 		admin.GET("/companyAddress/list", handlers.CompanyAddressListHttpHandler(c))
-
-		//待实现接口
-		//商品-sku
-		admin.GET("/sku/:id", Placeholder(c))
-		admin.POST("/sku/update", Placeholder(c))
-
-		//商品
-		admin.GET("/prefrenceArea/listAll", Placeholder(c))
-		admin.GET("/memberLevel/list", Placeholder(c))
-		admin.GET("/subject/listAll", Placeholder(c))
-
-		//订单
-		admin.GET("/order/list", Placeholder(c))
-		admin.GET("/order/:id", Placeholder(c))
-		admin.POST("/order/update/note", Placeholder(c))
-		admin.POST("/order/delete", Placeholder(c))
-		admin.POST("/order/update/receiverInfo", Placeholder(c))
-		admin.POST("/order/update/delivery", Placeholder(c))
+		admin.GET("/prefrenceArea/listAll", Placeholder(c)) // todo 未完成
+		admin.GET("/memberLevel/list", Placeholder(c))      // todo 未完成
+		admin.GET("/subject/listAll", Placeholder(c))       // todo 未完成
 	}
 }
 
