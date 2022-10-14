@@ -28,7 +28,10 @@ func ReturnApplyListHttpHandler(c AdminController) func(ctx *gin.Context) {
 
 func ReturnApplyHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
-		response.Ok(ctx)
+		var request entity.ReturnApplyRequest
+		request.Id = ctx.Param("id")
+		out, _ := c.ReturnApply(ctx, &request)
+		response.OkWithData(ctx, out)
 	}
 }
 

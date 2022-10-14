@@ -57,8 +57,37 @@ func (c AdminController) ReturnApplyList(ctx *gin.Context, request *entity.Retur
 	}, nil
 }
 
-func (c AdminController) ReturnApply(ctx *gin.Context) error {
-	return nil
+func (c AdminController) ReturnApply(ctx *gin.Context, request *entity.ReturnApplyRequest) (*entity.ReturnApplyReply, error) {
+	data := oms_order_return_apply.Get(request.Id)
+	return &entity.ReturnApplyReply{
+		Id:               data.ID,
+		OrderId:          data.OrderId,
+		ProductCount:     data.ProductCount,
+		ProductId:        data.ProductId,
+		Status:           data.Status,
+		ProductPrice:     data.ProductPrice,
+		ProductRealPrice: data.ProductRealPrice,
+		//CompanyAddress:   data.CompanyAddress,
+		CompanyAddressId: data.CompanyAddressId,
+		Description:      data.Description,
+		HandleMan:        data.HandleMan,
+		HandleNote:       data.HandleNote,
+		HandleTime:       data.HandleTime.Format("2006-01-02 15:04:05"),
+		MemberUsername:   data.MemberUsername,
+		OrderSn:          data.OrderSn,
+		ProductAttr:      data.ProductAttr,
+		ProductBrand:     data.ProductBrand,
+		ProductName:      data.ProductName,
+		ProductPic:       data.ProductPic,
+		ProofPics:        data.ProofPics,
+		Reason:           data.Reason,
+		ReceiveMan:       data.ReceiveMan,
+		ReceiveNote:      data.ReceiveNote,
+		ReceiveTime:      data.ReceiveTime.Format("2006-01-02 15:04:05"),
+		ReturnAmount:     data.ReturnAmount,
+		ReturnName:       data.ReturnName,
+		ReturnPhone:      data.ReturnPhone,
+	}, nil
 }
 
 func (c AdminController) ReturnApplyUpdateStatus(ctx *gin.Context) error {

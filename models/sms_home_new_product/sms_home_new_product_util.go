@@ -11,6 +11,11 @@ func Get(idstr string) (smsHomeNewProduct SmsHomeNewProduct) {
 	return
 }
 
+func GetByProductId(value string) (smsHomeNewProduct SmsHomeNewProduct) {
+	database.DB.Where("product_id", value).First(&smsHomeNewProduct)
+	return
+}
+
 func GetBy(field, value string) (smsHomeNewProduct SmsHomeNewProduct) {
 	database.DB.Where("? = ?", field, value).First(&smsHomeNewProduct)
 	return

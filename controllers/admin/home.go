@@ -309,7 +309,17 @@ func (c AdminController) HomeNewProductUpdateRecommendStatus(ctx *gin.Context, r
 	return nil
 }
 
-func (c AdminController) HomeNewProductCreate(ctx *gin.Context) error {
+func (c AdminController) HomeNewProductCreate(ctx *gin.Context, request *[]entity.HomeNewProductCreateRequest) error {
+	for _, v := range *request {
+		homeNewProduct := sms_home_new_product.GetByProductId(strconv.FormatInt(v.ProductId, 10))
+		if homeNewProduct.ID == 0 {
+			homeNewProductModel := sms_home_new_product.SmsHomeNewProduct{
+				ProductId:   v.ProductId,
+				ProductName: v.ProductName,
+			}
+			homeNewProductModel.Create()
+		}
+	}
 	return nil
 }
 
@@ -371,7 +381,17 @@ func (c AdminController) HomeRecommendProductUpdateRecommendStatus(ctx *gin.Cont
 	return nil
 }
 
-func (c AdminController) HomeRecommendProductCreate(ctx *gin.Context) error {
+func (c AdminController) HomeRecommendProductCreate(ctx *gin.Context, request *[]entity.HomeRecommendProductCreateRequest) error {
+	for _, v := range *request {
+		homeRecommendProduct := sms_home_recommend_product.GetByProductId(strconv.FormatInt(v.ProductId, 10))
+		if homeRecommendProduct.ID == 0 {
+			homeRecommendProductModel := sms_home_recommend_product.SmsHomeRecommendProduct{
+				ProductId:   v.ProductId,
+				ProductName: v.ProductName,
+			}
+			homeRecommendProductModel.Create()
+		}
+	}
 	return nil
 }
 

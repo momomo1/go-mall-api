@@ -101,15 +101,15 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/productCategory/delete/:id", handlers.ProductCategoryDeleteHttpHandler(c))
 
 		//商品-商品模块
-		admin.GET("/product/list", handlers.ProductListHttpHandler(c))                                     // todo 未完成
+		admin.GET("/product/list", handlers.ProductListHttpHandler(c))
 		admin.POST("/product/update/publishStatus", handlers.ProductUpdatePublishStatusHttpHandler(c))     // todo 未完成
 		admin.POST("/product/update/newStatus", handlers.ProductUpdateNewStatusHttpHandler(c))             // todo 未完成
 		admin.POST("/product/update/recommendStatus", handlers.ProductUpdateRecommendStatusHttpHandler(c)) // todo 未完成
+		admin.OPTIONS("/product/update/deleteStatus", handlers.ProductUpdateDeleteStatusHttpHandler(c))    // todo 未完成
 		admin.POST("/product/create", handlers.ProductCreateHttpHandler(c))                                // todo 未完成
 		admin.POST("/product/updateInfo", handlers.ProductUpdateInfoHttpHandler(c))                        // todo 未完成
 		admin.POST("/product/update", handlers.ProductUpdateHttpHandler(c))                                // todo 未完成
-		admin.GET("/product/simpleList", Placeholder(c))                                                   // todo 未完成
-		admin.OPTIONS("/product/update/deleteStatus", handlers.ProductUpdateDeleteStatusHttpHandler(c))    // todo 未完成
+		admin.GET("/product/simpleList", handlers.ProductSimpleListHttpHandler(c))
 
 		//商品-sku
 		admin.GET("/sku/:id", Placeholder(c))     // todo 未完成
@@ -140,14 +140,14 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		//营销-营销新品推荐
 		admin.GET("/home/newProduct/list", handlers.HomeNewProductListHttpHandler(c))
 		admin.POST("/home/newProduct/update/recommendStatus", handlers.HomeNewProductUpdateRecommendStatusHttpHandler(c))
-		admin.POST("/home/newProduct/create", handlers.HomeNewProductCreateHttpHandler(c)) // todo 未完成
+		admin.POST("/home/newProduct/create", handlers.HomeNewProductCreateHttpHandler(c))
 		admin.POST("/home/newProduct/update/sort/:id", handlers.HomeNewProductUpdateSortHttpHandler(c))
 		admin.POST("/home/newProduct/delete", handlers.HomeNewProductDeleteHttpHandler(c))
 
 		//营销-营销人气推荐
 		admin.GET("/home/recommendProduct/list", handlers.HomeRecommendProductListHttpHandler(c))
 		admin.POST("/home/recommendProduct/update/recommendStatus", handlers.HomeRecommendProductUpdateRecommendStatusHttpHandler(c))
-		admin.POST("/home/recommendProduct/create", handlers.HomeRecommendProductCreateHttpHandler(c)) // todo 未完成
+		admin.POST("/home/recommendProduct/create", handlers.HomeRecommendProductCreateHttpHandler(c))
 		admin.POST("/home/recommendProduct/update/sort/:id", handlers.HomeRecommendProductUpdateSortHttpHandler(c))
 		admin.POST("/home/recommendProduct/delete", handlers.HomeRecommendProductDeleteHttpHandler(c))
 
@@ -190,7 +190,7 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 
 		//订单-退货申请处理
 		admin.GET("/returnApply/list", handlers.ReturnApplyListHttpHandler(c))
-		admin.GET("/returnApply/:id", handlers.ReturnApplyHttpHandler(c))                            // todo 未完成
+		admin.GET("/returnApply/:id", handlers.ReturnApplyHttpHandler(c))
 		admin.POST("/returnApply/update/status/:id", handlers.ReturnApplyUpdateStatusHttpHandler(c)) // todo 未完成
 
 		//订单-退货原因设置

@@ -174,6 +174,11 @@ type HomeNewProductUpdateRecommendStatusRequest struct {
 	RecommendStatus string `json:"recommendStatus"`
 }
 
+type HomeNewProductCreateRequest struct {
+	ProductId   int64  `json:"productId"`
+	ProductName string `json:"productName"`
+}
+
 type HomeNewProductUpdateSortRequest struct {
 	Id   string `json:"id"`
 	Sort string `json:"sort"`
@@ -206,6 +211,10 @@ type HomeRecommendProductList struct {
 type HomeRecommendProductUpdateRecommendStatusRequest struct {
 	Ids             string `json:"ids"`
 	RecommendStatus string `json:"recommendStatus"`
+}
+type HomeRecommendProductCreateRequest struct {
+	ProductId   int64  `json:"productId"`
+	ProductName string `json:"productName"`
 }
 
 type HomeRecommendProductUpdateSortRequest struct {

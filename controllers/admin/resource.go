@@ -130,9 +130,3 @@ func (c AdminController) ResourceCategoryDelete(ctx *gin.Context, request *entit
 	categoryModel.Delete()
 	return nil
 }
-
-func whereAnd(where *string) {
-	if *where != "" {
-		*where += "and "
-	}
-}

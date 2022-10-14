@@ -280,6 +280,14 @@ func HomeNewProductUpdateRecommendStatusHttpHandler(c AdminController) func(ctx 
 
 func HomeNewProductCreateHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
+		var request []entity.HomeNewProductCreateRequest
+		j := helpers.GetRequestPayload(ctx)
+		json.Unmarshal(j, &request)
+		err := c.HomeNewProductCreate(ctx, &request)
+		if err != nil {
+			response.FailWithMessage(ctx, err.Error())
+			return
+		}
 		response.Ok(ctx)
 	}
 }
@@ -346,6 +354,14 @@ func HomeRecommendProductUpdateRecommendStatusHttpHandler(c AdminController) fun
 
 func HomeRecommendProductCreateHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
+		var request []entity.HomeRecommendProductCreateRequest
+		j := helpers.GetRequestPayload(ctx)
+		json.Unmarshal(j, &request)
+		err := c.HomeRecommendProductCreate(ctx, &request)
+		if err != nil {
+			response.FailWithMessage(ctx, err.Error())
+			return
+		}
 		response.Ok(ctx)
 	}
 }

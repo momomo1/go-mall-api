@@ -27,6 +27,40 @@ type ReturnApplyList struct {
 	HandleTime       string  `json:"handleTime"`
 }
 
+type ReturnApplyRequest struct {
+	Id string `json:"id"`
+}
+
+type ReturnApplyReply struct {
+	Id               uint64  `json:"id"`
+	OrderId          int64   `json:"orderId"`
+	ProductCount     int     `json:"productCount"`
+	ProductId        int64   `json:"productId"`
+	Status           int     `json:"status"`
+	CompanyAddressId int64   `json:"companyAddressId"`
+	ProductPrice     float64 `json:"productPrice"`
+	ProductRealPrice float64 `json:"productRealPrice"`
+	ReturnAmount     float64 `json:"returnAmount"`
+	CompanyAddress   string  `json:"companyAddress"`
+	Description      string  `json:"description"`
+	HandleMan        string  `json:"handleMan"`
+	HandleNote       string  `json:"handleNote"`
+	HandleTime       string  `json:"handleTime"`
+	MemberUsername   string  `json:"memberUsername"`
+	OrderSn          string  `json:"orderSn"`
+	ProductAttr      string  `json:"productAttr"`
+	ProductBrand     string  `json:"productBrand"`
+	ProductName      string  `json:"productName"`
+	ProductPic       string  `json:"productPic"`
+	ProofPics        string  `json:"proofPics"`
+	Reason           string  `json:"reason"`
+	ReceiveMan       string  `json:"receiveMan"`
+	ReceiveNote      string  `json:"receiveNote"`
+	ReceiveTime      string  `json:"receiveTime"`
+	ReturnName       string  `json:"returnName"`
+	ReturnPhone      string  `json:"returnPhone"`
+}
+
 type ReturnReasonListRequest struct {
 	PageNum  int `json:"pageNum"`
 	PageSize int `json:"pageSize"`

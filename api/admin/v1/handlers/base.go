@@ -77,6 +77,15 @@ type AdminController interface {
 	ProductCategoryUpdate(*gin.Context, *entity.ProductCategoryUpdateRequest) error
 	ProductCategoryDelete(*gin.Context, *entity.ProductCategoryDeleteRequest) error
 
+	ProductList(*gin.Context, *entity.ProductListRequest) (*entity.ProductListReply, error)
+	ProductUpdatePublishStatus(*gin.Context) error
+	ProductUpdateNewStatus(*gin.Context) error
+	ProductUpdateRecommendStatus(*gin.Context) error
+	ProductUpdateDeleteStatus(*gin.Context) error
+	ProductCreate(*gin.Context) error
+	ProductUpdateInfo(*gin.Context) error
+	ProductUpdate(*gin.Context) error
+	ProductSimpleList(*gin.Context, *entity.ProductSimpleListRequest) ([]*entity.ProductList, error)
 	HomeBrandList(*gin.Context, *entity.HomeBrandListRequest) (*entity.HomeBrandListReply, error)
 	HomeBrandUpdateRecommendStatus(*gin.Context, *entity.HomeBrandUpdateRecommendStatusRequest) error
 	HomeBrandCreate(*gin.Context, *[]entity.HomeBrandCreateRequest) error
@@ -98,13 +107,13 @@ type AdminController interface {
 
 	HomeNewProductList(*gin.Context, *entity.HomeNewProductListRequest) (*entity.HomeNewProductListReply, error)
 	HomeNewProductUpdateRecommendStatus(*gin.Context, *entity.HomeNewProductUpdateRecommendStatusRequest) error
-	HomeNewProductCreate(*gin.Context) error
+	HomeNewProductCreate(*gin.Context, *[]entity.HomeNewProductCreateRequest) error
 	HomeNewProductUpdateSort(*gin.Context, *entity.HomeNewProductUpdateSortRequest) error
 	HomeNewProductDelete(*gin.Context, *entity.HomeNewProductDeleteRequest) error
 
 	HomeRecommendProductList(*gin.Context, *entity.HomeRecommendProductListRequest) (*entity.HomeRecommendProductListReply, error)
 	HomeRecommendProductUpdateRecommendStatus(*gin.Context, *entity.HomeRecommendProductUpdateRecommendStatusRequest) error
-	HomeRecommendProductCreate(*gin.Context) error
+	HomeRecommendProductCreate(*gin.Context, *[]entity.HomeRecommendProductCreateRequest) error
 	HomeRecommendProductUpdateSort(*gin.Context, *entity.HomeRecommendProductUpdateSortRequest) error
 	HomeRecommendProductDelete(*gin.Context, *entity.HomeRecommendProductDeleteRequest) error
 
@@ -137,7 +146,7 @@ type AdminController interface {
 	OrderSettingUpdate(*gin.Context, *entity.OrderSettingRequest) error
 
 	ReturnApplyList(*gin.Context, *entity.ReturnApplyListRequest) (*entity.ReturnApplyListReply, error)
-	ReturnApply(*gin.Context) error
+	ReturnApply(*gin.Context, *entity.ReturnApplyRequest) (*entity.ReturnApplyReply, error)
 	ReturnApplyUpdateStatus(*gin.Context) error
 
 	ReturnReasonList(*gin.Context, *entity.ReturnReasonListRequest) (*entity.ReturnReasonListReply, error)
