@@ -155,24 +155,56 @@ func FlashSessionDeleteHttpHandler(c AdminController) func(ctx *gin.Context) {
 
 func FlashProductRelationListHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
-		response.Ok(ctx)
+		var request entity.FlashProductRelationListRequest
+		query := helpers.GetQueryParams(ctx)
+		pageSize, _ := strconv.Atoi(query["pageSize"])
+		request.PageSize = pageSize
+		request.FlashPromotionId = query["flashPromotionId"]
+		request.FlashPromotionSessionId = query["flashPromotionSessionId"]
+
+		out, _ := c.FlashProductRelationList(ctx, &request)
+		response.OkWithData(ctx, out)
 	}
 }
 
 func FlashProductRelationCreateHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
+		var request []entity.FlashProductRelationCreateRequest
+		j := helpers.GetRequestPayload(ctx)
+		json.Unmarshal(j, &request)
+		err := c.FlashProductRelationCreate(ctx, &request)
+		if err != nil {
+			response.FailWithMessage(ctx, err.Error())
+			return
+		}
 		response.Ok(ctx)
 	}
 }
 
 func FlashProductRelationUpdateHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
+		var request entity.FlashProductRelationUpdateRequest
+		j := helpers.GetRequestPayload(ctx)
+		json.Unmarshal(j, &request)
+		request.Id = ctx.Param("id")
+		err := c.FlashProductRelationUpdate(ctx, &request)
+		if err != nil {
+			response.FailWithMessage(ctx, err.Error())
+			return
+		}
 		response.Ok(ctx)
 	}
 }
 
 func FlashProductRelationDeleteHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
+		var request entity.FlashProductRelationDeleteRequest
+		request.Id = ctx.Param("id")
+		err := c.FlashProductRelationDelete(ctx, &request)
+		if err != nil {
+			response.FailWithMessage(ctx, err.Error())
+			return
+		}
 		response.Ok(ctx)
 	}
 }

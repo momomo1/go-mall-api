@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"go-mall-api/api/admin/v1/entity"
+	"go-mall-api/models/pms_product"
 	"go-mall-api/models/sms_flash_promotion"
 	"go-mall-api/models/sms_flash_promotion_product_relation"
 	"go-mall-api/models/sms_flash_promotion_session"
@@ -162,18 +163,74 @@ func (c AdminController) FlashSessionDelete(ctx *gin.Context, request *entity.Fl
 	return nil
 }
 
-func (c AdminController) FlashProductRelationList(ctx *gin.Context) error {
+func (c AdminController) FlashProductRelationList(ctx *gin.Context, request *entity.FlashProductRelationListRequest) (*entity.FlashProductRelationListReply, error) {
+	where := map[string]interface{}{
+		"flash_promotion_id":         request.FlashPromotionId,
+		"flash_promotion_session_id": request.FlashPromotionSessionId,
+	}
+
+	list, paging := sms_flash_promotion_product_relation.Paginate(ctx, request.PageSize, where, "sort", "desc")
+	replyList := make([]entity.FlashProductRelationList, 0, request.PageSize)
+	for _, v := range list {
+		product := pms_product.Get(strconv.FormatInt(v.ProductId, 10))
+
+		interposition := entity.FlashProductRelationList{
+			Id:                      v.ID,
+			Sort:                    v.Sort,
+			ProductId:               v.ProductId,
+			FlashPromotionId:        v.FlashPromotionId,
+			FlashPromotionCount:     v.FlashPromotionCount,
+			FlashPromotionLimit:     v.FlashPromotionLimit,
+			FlashPromotionPrice:     v.FlashPromotionPrice,
+			FlashPromotionSessionId: v.FlashPromotionSessionId,
+			Product: entity.ProductBaseData{
+				Id:        product.ID,
+				Stock:     product.Stock,
+				Price:     product.Price,
+				ProductSn: product.ProductSn,
+				Name:      product.Name,
+			},
+		}
+		replyList = append(replyList, interposition)
+	}
+
+	return &entity.FlashProductRelationListReply{
+		List:        replyList,
+		PagingAdmin: paging,
+	}, nil
+}
+
+func (c AdminController) FlashProductRelationCreate(ctx *gin.Context, request *[]entity.FlashProductRelationCreateRequest) error {
+	for _, v := range *request {
+		flashPromotionId, _ := strconv.ParseInt(v.FlashPromotionId, 10, 64)
+		relation := sms_flash_promotion_product_relation.SmsFlashPromotionProductRelation{
+			FlashPromotionId:        flashPromotionId,
+			FlashPromotionSessionId: v.FlashPromotionSessionId,
+			ProductId:               v.ProductId,
+			FlashPromotionPrice:     0,
+			FlashPromotionCount:     0,
+			FlashPromotionLimit:     0,
+			Sort:                    0,
+		}
+		relation.Create()
+	}
+
 	return nil
 }
 
-func (c AdminController) FlashProductRelationCreate(ctx *gin.Context) error {
+func (c AdminController) FlashProductRelationUpdate(ctx *gin.Context, request *entity.FlashProductRelationUpdateRequest) error {
+	relation := sms_flash_promotion_product_relation.Get(request.Id)
+	relation.Updates(map[string]interface{}{
+		"sort":                request.Sort,
+		"FlashPromotionCount": request.FlashPromotionCount,
+		"FlashPromotionPrice": request.FlashPromotionPrice,
+		"FlashPromotionLimit": request.FlashPromotionLimit,
+	})
 	return nil
 }
 
-func (c AdminController) FlashProductRelationUpdate(ctx *gin.Context) error {
-	return nil
-}
-
-func (c AdminController) FlashProductRelationDelete(ctx *gin.Context) error {
+func (c AdminController) FlashProductRelationDelete(ctx *gin.Context, request *entity.FlashProductRelationDeleteRequest) error {
+	relation := sms_flash_promotion_product_relation.Get(request.Id)
+	relation.Delete()
 	return nil
 }

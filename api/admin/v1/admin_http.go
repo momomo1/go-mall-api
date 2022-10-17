@@ -163,10 +163,10 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/flashSession/update/status/:id", handlers.FlashSessionUpdateStatusHttpHandler(c))
 		admin.POST("/flashSession/update/:id", handlers.FlashSessionUpdateHttpHandler(c))
 		admin.POST("/flashSession/delete/:id", handlers.FlashSessionDeleteHttpHandler(c))
-		admin.GET("/flashProductRelation/list", handlers.FlashProductRelationListHttpHandler(c))          // todo 未完成
-		admin.POST("/flashProductRelation/create", handlers.FlashProductRelationCreateHttpHandler(c))     // todo 未完成
-		admin.POST("/flashProductRelation/update/:id", handlers.FlashProductRelationUpdateHttpHandler(c)) // todo 未完成
-		admin.POST("/flashProductRelation/delete/:id", handlers.FlashProductRelationDeleteHttpHandler(c)) // todo 未完成
+		admin.GET("/flashProductRelation/list", handlers.FlashProductRelationListHttpHandler(c))
+		admin.POST("/flashProductRelation/create", handlers.FlashProductRelationCreateHttpHandler(c))
+		admin.POST("/flashProductRelation/update/:id", handlers.FlashProductRelationUpdateHttpHandler(c))
+		admin.POST("/flashProductRelation/delete/:id", handlers.FlashProductRelationDeleteHttpHandler(c))
 
 		//营销-营销优惠券列表
 		admin.GET("/coupon/list", handlers.CouponListHttpHandler(c))
@@ -177,12 +177,14 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.GET("/couponHistory/list", handlers.CouponHistoryHttpHandler(c))
 
 		//订单-订单
-		admin.GET("/order/list", Placeholder(c))                 // todo 未完成
-		admin.GET("/order/:id", Placeholder(c))                  // todo 未完成
-		admin.POST("/order/update/note", Placeholder(c))         // todo 未完成
-		admin.POST("/order/delete", Placeholder(c))              // todo 未完成
-		admin.POST("/order/update/receiverInfo", Placeholder(c)) // todo 未完成
-		admin.POST("/order/update/delivery", Placeholder(c))     // todo 未完成
+		admin.GET("/order/list", handlers.OrderListHttpHandler(c))
+		admin.GET("/order/:id", handlers.OrderHttpHandler(c))
+		admin.POST("/order/update/note", handlers.OrderUpdateNoteHttpHandler(c))
+		admin.POST("/order/delete", handlers.OrderDeleteHttpHandler(c))
+		admin.POST("/order/update/receiverInfo", handlers.OrderUpdateReceiverInfoHttpHandler(c))
+		admin.POST("/order/update/moneyInfo", handlers.OrderUpdateMoneyInfoHttpHandler(c)) // todo 未完成
+		admin.POST("/order/update/delivery", handlers.OrderUpdateDeliveryHttpHandler(c))
+		admin.POST("/order/update/close", handlers.OrderUpdateCloseHttpHandler(c))
 
 		//订单-订单设置
 		admin.GET("/orderSetting/:id", handlers.OrderSettingHttpHandler(c))

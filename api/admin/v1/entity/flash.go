@@ -117,13 +117,39 @@ type FlashProductRelationListReply struct {
 }
 
 type FlashProductRelationList struct {
-	Id                      uint64        `json:"id"`
-	Sort                    int           `json:"sort"`
-	ProductId               int           `json:"productId"`
-	FlashPromotionId        int           `json:"flashPromotionId"`
-	FlashPromotionCount     int           `json:"flashPromotionCount"`
-	FlashPromotionLimit     int           `json:"flashPromotionLimit"`
-	FlashPromotionPrice     int           `json:"flashPromotionPrice"`
-	FlashPromotionSessionId int           `json:"flashPromotionSessionId"`
-	Product                 []interface{} `json:"product"`
+	Id                      uint64          `json:"id"`
+	Sort                    int             `json:"sort"`
+	ProductId               int64           `json:"productId"`
+	FlashPromotionId        int64           `json:"flashPromotionId"`
+	FlashPromotionSessionId int64           `json:"flashPromotionSessionId"`
+	FlashPromotionCount     int             `json:"flashPromotionCount"`
+	FlashPromotionLimit     int             `json:"flashPromotionLimit"`
+	FlashPromotionPrice     float64         `json:"flashPromotionPrice"`
+	Product                 ProductBaseData `json:"product"`
+}
+
+type ProductBaseData struct {
+	Id        uint64  `json:"id"`
+	Stock     int     `json:"stock"`
+	Price     float64 `json:"price"`
+	ProductSn string  `json:"productSn"`
+	Name      string  `json:"name"`
+}
+
+type FlashProductRelationCreateRequest struct {
+	ProductId               int64  `json:"productId"`
+	FlashPromotionSessionId int64  `json:"flashPromotionSessionId"`
+	FlashPromotionId        string `json:"flashPromotionId"`
+}
+
+type FlashProductRelationUpdateRequest struct {
+	Id                  string `json:"id"`
+	Sort                string `json:"sort"`
+	FlashPromotionCount string `json:"flashPromotionCount"`
+	FlashPromotionPrice string `json:"flashPromotionPrice"`
+	FlashPromotionLimit string `json:"flashPromotionLimit"`
+}
+
+type FlashProductRelationDeleteRequest struct {
+	Id string `json:"id"`
 }

@@ -130,10 +130,10 @@ type AdminController interface {
 	FlashSessionUpdate(*gin.Context, *entity.FlashSessionUpdateRequest) error
 	FlashSessionDelete(*gin.Context, *entity.FlashSessionDeleteRequest) error
 
-	FlashProductRelationList(*gin.Context) error
-	FlashProductRelationCreate(*gin.Context) error
-	FlashProductRelationUpdate(*gin.Context) error
-	FlashProductRelationDelete(*gin.Context) error
+	FlashProductRelationList(*gin.Context, *entity.FlashProductRelationListRequest) (*entity.FlashProductRelationListReply, error)
+	FlashProductRelationCreate(*gin.Context, *[]entity.FlashProductRelationCreateRequest) error
+	FlashProductRelationUpdate(*gin.Context, *entity.FlashProductRelationUpdateRequest) error
+	FlashProductRelationDelete(*gin.Context, *entity.FlashProductRelationDeleteRequest) error
 
 	CouponList(*gin.Context, *entity.CouponListRequest) (*entity.CouponListReply, error)
 	Coupon(*gin.Context, *entity.CouponRequest) (*entity.CouponList, error)
@@ -141,6 +141,15 @@ type AdminController interface {
 	CouponUpdate(*gin.Context, *entity.CouponUpdateRequest) error
 	CouponDelete(*gin.Context, *entity.CouponDeleteRequest) error
 	CouponHistory(*gin.Context, *entity.CouponHistoryRequest) (*entity.CouponHistoryReply, error)
+
+	OrderList(*gin.Context, *entity.OrderListRequest) (*entity.OrderListReply, error)
+	Order(*gin.Context, *entity.OrderRequest) (*entity.OrderList, error)
+	OrderUpdateNote(*gin.Context, *entity.OrderUpdateNoteRequest) error
+	OrderDelete(*gin.Context, *entity.OrderDeleteRequest) error
+	OrderUpdateReceiverInfo(*gin.Context, *entity.OrderUpdateReceiverInfoRequest) error
+	OrderUpdateMoneyInfo(*gin.Context) error
+	OrderUpdateDelivery(*gin.Context, *[]entity.OrderUpdateDeliveryRequest) error
+	OrderUpdateClose(*gin.Context, *entity.OrderUpdateCloseRequest) error
 
 	OrderSetting(*gin.Context) (*entity.OrderSettingReply, error)
 	OrderSettingUpdate(*gin.Context, *entity.OrderSettingRequest) error
