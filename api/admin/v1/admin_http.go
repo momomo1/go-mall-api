@@ -182,7 +182,7 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		admin.POST("/order/update/note", handlers.OrderUpdateNoteHttpHandler(c))
 		admin.POST("/order/delete", handlers.OrderDeleteHttpHandler(c))
 		admin.POST("/order/update/receiverInfo", handlers.OrderUpdateReceiverInfoHttpHandler(c))
-		admin.POST("/order/update/moneyInfo", handlers.OrderUpdateMoneyInfoHttpHandler(c)) // todo 未完成
+		admin.POST("/order/update/moneyInfo", handlers.OrderUpdateMoneyInfoHttpHandler(c))
 		admin.POST("/order/update/delivery", handlers.OrderUpdateDeliveryHttpHandler(c))
 		admin.POST("/order/update/close", handlers.OrderUpdateCloseHttpHandler(c))
 
@@ -193,7 +193,7 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 		//订单-退货申请处理
 		admin.GET("/returnApply/list", handlers.ReturnApplyListHttpHandler(c))
 		admin.GET("/returnApply/:id", handlers.ReturnApplyHttpHandler(c))
-		admin.POST("/returnApply/update/status/:id", handlers.ReturnApplyUpdateStatusHttpHandler(c)) // todo 未完成
+		admin.POST("/returnApply/update/status/:id", handlers.ReturnApplyUpdateStatusHttpHandler(c))
 
 		//订单-退货原因设置
 		admin.GET("/returnReason/list", handlers.ReturnReasonListHttpHandler(c))

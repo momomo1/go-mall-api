@@ -61,6 +61,15 @@ type ReturnApplyReply struct {
 	ReturnPhone      string  `json:"returnPhone"`
 }
 
+type ReturnApplyUpdateStatusRequest struct {
+	CompanyAddressId int    `json:"companyAddressId"`
+	Status           int    `json:"status"`
+	Id               string `json:"id"`
+	ReceiveNote      string `json:"receiveNote"`
+	HandleNote       string `json:"handleNote"`
+	ReturnAmount     string `json:"returnAmount"`
+}
+
 type ReturnReasonListRequest struct {
 	PageNum  int `json:"pageNum"`
 	PageSize int `json:"pageSize"`

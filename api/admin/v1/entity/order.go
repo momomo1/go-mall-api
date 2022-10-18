@@ -113,6 +113,13 @@ type OrderUpdateReceiverInfoRequest struct {
 	ReceiverRegion        string `json:"receiverRegion"`
 }
 
+type OrderUpdateMoneyInfoRequest struct {
+	OrderId        int64 `json:"orderId"`
+	Status         int   `json:"status"`
+	DiscountAmount int   `json:"discountAmount"`
+	FreightAmount  int   `json:"freightAmount"`
+}
+
 type OrderUpdateDeliveryRequest struct {
 	Id              int    `json:"id"`
 	OrderSn         string `json:"orderSn"`

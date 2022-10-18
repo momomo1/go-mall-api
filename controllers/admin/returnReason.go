@@ -90,7 +90,15 @@ func (c AdminController) ReturnApply(ctx *gin.Context, request *entity.ReturnApp
 	}, nil
 }
 
-func (c AdminController) ReturnApplyUpdateStatus(ctx *gin.Context) error {
+func (c AdminController) ReturnApplyUpdateStatus(ctx *gin.Context, request *entity.ReturnApplyUpdateStatusRequest) error {
+	data := oms_order_return_apply.Get(request.Id)
+	data.Updates(map[string]interface{}{
+		"Status":           request.Status,
+		"CompanyAddressId": request.CompanyAddressId,
+		"ReceiveNote":      request.ReceiveNote,
+		"HandleNote":       request.HandleNote,
+		"ReturnAmount":     request.ReturnAmount,
+	})
 	return nil
 }
 

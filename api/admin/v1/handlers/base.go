@@ -147,7 +147,7 @@ type AdminController interface {
 	OrderUpdateNote(*gin.Context, *entity.OrderUpdateNoteRequest) error
 	OrderDelete(*gin.Context, *entity.OrderDeleteRequest) error
 	OrderUpdateReceiverInfo(*gin.Context, *entity.OrderUpdateReceiverInfoRequest) error
-	OrderUpdateMoneyInfo(*gin.Context) error
+	OrderUpdateMoneyInfo(*gin.Context, *entity.OrderUpdateMoneyInfoRequest) error
 	OrderUpdateDelivery(*gin.Context, *[]entity.OrderUpdateDeliveryRequest) error
 	OrderUpdateClose(*gin.Context, *entity.OrderUpdateCloseRequest) error
 
@@ -156,7 +156,7 @@ type AdminController interface {
 
 	ReturnApplyList(*gin.Context, *entity.ReturnApplyListRequest) (*entity.ReturnApplyListReply, error)
 	ReturnApply(*gin.Context, *entity.ReturnApplyRequest) (*entity.ReturnApplyReply, error)
-	ReturnApplyUpdateStatus(*gin.Context) error
+	ReturnApplyUpdateStatus(*gin.Context, *entity.ReturnApplyUpdateStatusRequest) error
 
 	ReturnReasonList(*gin.Context, *entity.ReturnReasonListRequest) (*entity.ReturnReasonListReply, error)
 	ReturnReason(*gin.Context, *entity.ReturnReasonRequest) (*entity.ReturnReasonList, error)

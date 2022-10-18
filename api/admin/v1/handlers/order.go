@@ -84,6 +84,14 @@ func OrderUpdateReceiverInfoHttpHandler(c AdminController) func(ctx *gin.Context
 
 func OrderUpdateMoneyInfoHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
+		var request entity.OrderUpdateMoneyInfoRequest
+		j := helpers.GetRequestPayload(ctx)
+		json.Unmarshal(j, &request)
+		err := c.OrderUpdateMoneyInfo(ctx, &request)
+		if err != nil {
+			response.FailWithMessage(ctx, err.Error())
+			return
+		}
 		response.Ok(ctx)
 	}
 }

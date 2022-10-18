@@ -139,7 +139,15 @@ func (c AdminController) OrderUpdateReceiverInfo(ctx *gin.Context, request *enti
 	return nil
 }
 
-func (c AdminController) OrderUpdateMoneyInfo(ctx *gin.Context) error {
+func (c AdminController) OrderUpdateMoneyInfo(ctx *gin.Context, request *entity.OrderUpdateMoneyInfoRequest) error {
+	order := oms_order.Get(strconv.FormatInt(request.OrderId, 10))
+	order.Updates(map[string]interface{}{
+		"Status":         request.Status,
+		"DiscountAmount": request.DiscountAmount,
+		"FreightAmount":  request.FreightAmount,
+	})
+	userName := ctx.GetString("current_user_name")
+	oms_order_operate_history.AddOperateHistory(int64(order.ID), order.Status, userName, "修改费用信息")
 	return nil
 }
 

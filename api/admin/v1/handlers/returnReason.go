@@ -37,6 +37,15 @@ func ReturnApplyHttpHandler(c AdminController) func(ctx *gin.Context) {
 
 func ReturnApplyUpdateStatusHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
+		var request entity.ReturnApplyUpdateStatusRequest
+		j := helpers.GetRequestPayload(ctx)
+		json.Unmarshal(j, &request)
+		request.Id = ctx.Param("id")
+		err := c.ReturnApplyUpdateStatus(ctx, &request)
+		if err != nil {
+			response.FailWithMessage(ctx, err.Error())
+			return
+		}
 		response.Ok(ctx)
 	}
 }
