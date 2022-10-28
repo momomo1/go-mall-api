@@ -26,26 +26,73 @@ func ProductListHttpHandler(c AdminController) func(ctx *gin.Context) {
 	}
 }
 
+func ProductSimpleListHttpHandler(c AdminController) func(ctx *gin.Context) {
+	return func(ctx *gin.Context) {
+		var request entity.ProductSimpleListRequest
+		query := helpers.GetQueryParams(ctx)
+		request.Keyword = query["keyword"]
+
+		out, _ := c.ProductSimpleList(ctx, &request)
+		response.OkWithData(ctx, out)
+	}
+}
+
 func ProductUpdatePublishStatusHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
+		var request entity.ProductUpdatePublishStatusRequest
+		query := helpers.GetQueryParams(ctx)
+		request.Ids = query["ids"]
+		request.PublishStatus = query["publishStatus"]
+		err := c.ProductUpdatePublishStatus(ctx, &request)
+		if err != nil {
+			response.FailWithMessage(ctx, err.Error())
+			return
+		}
 		response.Ok(ctx)
 	}
 }
 
 func ProductUpdateNewStatusHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
+		var request entity.ProductUpdateNewStatusRequest
+		query := helpers.GetQueryParams(ctx)
+		request.Ids = query["ids"]
+		request.NewStatus = query["newStatus"]
+		err := c.ProductUpdateNewStatus(ctx, &request)
+		if err != nil {
+			response.FailWithMessage(ctx, err.Error())
+			return
+		}
 		response.Ok(ctx)
 	}
 }
 
 func ProductUpdateRecommendStatusHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
+		var request entity.ProductUpdateRecommendStatusRequest
+		query := helpers.GetQueryParams(ctx)
+		request.Ids = query["ids"]
+		request.RecommendStatus = query["recommendStatus"]
+		err := c.ProductUpdateRecommendStatus(ctx, &request)
+		if err != nil {
+			response.FailWithMessage(ctx, err.Error())
+			return
+		}
 		response.Ok(ctx)
 	}
 }
 
 func ProductUpdateDeleteStatusHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
+		var request entity.ProductUpdateDeleteStatusRequest
+		query := helpers.GetQueryParams(ctx)
+		request.Ids = query["ids"]
+		request.DeleteStatus = query["deleteStatus"]
+		err := c.ProductUpdateDeleteStatus(ctx, &request)
+		if err != nil {
+			response.FailWithMessage(ctx, err.Error())
+			return
+		}
 		response.Ok(ctx)
 	}
 }
@@ -68,13 +115,20 @@ func ProductUpdateHttpHandler(c AdminController) func(ctx *gin.Context) {
 	}
 }
 
-func ProductSimpleListHttpHandler(c AdminController) func(ctx *gin.Context) {
+func SkuHttpHandler(c AdminController) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
-		var request entity.ProductSimpleListRequest
+		var request entity.SkuRequest
 		query := helpers.GetQueryParams(ctx)
 		request.Keyword = query["keyword"]
+		request.Id = ctx.Param("id")
 
-		out, _ := c.ProductSimpleList(ctx, &request)
+		out, _ := c.Sku(ctx, &request)
 		response.OkWithData(ctx, out)
+	}
+}
+
+func SkuUpdateHttpHandler(c AdminController) func(ctx *gin.Context) {
+	return func(ctx *gin.Context) {
+		response.Ok(ctx)
 	}
 }

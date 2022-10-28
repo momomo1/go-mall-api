@@ -66,3 +66,42 @@ type ProductList struct {
 type ProductSimpleListRequest struct {
 	Keyword string `json:"keyword"`
 }
+
+type ProductUpdatePublishStatusRequest struct {
+	Ids           string `json:"ids"`
+	PublishStatus string `json:"publishStatus"`
+}
+
+type ProductUpdateNewStatusRequest struct {
+	Ids       string `json:"ids"`
+	NewStatus string `json:"newStatus"`
+}
+
+type ProductUpdateRecommendStatusRequest struct {
+	Ids             string `json:"ids"`
+	RecommendStatus string `json:"recommendStatus"`
+}
+
+type ProductUpdateDeleteStatusRequest struct {
+	Ids          string `json:"ids"`
+	DeleteStatus string `json:"deleteStatus"`
+}
+
+type SkuRequest struct {
+	Id      string `json:"id"`
+	Keyword string `json:"keyword"`
+}
+
+type SkuReply struct {
+	Id             uint64  `json:"id"`
+	LockStock      int     `json:"lockStock"`
+	ProductId      int64   `json:"productId"`
+	Stock          int     `json:"stock"`
+	LowStock       int     `json:"lowStock"`
+	Sale           int     `json:"sale"`
+	Price          float64 `json:"price"`
+	PromotionPrice float64 `json:"promotionPrice"`
+	Pic            string  `json:"pic"`
+	SkuCode        string  `json:"skuCode"`
+	SpData         string  `json:"spData"`
+}

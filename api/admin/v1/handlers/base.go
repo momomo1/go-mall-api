@@ -78,14 +78,18 @@ type AdminController interface {
 	ProductCategoryDelete(*gin.Context, *entity.ProductCategoryDeleteRequest) error
 
 	ProductList(*gin.Context, *entity.ProductListRequest) (*entity.ProductListReply, error)
-	ProductUpdatePublishStatus(*gin.Context) error
-	ProductUpdateNewStatus(*gin.Context) error
-	ProductUpdateRecommendStatus(*gin.Context) error
-	ProductUpdateDeleteStatus(*gin.Context) error
+	ProductSimpleList(*gin.Context, *entity.ProductSimpleListRequest) ([]*entity.ProductList, error)
+	ProductUpdatePublishStatus(*gin.Context, *entity.ProductUpdatePublishStatusRequest) error
+	ProductUpdateNewStatus(*gin.Context, *entity.ProductUpdateNewStatusRequest) error
+	ProductUpdateRecommendStatus(*gin.Context, *entity.ProductUpdateRecommendStatusRequest) error
+	ProductUpdateDeleteStatus(*gin.Context, *entity.ProductUpdateDeleteStatusRequest) error
 	ProductCreate(*gin.Context) error
 	ProductUpdateInfo(*gin.Context) error
 	ProductUpdate(*gin.Context) error
-	ProductSimpleList(*gin.Context, *entity.ProductSimpleListRequest) ([]*entity.ProductList, error)
+
+	Sku(*gin.Context, *entity.SkuRequest) (*[]entity.SkuReply, error)
+	SkuUpdate(*gin.Context) error
+
 	HomeBrandList(*gin.Context, *entity.HomeBrandListRequest) (*entity.HomeBrandListReply, error)
 	HomeBrandUpdateRecommendStatus(*gin.Context, *entity.HomeBrandUpdateRecommendStatusRequest) error
 	HomeBrandCreate(*gin.Context, *[]entity.HomeBrandCreateRequest) error

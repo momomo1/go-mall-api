@@ -102,18 +102,18 @@ func RegisterHTTPServer(r *gin.Engine, c handlers.AdminController) {
 
 		//商品-商品模块
 		admin.GET("/product/list", handlers.ProductListHttpHandler(c))
-		admin.POST("/product/update/publishStatus", handlers.ProductUpdatePublishStatusHttpHandler(c))     // todo 未完成
-		admin.POST("/product/update/newStatus", handlers.ProductUpdateNewStatusHttpHandler(c))             // todo 未完成
-		admin.POST("/product/update/recommendStatus", handlers.ProductUpdateRecommendStatusHttpHandler(c)) // todo 未完成
-		admin.OPTIONS("/product/update/deleteStatus", handlers.ProductUpdateDeleteStatusHttpHandler(c))    // todo 未完成
-		admin.POST("/product/create", handlers.ProductCreateHttpHandler(c))                                // todo 未完成
-		admin.POST("/product/updateInfo", handlers.ProductUpdateInfoHttpHandler(c))                        // todo 未完成
-		admin.POST("/product/update", handlers.ProductUpdateHttpHandler(c))                                // todo 未完成
 		admin.GET("/product/simpleList", handlers.ProductSimpleListHttpHandler(c))
+		admin.POST("/product/update/publishStatus", handlers.ProductUpdatePublishStatusHttpHandler(c))
+		admin.POST("/product/update/newStatus", handlers.ProductUpdateNewStatusHttpHandler(c))
+		admin.POST("/product/update/recommendStatus", handlers.ProductUpdateRecommendStatusHttpHandler(c))
+		admin.POST("/product/update/deleteStatus", handlers.ProductUpdateDeleteStatusHttpHandler(c))
+		admin.POST("/product/create", handlers.ProductCreateHttpHandler(c))         // todo 未完成
+		admin.POST("/product/updateInfo", handlers.ProductUpdateInfoHttpHandler(c)) // todo 未完成
+		admin.POST("/product/update", handlers.ProductUpdateHttpHandler(c))         // todo 未完成
 
 		//商品-sku
-		admin.GET("/sku/:id", Placeholder(c))     // todo 未完成
-		admin.POST("/sku/update", Placeholder(c)) // todo 未完成
+		admin.GET("/sku/:id", handlers.SkuHttpHandler(c))
+		admin.POST("/sku/update/:id", handlers.SkuUpdateHttpHandler(c)) // todo 未完成
 
 		//营销-品牌推荐
 		admin.GET("/home/brand/list", handlers.HomeBrandListHttpHandler(c))
